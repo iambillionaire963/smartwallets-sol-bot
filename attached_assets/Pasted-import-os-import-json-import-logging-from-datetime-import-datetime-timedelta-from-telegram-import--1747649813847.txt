@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 
 from telegram import Update, constants
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
-from solana.keypair import Keypair
+from solders.keypair import Keypair
 from dotenv import load_dotenv
 
 load_dotenv()

@@ -5,4 +5,4 @@ solana>=0.30.0
 Flask>=2.0.0
 pyngrok>=7.0.0
 solana
-solana
+httpx==0.22.0
