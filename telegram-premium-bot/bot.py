@@ -91,7 +91,7 @@ async def status(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 def main():
     logging.basicConfig(level=logging.INFO)
-    app = ApplicationBuilder().token(BOT_TOKEN).proxy_url(None).get_updates_proxy_url(None).build()
+    app = ApplicationBuilder().token(BOT_TOKEN).get_updates_request_kwargs({'proxy': None}).build()
 
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("buy", buy))
