@@ -21,7 +21,6 @@ BANNER_URL = "https://i.imgur.com/q9R7VYf.jpeg"  # ✅ Direct image link
 from flask import Flask, request
 from telegram import Update
 from telegram.ext import Dispatcher
-
 app = Flask(__name__)
 
 # Import your bot and dispatcher
