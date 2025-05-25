@@ -18,20 +18,21 @@ MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
 ADMIN_ID = 7851863021  # Replace with your actual Telegram ID
 BANNER_URL = "https://i.imgur.com/q9R7VYf.jpeg"  # ✅ Direct image link
 
-# ---------- Flask for Keep-Alive ----------
+from flask import Flask, request
+from telegram import Update
+from telegram.ext import Dispatcher
+
 app = Flask(__name__)
 
-# Define the global Application instance early
-application = Application.builder().token(BOT_TOKEN).build()
+# Import your bot and dispatcher
+from main import bot, dispatcher  # or however your setup is
 
-@app.post(f"/{BOT_TOKEN}")
-async def webhook(request):
-    if request.headers.get("content-type") == "application/json":
-        data = await request.get_json()
-        update = Update.de_json(data, application.bot)
-        await application.process_update(update)
-        return "OK", 200
-    return "Invalid content type", 403
+@app.route(f"/{bot.token}", methods=["POST"])
+def webhook():
+    update = Update.de_json(request.get_json(force=True), bot)
+    dispatcher.process_update(update)
+    return "ok"
+
 
 # ---------- Bot Handlers ----------
 
@@ -208,5 +209,6 @@ def main():
     asyncio.run(application.bot.set_webhook(url=WEBHOOK_URL))
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
-    main()
+    import os
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
