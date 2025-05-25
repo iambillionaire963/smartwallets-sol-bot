@@ -11,15 +11,18 @@ from sheets import log_user
 # ---------- Flask Keep Alive (for UptimeRobot) ----------
 app = Flask('')
 
-@app.route('/')
-def home():
-    return "✅ Bot is alive!", 200
+from telegram import Update
+from telegram.ext import Application
 
-def run():
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 3000)))
+application = None  # Global reference
 
-def keep_alive():
-    Thread(target=run).start()
+@app.post(f"/{BOT_TOKEN}")
+async def webhook(request):
+    if request.headers.get("content-type") == "application/json":
+        update = Update.de_json(await request.get_json(), application.bot)
+        await application.process_update(update)
+        return "OK", 200
+    return "Invalid content type", 403
 
 # ---------- Bot Setup ----------
 BOT_TOKEN = os.getenv("BOT_TOKEN")
@@ -283,12 +286,9 @@ def main():
     application.add_handler(CallbackQueryHandler(button_callback))
 
     # Webhook run
-    application.run_webhook(
-        listen="0.0.0.0",
-        port=int(os.environ.get("PORT", 3000)),
-        webhook_url=WEBHOOK_URL,
-        secret_token=None  # You can set this for extra security
-    )
+    global application
+    application = Application.builder().token(BOT_TOKEN).build()
+
 
 if __name__ == "__main__":
     main()
