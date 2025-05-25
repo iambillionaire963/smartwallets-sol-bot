@@ -8,8 +8,9 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, constan
 from telegram.constants import ChatAction
 from telegram.ext import (
     Application, CommandHandler, CallbackQueryHandler,
-    ContextTypes
+    ContextTypes, JobQueue
 )
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from sheets import log_user
 
@@ -22,7 +23,9 @@ BANNER_URL = "https://i.imgur.com/q9R7VYf.jpeg"  # ✅ Direct image link
 app = Flask(__name__)
 
 # Initialize the Application with proper timezone
-application = Application.builder().token(BOT_TOKEN).job_queue(None).build()
+scheduler = AsyncIOScheduler(timezone=pytz.UTC)
+job_queue = JobQueue(scheduler=scheduler)
+application = Application.builder().token(BOT_TOKEN).job_queue(job_queue).build()
 
 @app.route(f"/{BOT_TOKEN}", methods=["POST"])
 def webhook():
