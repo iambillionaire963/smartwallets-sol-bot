@@ -256,27 +256,36 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
 # ---------- Main ----------
+from telegram.ext import Application
+
+WEBHOOK_SECRET_PATH = f"/{BOT_TOKEN}"
+WEBHOOK_URL = f"https://telegram-premium-bot-qgqy.onrender.com{WEBHOOK_SECRET_PATH}"  # Update this!
+
 def main():
     logging.basicConfig(level=logging.INFO)
-    keep_alive()  # Start Flask server for UptimeRobot
 
-    app = ApplicationBuilder().token(BOT_TOKEN).build()
+    keep_alive()  # Flask keep-alive route if you still want healthcheck
 
-    # Register commands
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("buy", buy))
-    app.add_handler(CommandHandler("broadcast", broadcast))
-    app.add_handler(CommandHandler("subscribe", subscribe))
-    app.add_handler(CommandHandler("join", join))
-    app.add_handler(CommandHandler("status", status))
-    app.add_handler(CommandHandler("help", help_command))
-    app.add_handler(CommandHandler("support", support))
+    application = Application.builder().token(BOT_TOKEN).build()
 
-    # Inline button callbacks
-    app.add_handler(CallbackQueryHandler(button_callback))
+    # Register handlers
+    application.add_handler(CommandHandler("start", start))
+    application.add_handler(CommandHandler("buy", buy))
+    application.add_handler(CommandHandler("broadcast", broadcast))
+    application.add_handler(CommandHandler("subscribe", subscribe))
+    application.add_handler(CommandHandler("join", join))
+    application.add_handler(CommandHandler("status", status))
+    application.add_handler(CommandHandler("help", help_command))
+    application.add_handler(CommandHandler("support", support))
+    application.add_handler(CallbackQueryHandler(button_callback))
 
-    logging.info("🚀 Bot is running...")
-    app.run_polling()
+    # Webhook setup (Flask + Telegram)
+    application.run_webhook(
+        listen="0.0.0.0",
+        port=int(os.environ.get("PORT", 3000)),
+        webhook_url=WEBHOOK_URL,
+        secret_token=None,  # Optional: Add if you want webhook security
+    )
 
 if __name__ == "__main__":
     main()
