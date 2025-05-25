@@ -192,6 +192,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # ---------- Main Entry ----------
 def main():
+    # Add all your handlers here
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("buy", buy))
     application.add_handler(CommandHandler("subscribe", subscribe))
@@ -202,10 +203,13 @@ def main():
     application.add_handler(CommandHandler("broadcast", broadcast))
     application.add_handler(CallbackQueryHandler(button_handler))
 
-    # Set webhook
+    # Set webhook URL to your deployed bot endpoint
     WEBHOOK_URL = f"https://telegram-premium-bot-qgqy.onrender.com/{BOT_TOKEN}"
+    # Run webhook set asynchronously
     asyncio.run(application.bot.set_webhook(url=WEBHOOK_URL))
 
 if __name__ == "__main__":
+    main()
     port = int(os.environ.get("PORT", 5000))
+    # Start Flask server (blocking call)
     app.run(host="0.0.0.0", port=port)
