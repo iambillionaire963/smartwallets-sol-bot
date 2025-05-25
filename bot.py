@@ -22,7 +22,7 @@ BANNER_URL = "https://i.imgur.com/q9R7VYf.jpeg"  # ✅ Direct image link
 app = Flask(__name__)
 
 # Initialize the Application with proper timezone
-application = Application.builder().token(BOT_TOKEN).build()
+application = Application.builder().token(BOT_TOKEN).job_queue(None).build()
 
 @app.route(f"/{BOT_TOKEN}", methods=["POST"])
 def webhook():
