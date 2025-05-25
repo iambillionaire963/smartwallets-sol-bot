@@ -209,24 +209,41 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await start(update, context)
 
 # ---------- Main ----------
-def main():
-    logging.basicConfig(level=logging.INFO)
-    keep_alive()  # Start Flask server for UptimeRobot
+import os
+from flask import Flask, request
+from telegram import Update
 
-    app = ApplicationBuilder().token(BOT_TOKEN).build()
+flask_app = Flask(__name__)
 
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("buy", buy))
-    app.add_handler(CommandHandler("broadcast", broadcast))
-    app.add_handler(CommandHandler("subscribe", subscribe))
-    app.add_handler(CommandHandler("join", join))
-    app.add_handler(CommandHandler("status", status))
-    app.add_handler(CommandHandler("help", help_command))
-    app.add_handler(CommandHandler("support", support))
-    app.add_handler(CallbackQueryHandler(button_callback))
+application = Application.builder().token(BOT_TOKEN).build()
 
-    logging.info("🚀 Bot is running...")
-    app.run_polling()
+application.add_handler(CommandHandler("start", start))
+application.add_handler(CommandHandler("buy", buy))
+application.add_handler(CommandHandler("broadcast", broadcast))
+application.add_handler(CommandHandler("subscribe", subscribe))
+application.add_handler(CommandHandler("join", join))
+application.add_handler(CommandHandler("status", status))
+application.add_handler(CommandHandler("help", help_command))
+application.add_handler(CommandHandler("support", support))
+application.add_handler(CallbackQueryHandler(button_callback))
+
+@flask_app.route(f"/{BOT_TOKEN}", methods=["POST"])
+async def webhook():
+    update = Update.de_json(request.get_json(force=True), application.bot)
+    await application.process_update(update)
+    return "OK", 200
+
+@flask_app.route("/", methods=["GET"])
+def index():
+    return "Bot is running", 200
+
+@flask_app.before_first_request
+def init_webhook():
+    webhook_url = f"{os.environ.get('WEBHOOK_URL')}/{BOT_TOKEN}"
+    application.bot.delete_webhook()
+    application.bot.set_webhook(url=webhook_url)
 
 if __name__ == "__main__":
-    main()
+    import logging
+    logging.basicConfig(level=logging.INFO)
+    flask_app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
