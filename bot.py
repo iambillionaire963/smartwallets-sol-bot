@@ -28,14 +28,9 @@ def home():
 application = Application.builder().token(BOT_TOKEN).build()
 
 @app.route(f"/{BOT_TOKEN}", methods=["POST"])
-def webhook():
-    update = Update.de_json(request.get_json(force=True), application.bot)
-
-    async def handle_update():
-        await application.initialize()
-        await application.process_update(update)
-
-    asyncio.run(handle_update())
+async def webhook():
+    update = Update.de_json(await request.get_json(), application.bot)
+    await application.process_update(update)
     return "ok"
 
 # ---------- Bot Handlers ----------
