@@ -24,7 +24,7 @@ mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "cd telegram-premium-bot && python bot.py"
+args = "python3 bot.py"
 
 [[ports]]
 localPort = 3000
