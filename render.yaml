@@ -1,14 +1,7 @@
 services:
-- type: web
-  name: keep-alive-server
-  env: python
-  buildCommand: pip install -r requirements.txt
-  startCommand: python keep_alive.py
-  plan: free
-
-- type: worker
-  name: telegram-bot
-  env: python
-  buildCommand: pip install -r requirements.txt
-  startCommand: python telegram_bot.py  # replace with your actual bot file
-  plan: free
+  - type: web
+    name: telegram-bot
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot.py
+    plan: free
