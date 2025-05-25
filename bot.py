@@ -1,6 +1,7 @@
 import os
 import logging
 import asyncio
+import pytz
 from flask import Flask, request
 
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, constants
@@ -20,8 +21,8 @@ BANNER_URL = "https://i.imgur.com/q9R7VYf.jpeg"  # ✅ Direct image link
 
 app = Flask(__name__)
 
-# Initialize the Application
-application = Application.builder().token(BOT_TOKEN).build()
+# Initialize the Application with proper timezone
+application = Application.builder().token(BOT_TOKEN).job_queue_timezone(pytz.UTC).build()
 
 @app.route(f"/{BOT_TOKEN}", methods=["POST"])
 def webhook():
