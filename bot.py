@@ -1,20 +1,16 @@
 
 import os
 import logging
-from flask import Flask
-from threading import Thread
-from telegram import Update, constants, InlineKeyboardMarkup, InlineKeyboardButton
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, CallbackQueryHandler
+from flask import Flask, request
+from telegram import Update
+from telegram.ext import CommandHandler, CallbackQueryHandler
 from sheets import log_user
 # Log user to Google Sheets
 
 # ---------- Flask Keep Alive (for UptimeRobot) ----------
 app = Flask('')
 
-from telegram import Update
-from telegram.ext import Application
-
-application = None  # Global reference
+app = Flask('')
 
 @app.post(f"/{BOT_TOKEN}")
 async def webhook(request):
@@ -259,36 +255,33 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
 # ---------- Main ----------
-from telegram.ext import Application, CommandHandler, CallbackQueryHandler
-import logging
-import os
+import asyncio
+from telegram.ext import Application
 
-# Import your handlers here
-# from handlers import start, buy, broadcast, subscribe, join, status, help_command, support, button_callback
-
-WEBHOOK_SECRET_PATH = f"/{BOT_TOKEN}"
-WEBHOOK_URL = f"https://telegram-premium-bot-qgqy.onrender.com{WEBHOOK_SECRET_PATH}"
+# Define the global application
+application = None
 
 def main():
-    logging.basicConfig(level=logging.INFO)
+    global application
 
+    # Create the bot application
     application = Application.builder().token(BOT_TOKEN).build()
 
     # Register handlers
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("buy", buy))
-    application.add_handler(CommandHandler("broadcast", broadcast))
     application.add_handler(CommandHandler("subscribe", subscribe))
     application.add_handler(CommandHandler("join", join))
     application.add_handler(CommandHandler("status", status))
     application.add_handler(CommandHandler("help", help_command))
     application.add_handler(CommandHandler("support", support))
-    application.add_handler(CallbackQueryHandler(button_callback))
+    application.add_handler(CommandHandler("broadcast", broadcast))
 
-    # Webhook run
-    global application
-    application = Application.builder().token(BOT_TOKEN).build()
+    application.add_handler(CallbackQueryHandler(button_handler))
 
+    # Set the webhook URL
+    WEBHOOK_SECRET_PATH = f"/{BOT_TOKEN}"
+    WEBHOOK_URL = f"https://telegram-premium-bot-qgqy.onrender.com{WEBHOOK_SECRET_PATH}"
 
-if __name__ == "__main__":
-    main()
+    # Run the bot with webhook
+    asyncio.run(application.bot.set_webhook(url=WEBHOOK_URL))
