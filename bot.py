@@ -38,7 +38,6 @@ def webhook():
     asyncio.run(handle_update())
     return "ok"
 
-
 # ---------- Bot Handlers ----------
 
 def build_membership_message() -> str:
@@ -75,7 +74,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"You can send a private message to this member by replying to this message."
     )
     await context.bot.send_message(chat_id=ADMIN_ID, text=admin_message)
-
     await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
 
     message = (
@@ -214,6 +212,5 @@ def main():
     asyncio.run(application.bot.set_webhook(url=WEBHOOK_URL))
 
 if __name__ == "__main__":
-    import os
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
