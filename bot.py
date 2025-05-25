@@ -25,10 +25,15 @@ app = Flask(__name__)
 # Initialize the Application with proper timezone configuration
 application = Application.builder().token(BOT_TOKEN).build()
 
-@app.route(f"/{BOT_TOKEN}", methods=["POST"])
+@app.route(f"/{TOKEN}", methods=["POST"])
 def webhook():
-    update = Update.de_json(request.get_json(force=True), application.bot)
-    asyncio.run(application.process_update(update))
+    update = Update.de_json(request.get_json(force=True), bot)
+
+    async def handle_update():
+        await application.initialize()  # ✅ required step
+        await application.process_update(update)
+
+    asyncio.run(handle_update())
     return "ok"
 
 
