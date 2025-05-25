@@ -23,10 +23,7 @@ BANNER_URL = "https://i.imgur.com/q9R7VYf.jpeg"  # ✅ Direct image link
 app = Flask(__name__)
 
 # Initialize the Application with proper timezone configuration
-scheduler = AsyncIOScheduler(timezone=pytz.UTC)
-job_queue = JobQueue()
-job_queue.set_scheduler(scheduler)
-application = Application.builder().token(BOT_TOKEN).job_queue(job_queue).build()
+application = Application.builder().token(BOT_TOKEN).build()
 
 @app.route(f"/{BOT_TOKEN}", methods=["POST"])
 def webhook():
