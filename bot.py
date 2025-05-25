@@ -2,7 +2,6 @@ import os
 import logging
 import asyncio
 from flask import Flask, request
-
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, constants
 from telegram.constants import ChatAction
 from telegram.ext import (
@@ -15,12 +14,17 @@ from sheets import log_user
 # Load environment variable
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
-ADMIN_ID = 7851863021  # Replace with your actual Telegram ID
-BANNER_URL = "https://i.imgur.com/q9R7VYf.jpeg"  # ✅ Direct image link
+ADMIN_ID = 7851863021
+BANNER_URL = "https://i.imgur.com/q9R7VYf.jpeg"
 
 app = Flask(__name__)
 
-# Initialize the Application with proper timezone configuration
+# ✅ Add this GET route for health check or homepage
+@app.route("/", methods=["GET"])
+def home():
+    return "Bot is running!"
+
+# Initialize the Application
 application = Application.builder().token(BOT_TOKEN).build()
 
 @app.route(f"/{BOT_TOKEN}", methods=["POST"])
