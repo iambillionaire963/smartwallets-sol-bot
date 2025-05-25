@@ -1,31 +1,39 @@
-
 import os
 import logging
+import asyncio
 from flask import Flask, request
-from telegram import Update
-from telegram.ext import CommandHandler, CallbackQueryHandler
+
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, constants
+from telegram.constants import ChatAction
+from telegram.ext import (
+    Application, CommandHandler, CallbackQueryHandler,
+    ContextTypes
+)
+
 from sheets import log_user
-# Log user to Google Sheets
 
-# ---------- Flask Keep Alive (for UptimeRobot) ----------
-app = Flask('')
+# Load environment variable
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
+ADMIN_ID = 7851863021  # Replace with your actual Telegram ID
+BANNER_URL = "https://i.imgur.com/q9R7VYf.jpeg"  # ✅ Direct image link
 
-app = Flask('')
+# ---------- Flask for Keep-Alive ----------
+app = Flask(__name__)
+
+# Define the global Application instance early
+application = Application.builder().token(BOT_TOKEN).build()
 
 @app.post(f"/{BOT_TOKEN}")
 async def webhook(request):
     if request.headers.get("content-type") == "application/json":
-        update = Update.de_json(await request.get_json(), application.bot)
+        data = await request.get_json()
+        update = Update.de_json(data, application.bot)
         await application.process_update(update)
         return "OK", 200
     return "Invalid content type", 403
 
-# ---------- Bot Setup ----------
-BOT_TOKEN = os.getenv("BOT_TOKEN")
-MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
-ADMIN_ID = 7851863021  # 🔁 Replace with your actual Telegram ID
-
-# ---------- Handlers ----------
+# ---------- Bot Handlers ----------
 
 def build_membership_message() -> str:
     return (
@@ -42,17 +50,14 @@ def build_membership_message() -> str:
         "Quantum AI Memecoin Alerts By Solana100xcall 🫡"
     )
 
-BANNER_URL = "https://imgur.com/a/s3sS1Ld"  # Replace with your banner image URL
-
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
-    # ✅ Log user to Google Sheets (with error catch)
     try:
         log_user(user.id, user.first_name, user.username)
     except Exception as e:
         logging.warning(f"[Google Sheets] Failed to log user {user.id}: {e}")
-    payload = context.args[0] if context.args else None
 
+    payload = context.args[0] if context.args else None
     logging.info(f"[START] User {user.id} (@{user.username}) joined with payload: {payload}")
 
     first_name = user.first_name or "Unknown"
@@ -65,7 +70,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
     await context.bot.send_message(chat_id=ADMIN_ID, text=admin_message)
 
-    # Send banner image first
     await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
 
     message = (
@@ -96,178 +100,99 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         disable_web_page_preview=True
     )
 
-
 async def buy(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    message = "👉 To get started, click the button below, select your membership, and proceed to payment:"
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🚀 Get Premium Access", url=MEMBERSHIP_LINK)],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
-
     msg = update.message or update.callback_query.message
-    await msg.reply_text(message, reply_markup=keyboard)
+    await msg.reply_text("👉 To get started, click the button below, select your membership, and proceed to payment:", reply_markup=keyboard)
 
 async def subscribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    message = "🔥 Ready to unlock premium alerts?\n\nChoose your membership and activate full access now:"
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🚀 Get Premium Access", url=MEMBERSHIP_LINK)],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
-    await update.message.reply_text(message, reply_markup=keyboard)
+    await update.message.reply_text("🔥 Ready to unlock premium alerts?\n\nChoose your membership and activate full access now:", reply_markup=keyboard)
 
 async def join(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    message = (
+    keyboard = [[InlineKeyboardButton("📲 Join @Solana100xcall", url="https://t.me/Solana100xcall")]]
+    await update.message.reply_text(
         "📢 *Stay Ahead with Solana100xcall*\n\n"
         "Before you unlock Premium, join our *FREE public channel* to see why thousands trust our alpha.\n\n"
         "🔥 Live calls, charts, and sneak peeks into the exact kind of alerts our AI delivers to Premium members.\n\n"
-        "👇 Tap below to join the official channel:"
+        "👇 Tap below to join the official channel:",
+        parse_mode=constants.ParseMode.MARKDOWN,
+        reply_markup=InlineKeyboardMarkup(keyboard),
+        disable_web_page_preview=True
     )
-    keyboard = [[InlineKeyboardButton("📲 Join @Solana100xcall", url="https://t.me/Solana100xcall")]]
-    await update.message.reply_text(message, parse_mode=constants.ParseMode.MARKDOWN, reply_markup=InlineKeyboardMarkup(keyboard), disable_web_page_preview=True)
 
 async def status(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Use /buy to view membership options.")
 
-from telegram.constants import ChatAction
-
 async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    user_id = update.effective_user.id
-
-    # Only allow the admin to use this command
-    if user_id != ADMIN_ID:
+    if update.effective_user.id != ADMIN_ID:
         await update.message.reply_text("❌ You are not authorized to use this command.")
         return
 
-    # Check if there is a message to broadcast
     if not context.args:
         await update.message.reply_text("⚠️ Please provide a message to broadcast. Usage: /broadcast Your message here")
         return
 
-    # Compose the message
-    broadcast_text = " ".join(context.args)
-
-    # Load your user list here (e.g. from a database or flat file)
-    user_ids = []  # ← Fill this list with your member IDs
+    message = " ".join(context.args)
+    user_ids = []  # Populate this list from your data source (e.g., Google Sheet)
 
     count = 0
     for user_id in user_ids:
         try:
             await context.bot.send_chat_action(chat_id=user_id, action=ChatAction.TYPING)
-            await context.bot.send_message(chat_id=user_id, text=broadcast_text)
+            await context.bot.send_message(chat_id=user_id, text=message)
             count += 1
         except Exception as e:
             logging.warning(f"Failed to send to {user_id}: {e}")
 
     await update.message.reply_text(f"✅ Broadcast sent to {count} users.")
 
-
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
         "🧠 *How It Works*\n"
-        "Our AI tracks real-time smart money on Solana — wallets making $100k+ each week.\n"
-        "When it detects a high-potential play, you get an alert *instantly*.\n\n"
-        "📡 *What You Get:*\n"
-        "• 30+ real-time alerts/day (more when the market moves)\n"
-        "• Focused on top wallets, early buys & liquidity inflow\n"
-        "• Alerts include token info, market cap, and tap-to-copy contract address\n\n"
-        "💸 *How to Subscribe:*\n"
-        "Tap the button below to choose your membership and unlock full access.\n"
-        "Payments are processed securely via Telegram — in SOL or USDC.\n\n"
+        "Our AI tracks real-time smart money on Solana — wallets making $100k+ each week...\n\n"
         "❓ *Common Questions:*\n"
         "• Is this manual? → No. It’s 100% AI-powered.\n"
         "• Is this fast? → Yes. No delays. No crowdsourced nonsense.\n"
-        "• Do alerts come at night? → Most happen during US trading hours.\n\n"
+        "• Do alerts come at night? → Most during US trading hours.\n\n"
         "Need help? Message [@The100xMooncaller](https://t.me/The100xMooncaller)"
     )
-
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🚀 Get Premium Access", url=MEMBERSHIP_LINK)],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
-
     msg = update.message or update.callback_query.message
-    await msg.reply_text(
-        message,
-        parse_mode=constants.ParseMode.MARKDOWN,
-        reply_markup=keyboard,
-        disable_web_page_preview=True
-    )
+    await msg.reply_text(message, parse_mode=constants.ParseMode.MARKDOWN, reply_markup=keyboard, disable_web_page_preview=True)
 
 async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    message = (
-        "🆘 *Support* 🆘\n\n"
-        "💬 *Need Help or Have Questions?*\n\n"
-        "We're here to help you 24/7.\n\n"
-        "• 👨‍💻 Tech/Access Issues → [@The100xMooncaller](https://t.me/The100xMooncaller)\n"
-        "• 💸 Payment or Membership Help → @Violet100xGem\n\n"
-        "👇 Reach out anytime. We respond fast.\n\n"
-        "⬇️Contact our support by pressing the button below⬇️\n\n"
-    )
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("💬 Chat with Support", url="https://t.me/The100xMooncaller")],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
-
     msg = update.message or update.callback_query.message
-    await msg.reply_text(message, parse_mode=constants.ParseMode.MARKDOWN, reply_markup=keyboard)
+    await msg.reply_text("🆘 *Support* 🆘\n\nReach out any time, we respond fast.", parse_mode=constants.ParseMode.MARKDOWN, reply_markup=keyboard)
 
-async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
     if query.data == "show_help":
         await help_command(update, context)
-
     elif query.data == "show_buy":
         await buy(update, context)
-
     elif query.data == "show_support":
         await support(update, context)
-
     elif query.data == "go_home":
-        user = update.effective_user
-        message = (
-            "🚀 *Welcome to Solana100xcall Premium Bot* 🚀\n\n"
-            "💡 _Solana’s smartest wallets. Tracked by AI. Calls Delivered in real time._\n\n"
-            "⚡️ 30+ sniper-grade alerts daily\n"
-            "📋 Tap-to-copy contracts — no fumbling\n"
-            "💰 Find early low-cap plays before CT does\n"
-            "🐋 Whale wallet tracking with AI-powered filters\n\n"
-            "This isn't crowdsourced noise. It's real-time data from million-dollar wallets.\n\n"
-            "👇 Tap below to unlock the feed:"
-        )
+        await start(update, context)
 
-        keyboard = InlineKeyboardMarkup([
-            [InlineKeyboardButton("🚀 Get Premium Signals", url=MEMBERSHIP_LINK)],
-            [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
-            [InlineKeyboardButton("📈 Latest Top Calls", url="https://t.me/Solana100xcall/4046")],
-            [InlineKeyboardButton("📖 How It Works", callback_data="show_help")],
-            [InlineKeyboardButton("💳 Buy Membership", callback_data="show_buy")],
-            [InlineKeyboardButton("💬 Contact Support", callback_data="show_support")]
-        ])
-
-        await context.bot.send_message(
-            chat_id=user.id,
-            text=message,
-            parse_mode=constants.ParseMode.MARKDOWN,
-            reply_markup=keyboard,
-            disable_web_page_preview=True
-        )
-
-# ---------- Main ----------
-import asyncio
-from telegram.ext import Application
-
-# Define the global application
-application = None
-
+# ---------- Main Entry ----------
 def main():
-    global application
-
-    # Create the bot application
-    application = Application.builder().token(BOT_TOKEN).build()
-
-    # Register handlers
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("buy", buy))
     application.add_handler(CommandHandler("subscribe", subscribe))
@@ -276,12 +201,12 @@ def main():
     application.add_handler(CommandHandler("help", help_command))
     application.add_handler(CommandHandler("support", support))
     application.add_handler(CommandHandler("broadcast", broadcast))
-
     application.add_handler(CallbackQueryHandler(button_handler))
 
-    # Set the webhook URL
-    WEBHOOK_SECRET_PATH = f"/{BOT_TOKEN}"
-    WEBHOOK_URL = f"https://telegram-premium-bot-qgqy.onrender.com{WEBHOOK_SECRET_PATH}"
-
-    # Run the bot with webhook
+    # Set webhook
+    WEBHOOK_URL = f"https://telegram-premium-bot-qgqy.onrender.com/{BOT_TOKEN}"
     asyncio.run(application.bot.set_webhook(url=WEBHOOK_URL))
+
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
+    main()
