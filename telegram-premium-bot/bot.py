@@ -6,6 +6,8 @@ from flask import Flask
 from threading import Thread
 from telegram import Update, constants, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, CallbackQueryHandler
+from sheets import log_user  # Log user to Google Sheets
+from telegram.constants import ChatAction
 
 # ---------- Flask Keep Alive (for UptimeRobot) ----------
 app = Flask('')
@@ -23,6 +25,8 @@ def keep_alive():
 # ---------- Bot Setup ----------
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
+ADMIN_ID = 7851863021  # 🔁 Replace with your actual Telegram ID
+BANNER_URL = "https://imgur.com/a/s3sS1Ld"  # Replace with your banner image URL
 
 # ---------- Handlers ----------
 
@@ -41,16 +45,17 @@ def build_membership_message() -> str:
         "Quantum AI Memecoin Alerts By Solana100xcall 🫡"
     )
 
-ADMIN_ID = 7851863021  # 🔁 Replace with your actual Telegram ID
-
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
     payload = context.args[0] if context.args else None
 
-    # Log who started and with what payload (for console)
+    try:
+        log_user(user.id, user.first_name, user.username)
+    except Exception as e:
+        logging.warning(f"[Google Sheets] Failed to log user {user.id}: {e}")
+
     logging.info(f"[START] User {user.id} (@{user.username}) joined with payload: {payload}")
 
-    # ✅ Send admin notification
     first_name = user.first_name or "Unknown"
     username = f"@{user.username}" if user.username else "(no username)"
     display_name = f"{first_name}🪐 ({username})"
@@ -62,45 +67,53 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
     await context.bot.send_message(chat_id=ADMIN_ID, text=admin_message)
 
-    # 🔽 Your existing welcome message
+    # Send banner image
+    await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
+
     message = (
-        "🚀 *Welcome to Quantum AI Memecoin Alerts* 🚀\n\n"
-        "📡 _Solana’s smartest wallets tracked by our AI — in real time._\n\n"
-        "Here’s what you unlock:\n"
-        "✅ 30+ filtered alerts/day\n"
-        "✅ Copy-paste contracts\n"
-        "✅ Early low-cap plays\n"
-        "✅ Real-time wallet activity from million-dollar snipers\n\n"
-        "🔬 Our AI scans 300+ wallets nonstop:\n"
-        "• Whales\n"
-        "• Snipers\n"
-        "• KOL insiders\n"
-        "• Bot networks\n\n"
-        "🧠 It detects:\n"
-        "• Smart money inflow\n"
-        "• High-liquidity new launches\n"
-        "• Tokens that pump fast, not memes that flop\n\n"
-        "💰 Stop chasing. Start front-running.\n\n"
-        "👇 Tap below to activate access and catch the next 10x–50x:"
+        "🚀 *Welcome to Solana100xcall Premium Bot* 🚀\n\n"
+        "💡 _Solana’s smartest wallets. Tracked by AI. Calls Delivered in real time._\n\n"
+        "⚡️ 30+ sniper-grade alerts daily\n"
+        "📋 Tap-to-copy contracts — no fumbling\n"
+        "💰 Find early low-cap plays before CT does\n"
+        "🐋 Whale wallet tracking with AI-powered filters\n\n"
+        "This isn't crowdsourced noise. It's real-time data from million-dollar wallets.\n\n"
+        "👇 Tap below to unlock the feed:"
     )
 
-    keyboard = [[InlineKeyboardButton("🚀 Get Premium Access", url=MEMBERSHIP_LINK)]]
-    await update.message.reply_text(
-        message,
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("🚀 Get Premium Signals", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
+        [InlineKeyboardButton("📈 Latest Top Calls", url="https://t.me/Solana100xcall/4046")],
+        [InlineKeyboardButton("📖 How It Works", callback_data="show_help")],
+        [InlineKeyboardButton("💳 Buy Membership", callback_data="show_buy")],
+        [InlineKeyboardButton("💬 Contact Support", callback_data="show_support")]
+    ])
+
+    await context.bot.send_message(
+        chat_id=user.id,
+        text=message,
         parse_mode=constants.ParseMode.MARKDOWN,
-        reply_markup=InlineKeyboardMarkup(keyboard),
+        reply_markup=keyboard,
         disable_web_page_preview=True
     )
 
 async def buy(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = "👉 To get started, click the button below, select your membership, and proceed to payment:"
-    keyboard = [[InlineKeyboardButton("🚀 Get Premium Access", url=MEMBERSHIP_LINK)]]
-    await update.message.reply_text(message, reply_markup=InlineKeyboardMarkup(keyboard))
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("🚀 Get Premium Access", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
+    ])
+    msg = update.message or update.callback_query.message
+    await msg.reply_text(message, reply_markup=keyboard)
 
 async def subscribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = "🔥 Ready to unlock premium alerts?\n\nChoose your membership and activate full access now:"
-    keyboard = [[InlineKeyboardButton("🚀 Get Premium Access", url=MEMBERSHIP_LINK)]]
-    await update.message.reply_text(message, reply_markup=InlineKeyboardMarkup(keyboard))
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("🚀 Get Premium Access", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
+    ])
+    await update.message.reply_text(message, reply_markup=keyboard)
 
 async def join(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
@@ -114,6 +127,31 @@ async def join(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def status(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Use /buy to view membership options.")
+
+async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user_id = update.effective_user.id
+
+    if user_id != ADMIN_ID:
+        await update.message.reply_text("❌ You are not authorized to use this command.")
+        return
+
+    if not context.args:
+        await update.message.reply_text("⚠️ Please provide a message to broadcast. Usage: /broadcast Your message here")
+        return
+
+    broadcast_text = " ".join(context.args)
+
+    user_ids = []  # Add actual user ID list or load from storage
+    count = 0
+    for user_id in user_ids:
+        try:
+            await context.bot.send_chat_action(chat_id=user_id, action=ChatAction.TYPING)
+            await context.bot.send_message(chat_id=user_id, text=broadcast_text)
+            count += 1
+        except Exception as e:
+            logging.warning(f"Failed to send to {user_id}: {e}")
+
+    await update.message.reply_text(f"✅ Broadcast sent to {count} users.")
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
@@ -133,22 +171,42 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "• Do alerts come at night? → Most happen during US trading hours.\n\n"
         "Need help? Message [@The100xMooncaller](https://t.me/The100xMooncaller)"
     )
-    keyboard = [[InlineKeyboardButton("🚀 Get Premium Access", url=MEMBERSHIP_LINK)]]
-    await update.message.reply_text(message, parse_mode=constants.ParseMode.MARKDOWN, reply_markup=InlineKeyboardMarkup(keyboard), disable_web_page_preview=True)
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("🚀 Get Premium Access", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
+    ])
+    msg = update.message or update.callback_query.message
+    await msg.reply_text(message, parse_mode=constants.ParseMode.MARKDOWN, reply_markup=keyboard, disable_web_page_preview=True)
 
 async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
+        "🆘 *Support* 🆘\n\n"
         "💬 *Need Help or Have Questions?*\n\n"
         "We're here to help you 24/7.\n\n"
         "• 👨‍💻 Tech/Access Issues → [@The100xMooncaller](https://t.me/The100xMooncaller)\n"
         "• 💸 Payment or Membership Help → @Violet100xGem\n\n"
-        "👇 Reach out anytime. We respond fast."
+        "👇 Reach out anytime. We respond fast.\n\n"
+        "⬇️Contact our support by pressing the button below⬇️\n\n"
     )
-    await update.message.reply_text(message, parse_mode=constants.ParseMode.MARKDOWN, disable_web_page_preview=True)
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("💬 Chat with Support", url="https://t.me/The100xMooncaller")],
+        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
+    ])
+    msg = update.message or update.callback_query.message
+    await msg.reply_text(message, parse_mode=constants.ParseMode.MARKDOWN, reply_markup=keyboard)
 
 async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
+
+    if query.data == "show_help":
+        await help_command(update, context)
+    elif query.data == "show_buy":
+        await buy(update, context)
+    elif query.data == "show_support":
+        await support(update, context)
+    elif query.data == "go_home":
+        await start(update, context)
 
 # ---------- Main ----------
 def main():
@@ -157,16 +215,14 @@ def main():
 
     app = ApplicationBuilder().token(BOT_TOKEN).build()
 
-    # Register commands
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("buy", buy))
+    app.add_handler(CommandHandler("broadcast", broadcast))
     app.add_handler(CommandHandler("subscribe", subscribe))
     app.add_handler(CommandHandler("join", join))
     app.add_handler(CommandHandler("status", status))
     app.add_handler(CommandHandler("help", help_command))
     app.add_handler(CommandHandler("support", support))
-
-    # Inline buttons (if any)
     app.add_handler(CallbackQueryHandler(button_callback))
 
     logging.info("🚀 Bot is running...")
