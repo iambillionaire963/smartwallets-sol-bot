@@ -18,18 +18,15 @@ MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
 ADMIN_ID = 7851863021  # Replace with your actual Telegram ID
 BANNER_URL = "https://i.imgur.com/q9R7VYf.jpeg"  # ✅ Direct image link
 
-from flask import Flask, request
-from telegram import Update
-from telegram.ext import Dispatcher
 app = Flask(__name__)
 
-# Import your bot and dispatcher
-from main import bot, dispatcher  # or however your setup is
+# Initialize the Application
+application = Application.builder().token(BOT_TOKEN).build()
 
-@app.route(f"/{bot.token}", methods=["POST"])
+@app.route(f"/{BOT_TOKEN}", methods=["POST"])
 def webhook():
-    update = Update.de_json(request.get_json(force=True), bot)
-    dispatcher.process_update(update)
+    update = Update.de_json(request.get_json(force=True), application.bot)
+    asyncio.run(application.process_update(update))
     return "ok"
 
 
