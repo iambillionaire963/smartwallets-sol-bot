@@ -256,15 +256,18 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
 # ---------- Main ----------
-from telegram.ext import Application
+from telegram.ext import Application, CommandHandler, CallbackQueryHandler
+import logging
+import os
+
+# Import your handlers here
+# from handlers import start, buy, broadcast, subscribe, join, status, help_command, support, button_callback
 
 WEBHOOK_SECRET_PATH = f"/{BOT_TOKEN}"
-WEBHOOK_URL = f"https://telegram-premium-bot-qgqy.onrender.com{WEBHOOK_SECRET_PATH}"  # Update this!
+WEBHOOK_URL = f"https://telegram-premium-bot-qgqy.onrender.com{WEBHOOK_SECRET_PATH}"
 
 def main():
     logging.basicConfig(level=logging.INFO)
-
-    keep_alive()  # Flask keep-alive route if you still want healthcheck
 
     application = Application.builder().token(BOT_TOKEN).build()
 
@@ -279,12 +282,12 @@ def main():
     application.add_handler(CommandHandler("support", support))
     application.add_handler(CallbackQueryHandler(button_callback))
 
-    # Webhook setup (Flask + Telegram)
+    # Webhook run
     application.run_webhook(
         listen="0.0.0.0",
         port=int(os.environ.get("PORT", 3000)),
         webhook_url=WEBHOOK_URL,
-        secret_token=None,  # Optional: Add if you want webhook security
+        secret_token=None  # You can set this for extra security
     )
 
 if __name__ == "__main__":
