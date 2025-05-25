@@ -1,16 +1,14 @@
 import os
 import logging
 import asyncio
-import pytz
 from flask import Flask, request
 
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, constants
 from telegram.constants import ChatAction
 from telegram.ext import (
     Application, CommandHandler, CallbackQueryHandler,
-    ContextTypes, JobQueue
+    ContextTypes
 )
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from sheets import log_user
 
@@ -25,12 +23,12 @@ app = Flask(__name__)
 # Initialize the Application with proper timezone configuration
 application = Application.builder().token(BOT_TOKEN).build()
 
-@app.route(f"/{TOKEN}", methods=["POST"])
+@app.route(f"/{BOT_TOKEN}", methods=["POST"])
 def webhook():
-    update = Update.de_json(request.get_json(force=True), bot)
+    update = Update.de_json(request.get_json(force=True), application.bot)
 
     async def handle_update():
-        await application.initialize()  # ✅ required step
+        await application.initialize()
         await application.process_update(update)
 
     asyncio.run(handle_update())
