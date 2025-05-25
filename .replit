@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 entrypoint = "bot.py"
+=======
+entrypoint = "main.py"
+>>>>>>> 5581677 (Initial commit)
 modules = ["python-3.11"]
 
 [nix]
@@ -11,6 +15,7 @@ language = "python3"
 requiredFiles = [".replit", "replit.nix"]
 
 [deployment]
+<<<<<<< HEAD
 run = ["python3", "bot.py"]
 deploymentTarget = "cloudrun"
 
@@ -37,3 +42,7 @@ externalPort = 80
 [[ports]]
 localPort = 8080
 externalPort = 8080
+=======
+run = ["python3", "main.py"]
+deploymentTarget = "cloudrun"
+>>>>>>> 5581677 (Initial commit)
