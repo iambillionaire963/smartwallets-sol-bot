@@ -1,6 +1,7 @@
 import os
 import logging
 import asyncio
+from dotenv import load_dotenv
 from flask import Flask, request
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, constants
 from telegram.constants import ChatAction
@@ -8,24 +9,24 @@ from telegram.ext import (
     Application, CommandHandler, CallbackQueryHandler,
     ContextTypes
 )
-from telegram.ext.webhookhandler import WebhookServer
 
 from sheets import log_user
 
+# Load environment variables from .env
+load_dotenv()
+
+# Config
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
 ADMIN_ID = 7851863021
 BANNER_URL = "https://i.imgur.com/q9R7VYf.jpeg"
 
 app = Flask(__name__)
+application = Application.builder().token(BOT_TOKEN).build()
 
-# Health check route
 @app.route("/", methods=["GET"])
 def home():
     return "Bot is running!"
-
-# Initialize Application (no polling)
-application = Application.builder().token(BOT_TOKEN).build()
 
 @app.route(f"/{BOT_TOKEN}", methods=["POST"])
 def webhook():
@@ -139,7 +140,7 @@ async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     message = " ".join(context.args)
-    user_ids = []  # Populate this list from your data source (e.g., Google Sheet)
+    user_ids = []  # Populate this list from your data source
 
     count = 0
     for user_id in user_ids:
@@ -191,28 +192,26 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await start(update, context)
 
 # ---------- Main Entry ----------
-    def main():
-        # Add all handlers
-        application.add_handler(CommandHandler("start", start))
-        application.add_handler(CommandHandler("buy", buy))
-        application.add_handler(CommandHandler("subscribe", subscribe))
-        application.add_handler(CommandHandler("join", join))
-        application.add_handler(CommandHandler("status", status))
-        application.add_handler(CommandHandler("help", help_command))
-        application.add_handler(CommandHandler("support", support))
-        application.add_handler(CommandHandler("broadcast", broadcast))
-        application.add_handler(CallbackQueryHandler(button_handler))
+def main():
+    application.add_handler(CommandHandler("start", start))
+    application.add_handler(CommandHandler("buy", buy))
+    application.add_handler(CommandHandler("subscribe", subscribe))
+    application.add_handler(CommandHandler("join", join))
+    application.add_handler(CommandHandler("status", status))
+    application.add_handler(CommandHandler("help", help_command))
+    application.add_handler(CommandHandler("support", support))
+    application.add_handler(CommandHandler("broadcast", broadcast))
+    application.add_handler(CallbackQueryHandler(button_handler))
 
-        # Set the webhook once the application is ready
-        async def set_webhook():
-            url = f"https://telegram-premium-bot-qgqy.onrender.com/{BOT_TOKEN}"
-            await application.bot.set_webhook(url)
-            logging.info(f"✅ Webhook set to: {url}")
+    async def set_webhook():
+        url = f"https://telegram-premium-bot-qgqy.onrender.com/{BOT_TOKEN}"
+        await application.bot.set_webhook(url)
+        logging.info(f"✅ Webhook set to: {url}")
 
-        asyncio.run(set_webhook())
+    asyncio.run(set_webhook())
 
-    if __name__ == "__main__":
-        logging.basicConfig(level=logging.INFO)
-        main()
-        port = int(os.environ.get("PORT", 5000))
-        app.run(host="0.0.0.0", port=port)
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
+    main()
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
