@@ -14,7 +14,7 @@ load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
 ADMIN_ID = 7851863021
-BANNER_URL = "https://i.imgur.com/q9R7VYf.jpeg"
+BANNER_URL = "https://imgur.com/a/s3sS1Ld"
 WEBHOOK_URL_BASE = "https://telegram-premium-bot-qgqy.onrender.com"  # Your domain
 
 # -------- Handlers --------
