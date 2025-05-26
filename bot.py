@@ -8,10 +8,10 @@ from telegram.ext import (
     Application, CommandHandler, CallbackQueryHandler,
     ContextTypes
 )
+from telegram.ext.webhookhandler import WebhookServer
 
 from sheets import log_user
 
-# Load environment variable
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
 ADMIN_ID = 7851863021
@@ -19,18 +19,18 @@ BANNER_URL = "https://i.imgur.com/q9R7VYf.jpeg"
 
 app = Flask(__name__)
 
-# ✅ Add this GET route for health check or homepage
+# Health check route
 @app.route("/", methods=["GET"])
 def home():
     return "Bot is running!"
 
-# Initialize the Application
+# Initialize Application (no polling)
 application = Application.builder().token(BOT_TOKEN).build()
 
 @app.route(f"/{BOT_TOKEN}", methods=["POST"])
-async def webhook():
-    update = Update.de_json(await request.get_json(), application.bot)
-    await application.process_update(update)
+def webhook():
+    update = Update.de_json(request.get_json(force=True), application.bot)
+    asyncio.create_task(application.process_update(update))
     return "ok"
 
 # ---------- Bot Handlers ----------
@@ -191,25 +191,28 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await start(update, context)
 
 # ---------- Main Entry ----------
-def main():
-    # Add all your handlers here
-    application.add_handler(CommandHandler("start", start))
-    application.add_handler(CommandHandler("buy", buy))
-    application.add_handler(CommandHandler("subscribe", subscribe))
-    application.add_handler(CommandHandler("join", join))
-    application.add_handler(CommandHandler("status", status))
-    application.add_handler(CommandHandler("help", help_command))
-    application.add_handler(CommandHandler("support", support))
-    application.add_handler(CommandHandler("broadcast", broadcast))
-    application.add_handler(CallbackQueryHandler(button_handler))
+    def main():
+        # Add all handlers
+        application.add_handler(CommandHandler("start", start))
+        application.add_handler(CommandHandler("buy", buy))
+        application.add_handler(CommandHandler("subscribe", subscribe))
+        application.add_handler(CommandHandler("join", join))
+        application.add_handler(CommandHandler("status", status))
+        application.add_handler(CommandHandler("help", help_command))
+        application.add_handler(CommandHandler("support", support))
+        application.add_handler(CommandHandler("broadcast", broadcast))
+        application.add_handler(CallbackQueryHandler(button_handler))
 
-    # Set webhook URL to your deployed bot endpoint
-    WEBHOOK_URL = f"https://telegram-premium-bot-qgqy.onrender.com/{BOT_TOKEN}"
-    # Run webhook set asynchronously
-    asyncio.run(application.bot.set_webhook(url=WEBHOOK_URL))
+        # Set the webhook once the application is ready
+        async def set_webhook():
+            url = f"https://telegram-premium-bot-qgqy.onrender.com/{BOT_TOKEN}"
+            await application.bot.set_webhook(url)
+            logging.info(f"✅ Webhook set to: {url}")
 
-if __name__ == "__main__":
-    main()
-    port = int(os.environ.get("PORT", 5000))
-    # Start Flask server (blocking call)
-    app.run(host="0.0.0.0", port=port)
+        asyncio.run(set_webhook())
+
+    if __name__ == "__main__":
+        logging.basicConfig(level=logging.INFO)
+        main()
+        port = int(os.environ.get("PORT", 5000))
+        app.run(host="0.0.0.0", port=port)
