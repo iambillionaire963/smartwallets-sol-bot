@@ -1,40 +1,23 @@
 import os
 import logging
-import asyncio
 from dotenv import load_dotenv
-from flask import Flask, request
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, constants
-from telegram.constants import ChatAction
 from telegram.ext import (
-    Application, CommandHandler, CallbackQueryHandler,
-    ContextTypes
+    Application, CommandHandler, CallbackQueryHandler, ContextTypes
 )
 
-from sheets import log_user
+from sheets import log_user  # your google sheets logging function
 
-# Load environment variables from .env
+# Load environment variables
 load_dotenv()
 
-# Config
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
 ADMIN_ID = 7851863021
 BANNER_URL = "https://i.imgur.com/q9R7VYf.jpeg"
+WEBHOOK_URL_BASE = "https://telegram-premium-bot-qgqy.onrender.com"  # Your domain
 
-app = Flask(__name__)
-application = Application.builder().token(BOT_TOKEN).build()
-
-@app.route("/", methods=["GET"])
-def home():
-    return "Bot is running!"
-
-@app.route(f"/{BOT_TOKEN}", methods=["POST"])
-def webhook():
-    update = Update.de_json(request.get_json(force=True), application.bot)
-    asyncio.get_event_loop().create_task(application.process_update(update))
-    return "ok"
-
-# ---------- Bot Handlers ----------
+# -------- Handlers --------
 
 def build_membership_message() -> str:
     return (
@@ -140,12 +123,12 @@ async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     message = " ".join(context.args)
-    user_ids = []  # Populate this list from your data source
+    user_ids = []  # You must fill this list with your users from your DB or sheet
 
     count = 0
     for user_id in user_ids:
         try:
-            await context.bot.send_chat_action(chat_id=user_id, action=ChatAction.TYPING)
+            await context.bot.send_chat_action(chat_id=user_id, action="typing")
             await context.bot.send_message(chat_id=user_id, text=message)
             count += 1
         except Exception as e:
@@ -191,27 +174,10 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif query.data == "go_home":
         await start(update, context)
 
-# ---------- Main Entry ----------
+# -------- Main --------
+
 def main():
-    application.add_handler(CommandHandler("start", start))
-    application.add_handler(CommandHandler("buy", buy))
-    application.add_handler(CommandHandler("subscribe", subscribe))
-    application.add_handler(CommandHandler("join", join))
-    application.add_handler(CommandHandler("status", status))
-    application.add_handler(CommandHandler("help", help_command))
-    application.add_handler(CommandHandler("support", support))
-    application.add_handler(CommandHandler("broadcast", broadcast))
-    application.add_handler(CallbackQueryHandler(button_handler))
-
-    async def set_webhook():
-        url = f"https://telegram-premium-bot-qgqy.onrender.com/{BOT_TOKEN}"
-        await application.bot.set_webhook(url)
-        logging.info(f"✅ Webhook set to: {url}")
-
-    asyncio.run(set_webhook())
-
-if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
-    main()
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    application = Application.builder().token(BOT_TOKEN).build()
+
+    application.add_handler(CommandHandler("start", start))
