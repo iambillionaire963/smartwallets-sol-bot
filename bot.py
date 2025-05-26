@@ -31,7 +31,7 @@ def home():
 @app.route(f"/{BOT_TOKEN}", methods=["POST"])
 def webhook():
     update = Update.de_json(request.get_json(force=True), application.bot)
-    asyncio.create_task(application.process_update(update))
+    asyncio.get_event_loop().create_task(application.process_update(update))
     return "ok"
 
 # ---------- Bot Handlers ----------
