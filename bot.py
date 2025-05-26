@@ -180,4 +180,21 @@ def main():
     logging.basicConfig(level=logging.INFO)
     application = Application.builder().token(BOT_TOKEN).build()
 
+    # Command handlers
     application.add_handler(CommandHandler("start", start))
+    application.add_handler(CommandHandler("buy", buy))
+    application.add_handler(CommandHandler("subscribe", subscribe))
+    application.add_handler(CommandHandler("join", join))
+    application.add_handler(CommandHandler("status", status))
+    application.add_handler(CommandHandler("broadcast", broadcast))
+    application.add_handler(CommandHandler("help", help_command))
+
+    # CallbackQueryHandler for inline buttons
+    application.add_handler(CallbackQueryHandler(button_handler))
+
+    # Start polling updates from Telegram
+    application.run_polling()
+
+if __name__ == "__main__":
+    main()
+
