@@ -27,9 +27,8 @@ def build_membership_message() -> str:
         "👀 Copy trade them with *BonkBot, PepeBoost, Trojan*\n"
         "📈 Track them in *Cielo, Raybot, SpyBot*, and more.\n\n"
         "⚠️ Plus: unlock *Premium Alerts* based on wallet inflows, memecoin momentum, and smart money signals.\n\n"
-        "👇 Tap /start to unlock the alpha & join the top Solana signals bot."
+        "🔥 *Join hundreds of traders making daily profits — tap /start to unlock the alpha and dominate Solana memecoins!*"
     )
-
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
