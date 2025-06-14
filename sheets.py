@@ -2,6 +2,7 @@ import os
 import json
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+from datetime import datetime
 
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 
@@ -19,9 +20,21 @@ SPREADSHEET_NAME = "SmartWalletsLog"
 sh = gc.open(SPREADSHEET_NAME)
 worksheet = sh.sheet1  # Use the first worksheet
 
-def log_user(data):
+def log_user(user_id, first_name=None, username=None):
     """
     Append a row to the Google Sheet.
-    data: list of values, e.g. ["timestamp", "user_id", "action"]
+    Each row contains: timestamp (UTC), user_id, first_name, username
     """
-    worksheet.append_row(data)
+    timestamp = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+    row = [timestamp, user_id, first_name, username]
+    worksheet.append_row(row)
+
+from datetime import datetime
+
+def log_user(user_id, first_name=None, username=None):
+    try:
+        timestamp = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+        row = [timestamp, user_id, first_name, username]
+        worksheet.append_row(row)
+    except Exception as e:
+        print(f"[Google Sheets] Error logging user: {e}")
