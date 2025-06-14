@@ -13,7 +13,7 @@ load_dotenv()
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
-ADMIN_ID = 7851863021
+ADMIN_ID = 7906225936
 BANNER_URL = "https://imgur.com/a/s3sS1Ld"
 WEBHOOK_URL_BASE = "https://telegram-premium-bot-qgqy.onrender.com"  # Your domain
 
@@ -21,18 +21,15 @@ WEBHOOK_URL_BASE = "https://telegram-premium-bot-qgqy.onrender.com"  # Your doma
 
 def build_membership_message() -> str:
     return (
-        "🚀 *Welcome to Solana100xcall Premium Bot* 🚀\n\n"
-        "💡 Solana’s smartest wallets. Tracked by AI. Calls Delivered in real time.\n\n"
-        "⚡️ 30+ sniper-grade alerts daily\n"
-        "📋 Tap-to-copy contracts — no fumbling\n"
-        "💰 Find early low-cap plays before CT does\n"
-        "🐋 Whale wallet tracking with AI-powered filters\n\n"
-        "🔓 Choose your membership below and plug into real-time smart money flow.\n\n"
-        "💬 Questions? DM [@The100xMooncaller](https://t.me/The100xMooncaller)\n"
-        "📈 Track record: t.me/solana100xcall/4046\n\n"
-        "🔒 Telegram access\n"
-        "Quantum AI Memecoin Alerts By Solana100xcall 🫡"
+        "👋 Welcome to Smart Wallets by Solana100xCall\n\n"
+        "💰 Get access to sniper, insider & whale wallets with *$1B+ in profits.*\n"
+        "🔗 Ready to import into *BullX, Axiom, Gmgn*\n"
+        "👀 Copy trade them with *BonkBot, PepeBoost, Trojan*\n"
+        "📈 Track them in *Cielo, Raybot, SpyBot*, and more.\n\n"
+        "⚠️ Plus: unlock *Premium Alerts* based on wallet inflows, memecoin momentum, and smart money signals.\n\n"
+        "👇 Tap /start to unlock the alpha & join the top Solana signals bot."
     )
+
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
