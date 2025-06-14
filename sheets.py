@@ -1,19 +1,12 @@
-import gspread
+import os
+import json
 from oauth2client.service_account import ServiceAccountCredentials
-from datetime import datetime
 
-# Define the scope and authorize client
-scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-creds = ServiceAccountCredentials.from_json_keyfile_name("service_account.json", scope)
-client = gspread.authorize(creds)
+scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 
-# Open the spreadsheet using the URL
-sheet = client.open_by_url("https://docs.google.com/spreadsheets/d/1-6k994osXh2vGO7DThlgRdsGtcchwTePoKqY_fGFxjc/edit#gid=0").sheet1
+json_str = os.getenv('GOOGLE_SERVICE_ACCOUNT_JSON')
+if not json_str:
+    raise Exception("Environment variable GOOGLE_SERVICE_ACCOUNT_JSON not set")
 
-def log_user(user_id, first_name, username, is_member=False):
-    joined_at = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
-    username = username or ""
-    is_member = "Yes" if is_member else "No"
-
-    data = [str(user_id), first_name, username, is_member, joined_at]
-    sheet.append_row(data)
+creds_dict = json.loads(json_str)
+creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
