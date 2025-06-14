@@ -52,15 +52,13 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
 
     message = (
-        "🚀 *Welcome to Solana100xcall Premium Bot* 🚀\n\n"
-        "💡 _Solana’s smartest wallets. Tracked by AI. Calls Delivered in real time._\n\n"
-        "⚡️ 30+ sniper-grade alerts daily\n"
-        "📋 Tap-to-copy contracts — no fumbling\n"
-        "💰 Find early low-cap plays before CT does\n"
-        "🐋 Whale wallet tracking with AI-powered filters\n\n"
-        "This isn't crowdsourced noise. It's real-time data from million-dollar wallets.\n\n"
-        "👇 Tap below to unlock the feed:"
-    )
+    "🚀 *Welcome to Solana100xcall Premium Bot* 🚀\n\n"
+    "We offer *2 elite tools* for Solana traders:\n\n"
+    "🧠 *Smart Wallets* — AI-tracked sniper, whale, and insider wallets\n"
+    "📈 *VIP Memecoin Signals* — Real-time alerts on premium meme plays\n\n"
+    "👇 Tap a button below to explore and unlock access:"
+)
+
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🚀 Get Premium Signals", url=MEMBERSHIP_LINK)],
