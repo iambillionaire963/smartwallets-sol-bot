@@ -92,14 +92,15 @@ async def subscribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("🚀 Get Premium Access", url=MEMBERSHIP_LINK)],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
-    await update.message.reply_text("🔥 Ready to unlock premium alerts?\n\nChoose your membership and activate full access now:", reply_markup=keyboard)
+    await update.message.reply_text("🔥 Unlock premium alerts and insider access!\n\nChoose your membership below to start receiving exclusive real-time signals and whale wallet alerts:
+", reply_markup=keyboard)
 
 async def join(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [[InlineKeyboardButton("📲 Join @Solana100xcall", url="https://t.me/Solana100xcall")]]
     await update.message.reply_text(
-        "📢 *Stay Ahead with Solana100xcall*\n\n"
-        "Before you unlock Premium, join our *FREE public channel* to see why thousands trust our alpha.\n\n"
-        "🔥 Live calls, charts, and sneak peeks into the exact kind of alerts our AI delivers to Premium members.\n\n"
+        "📢 *Stay ahead in Solana trading!*\n\n"
+        "Join our *FREE public channel* to see the milestones reached on premium calls, promos, and exclusive previews of the smart alerts our AI delivers to Premium members.\n\n"
+        "🔥 Thousands of traders already rely on this channel — tap below and join the community now:\n\n"
         "👇 Tap below to join the official channel:",
         parse_mode=constants.ParseMode.MARKDOWN,
         reply_markup=InlineKeyboardMarkup(keyboard),
@@ -134,14 +135,21 @@ async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
-        "🧠 *How It Works*\n"
-        "Our AI tracks real-time smart money on Solana — wallets making $100k+ each week...\n\n"
-        "❓ *Common Questions:*\n"
-        "• Is this manual? → No. It’s 100% AI-powered.\n"
-        "• Is this fast? → Yes. No delays. No crowdsourced nonsense.\n"
-        "• Do alerts come at night? → Most during US trading hours.\n\n"
-        "Need help? Message [@The100xMooncaller](https://t.me/The100xMooncaller)"
+        "🧠 How it works\n\n"
+        "Our AI monitors smart money wallets moving $100k+ weekly on Solana — delivering sniper-grade, real-time alerts with zero delays or noise.\n\n"
+        "❓ FAQs:\n"
+        "• Manual or automated? Fully AI-powered, no manual input.\n"
+        "• Speed? Instant alerts, no lag.\n"
+        "• Alert timing? Mostly during US market hours.\n\n"
+        "Need support? Reach out anytime: [@The100xMooncaller](https://t.me/The100xMooncaller)"
     )
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("🚀 Get Premium Access", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
+    ])
+    msg = update.message or update.callback_query.message
+    await msg.reply_text(message, parse_mode=constants.ParseMode.MARKDOWN, reply_markup=keyboard, disable_web_page_preview=True)
+    
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🚀 Get Premium Access", url=MEMBERSHIP_LINK)],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
