@@ -92,8 +92,11 @@ async def subscribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("🚀 Get Premium Access", url=MEMBERSHIP_LINK)],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
-    await update.message.reply_text("🔥 Unlock premium alerts and insider access!\n\nChoose your membership below to start receiving exclusive real-time signals and whale wallet alerts:
-", reply_markup=keyboard)
+    await update.message.reply_text(
+        "🔥 Unlock premium alerts and insider access!\n\n"
+        "Choose your membership below to start receiving exclusive real-time signals and whale wallet alerts:",
+        reply_markup=keyboard
+    )
 
 async def join(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [[InlineKeyboardButton("📲 Join @Solana100xcall", url="https://t.me/Solana100xcall")]]
@@ -149,7 +152,7 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ])
     msg = update.message or update.callback_query.message
     await msg.reply_text(message, parse_mode=constants.ParseMode.MARKDOWN, reply_markup=keyboard, disable_web_page_preview=True)
-    
+
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🚀 Get Premium Access", url=MEMBERSHIP_LINK)],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
