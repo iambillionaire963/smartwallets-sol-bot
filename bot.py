@@ -84,8 +84,23 @@ async def buy(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("🚀 Get Premium Access", url=MEMBERSHIP_LINK)],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
-    msg = update.message or update.callback_query.message
-    await msg.reply_text("👉 To get started, click the button below, select your membership, and proceed to payment:", reply_markup=keyboard)
+    
+    text = (
+        "👉 To get started, click the button below, select your membership, and proceed to payment:"
+    )
+
+    if update.callback_query:
+        await update.callback_query.message.edit_text(
+            text,
+            reply_markup=keyboard,
+            parse_mode=constants.ParseMode.MARKDOWN
+        )
+    else:
+        await update.message.reply_text(
+            text,
+            reply_markup=keyboard,
+            parse_mode=constants.ParseMode.MARKDOWN
+        )
 
 async def subscribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
@@ -138,7 +153,7 @@ async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
-        "🧠 How it works\n\n"
+        "🧠 *How it works*\n\n"
         "Our AI monitors thousands of the smartest wallets on Solana — with a combined PnL of over **$1B+**. These wallets consistently lead the biggest memecoin runs before anyone else.\n\n"
         "We track their moves in real time and send you sniper-grade alerts with zero delays or noise.\n\n"
         "❓ FAQs:\n"
@@ -148,28 +163,46 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "Need support? Reach out anytime: [@The100xMooncaller](https://t.me/The100xMooncaller)"
     )
 
-    await update.message.reply_text(message, parse_mode=constants.ParseMode.MARKDOWN)
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🚀 Get Premium Access", url=MEMBERSHIP_LINK)],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
-    msg = update.message or update.callback_query.message
-    await msg.reply_text(message, parse_mode=constants.ParseMode.MARKDOWN, reply_markup=keyboard, disable_web_page_preview=True)
 
-    keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🚀 Get Premium Access", url=MEMBERSHIP_LINK)],
-        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
-    ])
-    msg = update.message or update.callback_query.message
-    await msg.reply_text(message, parse_mode=constants.ParseMode.MARKDOWN, reply_markup=keyboard, disable_web_page_preview=True)
+    if update.callback_query:
+        await update.callback_query.message.edit_text(
+            message,
+            parse_mode=constants.ParseMode.MARKDOWN,
+            reply_markup=keyboard,
+            disable_web_page_preview=True
+        )
+    else:
+        await update.message.reply_text(
+            message,
+            parse_mode=constants.ParseMode.MARKDOWN,
+            reply_markup=keyboard,
+            disable_web_page_preview=True
+        )
 
 async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("💬 Chat with Support", url="https://t.me/The100xMooncaller")],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
-    msg = update.message or update.callback_query.message
-    await msg.reply_text("🆘 *Support* 🆘\n\nReach out any time, we respond fast.", parse_mode=constants.ParseMode.MARKDOWN, reply_markup=keyboard)
+
+    text = "🆘 *Support* 🆘\n\nReach out any time, we respond fast."
+
+    if update.callback_query:
+        await update.callback_query.message.edit_text(
+            text,
+            reply_markup=keyboard,
+            parse_mode=constants.ParseMode.MARKDOWN
+        )
+    else:
+        await update.message.reply_text(
+            text,
+            reply_markup=keyboard,
+            parse_mode=constants.ParseMode.MARKDOWN
+        )
 
 async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
