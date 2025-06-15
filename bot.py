@@ -52,14 +52,13 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
 
     message = (
-    "🚀 *Welcome to Solana100xcall Premium Bot* 🚀\n\n"
-    "Unlock 2 elite tools trusted by top Solana traders:\n\n"
-    "🧠 *Smart Wallets* — Track 300+ sniper, whale & insider wallets with *$1M+ average PnL*. Copy their trades. Plug them into BonkBot, Trojan, BullX & more.\n\n"
-    "📈 *VIP Memecoin Signals* — Get real-time alerts on high-upside meme plays *before CT catches on*. AI-curated, wallet-verified.\n\n"
-    "💰 Join 3,000+ traders already winning with our tools.\n\n"
-    "👇 Tap below to explore:"
-)
-
+        "🚀 *Welcome to Solana100xcall Premium Bot* 🚀\n\n"
+        "Unlock 2 elite tools trusted by top Solana traders:\n\n"
+        "🧠 *Smart Wallets* — Track 300+ sniper, whale & insider wallets with *$1M+ average PnL*. Copy their trades. Plug them into BonkBot, Trojan, BullX & more.\n\n"
+        "📈 *VIP Memecoin Signals* — Get real-time alerts on high-upside meme plays *before CT catches on*. AI-curated, wallet-verified.\n\n"
+        "💰 Join 3,000+ traders already winning with our tools.\n\n"
+        "👇 Tap below to explore:"
+    )
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🚀 Get Premium Signals", url=MEMBERSHIP_LINK)],
@@ -84,10 +83,8 @@ async def buy(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("🚀 Get Premium Access", url=MEMBERSHIP_LINK)],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
-    
-    text = (
-        "👉 To get started, click the button below, select your membership, and proceed to payment:"
-    )
+
+    text = "👉 To get started, click the button below, select your membership, and proceed to payment:"
 
     if update.callback_query:
         await update.callback_query.message.edit_text(
@@ -102,54 +99,26 @@ async def buy(update: Update, context: ContextTypes.DEFAULT_TYPE):
             parse_mode=constants.ParseMode.MARKDOWN
         )
 
-async def subscribe(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🚀 Get Premium Access", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("💬 Chat with Support", url="https://t.me/The100xMooncaller")],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
-    await update.message.reply_text(
-        "🔥 Unlock premium alerts and insider access!\n\n"
-        "Choose your membership below to start receiving exclusive real-time signals and whale wallet alerts:",
-        reply_markup=keyboard
-    )
 
-async def join(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    keyboard = [[InlineKeyboardButton("📲 Join @Solana100xcall", url="https://t.me/Solana100xcall")]]
-    await update.message.reply_text(
-        "📢 *Stay ahead in Solana trading!*\n\n"
-        "Join our *FREE public channel* to see the milestones reached on premium calls, promos, and exclusive previews of the smart alerts our AI delivers to Premium members.\n\n"
-        "🔥 Thousands of traders already rely on this channel — tap below and join the community now:\n\n"
-        "👇 Tap below to join the official channel:",
-        parse_mode=constants.ParseMode.MARKDOWN,
-        reply_markup=InlineKeyboardMarkup(keyboard),
-        disable_web_page_preview=True
-    )
+    text = "🆘 *Support* 🆘\n\nReach out any time, we respond fast."
 
-async def status(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("Use /buy to view membership options.")
-
-async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if update.effective_user.id != ADMIN_ID:
-        await update.message.reply_text("❌ You are not authorized to use this command.")
-        return
-
-    if not context.args:
-        await update.message.reply_text("⚠️ Please provide a message to broadcast. Usage: /broadcast Your message here")
-        return
-
-    message = " ".join(context.args)
-    user_ids = []  # You must fill this list with your users from your DB or sheet
-
-    count = 0
-    for user_id in user_ids:
-        try:
-            await context.bot.send_chat_action(chat_id=user_id, action="typing")
-            await context.bot.send_message(chat_id=user_id, text=message)
-            count += 1
-        except Exception as e:
-            logging.warning(f"Failed to send to {user_id}: {e}")
-
-    await update.message.reply_text(f"✅ Broadcast sent to {count} users.")
+    if update.callback_query:
+        await update.callback_query.message.edit_text(
+            text,
+            reply_markup=keyboard,
+            parse_mode=constants.ParseMode.MARKDOWN
+        )
+    else:
+        await update.message.reply_text(
+            text,
+            reply_markup=keyboard,
+            parse_mode=constants.ParseMode.MARKDOWN
+        )
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
@@ -183,27 +152,6 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
             disable_web_page_preview=True
         )
 
-async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("💬 Chat with Support", url="https://t.me/The100xMooncaller")],
-        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
-    ])
-
-    text = "🆘 *Support* 🆘\n\nReach out any time, we respond fast."
-
-    if update.callback_query:
-        await update.callback_query.message.edit_text(
-            text,
-            reply_markup=keyboard,
-            parse_mode=constants.ParseMode.MARKDOWN
-        )
-    else:
-        await update.message.reply_text(
-            text,
-            reply_markup=keyboard,
-            parse_mode=constants.ParseMode.MARKDOWN
-        )
-
 async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
@@ -217,8 +165,20 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif query.data == "go_home":
         await start(update, context)
 
-# -------- Main --------
+# -------- Main Entry Point --------
 
 def main():
     logging.basicConfig(level=logging.INFO)
-    application = Application
+    application = Application.builder().token(BOT_TOKEN).build()
+
+    application.add_handler(CommandHandler("start", start))
+    application.add_handler(CommandHandler("help", help_command))
+    application.add_handler(CommandHandler("buy", buy))
+    application.add_handler(CommandHandler("support", support))
+    application.add_handler(CallbackQueryHandler(button_handler))
+
+    logging.info("Bot is running...")
+    application.run_polling()
+
+if __name__ == "__main__":
+    main()
