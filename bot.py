@@ -53,15 +53,17 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     message = (
     "🚀 *Welcome to Solana100xcall Premium Bot* 🚀\n\n"
-    "We offer *2 elite tools* for Solana traders:\n\n"
-    "🧠 *Smart Wallets* — AI-tracked sniper, whale, and insider wallets\n"
-    "📈 *VIP Memecoin Signals* — Real-time alerts on premium meme plays\n\n"
-    "👇 Tap a button below to explore and unlock access:"
+    "Unlock 2 elite tools trusted by top Solana traders:\n\n"
+    "🧠 *Smart Wallets* — Track 300+ sniper, whale & insider wallets with *$1M+ average PnL*. Copy their trades. Plug them into BonkBot, Trojan, BullX & more.\n\n"
+    "📈 *VIP Memecoin Signals* — Get real-time alerts on high-upside meme plays *before CT catches on*. AI-curated, wallet-verified.\n\n"
+    "💰 Join 3,000+ traders already winning with our tools.\n\n"
+    "👇 Tap below to explore:"
 )
 
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🚀 Get Premium Signals", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("🧠 Smart Wallets Access", url="https://whop.com/solana100xcall-smartwallets-300")],
         [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
         [InlineKeyboardButton("📈 Latest Top Calls", url="https://t.me/Solana100xcall/4046")],
         [InlineKeyboardButton("📖 How It Works", callback_data="show_help")],
