@@ -137,16 +137,18 @@ async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(f"✅ Broadcast sent to {count} users.")
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-message = (
-    "🧠 How it works\n\n"
-    "Our AI monitors thousands of the smartest wallets on Solana — with a combined PnL of over **$1B+**. These wallets consistently lead the biggest memecoin runs before anyone else.\n\n"
-    "We track their moves in real time and send you sniper-grade alerts with zero delays or noise.\n\n"
-    "❓ FAQs:\n"
-    "• Manual or automated? → Fully AI-powered. No human input.\n"
-    "• Speed? → Instant alerts. No lag.\n"
-    "• Alert timing? → Mostly during US market hours.\n\n"
-    "Need support? Reach out anytime: [@The100xMooncaller](https://t.me/The100xMooncaller)"
-)
+    message = (
+        "🧠 How it works\n\n"
+        "Our AI monitors thousands of the smartest wallets on Solana — with a combined PnL of over **$1B+**. These wallets consistently lead the biggest memecoin runs before anyone else.\n\n"
+        "We track their moves in real time and send you sniper-grade alerts with zero delays or noise.\n\n"
+        "❓ FAQs:\n"
+        "• Manual or automated? → Fully AI-powered. No human input.\n"
+        "• Speed? → Instant alerts. No lag.\n"
+        "• Alert timing? → Mostly during US market hours.\n\n"
+        "Need support? Reach out anytime: [@The100xMooncaller](https://t.me/The100xMooncaller)"
+    )
+
+    await update.message.reply_text(message, parse_mode=constants.ParseMode.MARKDOWN)
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🚀 Get Premium Access", url=MEMBERSHIP_LINK)],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
