@@ -66,8 +66,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("🧠 Smart Wallets Access", url="https://whop.com/solana100xcall-smartwallets-300")],
         [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
         [InlineKeyboardButton("📈 Latest Top Calls", url="https://t.me/Solana100xcall/4046")],
-        [InlineKeyboardButton("📖 How It Works", callback_data="show_help")],
-        [InlineKeyboardButton("💳 Buy Membership", callback_data="show_buy")],
+        [InlineKeyboardButton("📖 How Signals Work", callback_data="show_help")],
+        [InlineKeyboardButton("💳 Get VIP Membership", callback_data="show_buy")],
         [InlineKeyboardButton("💬 Contact Support", callback_data="show_support")]
     ])
 
@@ -137,15 +137,16 @@ async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(f"✅ Broadcast sent to {count} users.")
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    message = (
-        "🧠 How it works\n\n"
-        "Our AI monitors smart money wallets moving $100k+ weekly on Solana — delivering sniper-grade, real-time alerts with zero delays or noise.\n\n"
-        "❓ FAQs:\n"
-        "• Manual or automated? Fully AI-powered, no manual input.\n"
-        "• Speed? Instant alerts, no lag.\n"
-        "• Alert timing? Mostly during US market hours.\n\n"
-        "Need support? Reach out anytime: [@The100xMooncaller](https://t.me/The100xMooncaller)"
-    )
+message = (
+    "🧠 How it works\n\n"
+    "Our AI monitors thousands of the smartest wallets on Solana — with a combined PnL of over **$1B+**. These wallets consistently lead the biggest memecoin runs before anyone else.\n\n"
+    "We track their moves in real time and send you sniper-grade alerts with zero delays or noise.\n\n"
+    "❓ FAQs:\n"
+    "• Manual or automated? → Fully AI-powered. No human input.\n"
+    "• Speed? → Instant alerts. No lag.\n"
+    "• Alert timing? → Mostly during US market hours.\n\n"
+    "Need support? Reach out anytime: [@The100xMooncaller](https://t.me/The100xMooncaller)"
+)
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🚀 Get Premium Access", url=MEMBERSHIP_LINK)],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
