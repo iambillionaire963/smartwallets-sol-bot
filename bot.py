@@ -52,13 +52,14 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
 
     message = (
-        "🚀 *Welcome to Solana100xcall Premium Bot* 🚀\n\n"
-        "Unlock 2 elite tools trusted by top Solana traders:\n\n"
-        "🧠 *Smart Wallets* — Track 300+ sniper, whale & insider wallets with *$1M+ average PnL*. Copy their trades. Plug them into BonkBot, Trojan, BullX & more.\n\n"
-        "📈 *VIP Memecoin Signals* — Get real-time alerts on high-upside meme plays *before CT catches on*. AI-curated, wallet-verified.\n\n"
-        "💰 Join 3,000+ traders already winning with our tools.\n\n"
-        "👇 Tap below to explore:"
-    )
+    "🔥 *Welcome to Quantum AI Memecoin Alerts by Solana100xcall* 🔥\n\n"
+    "🧠 Our AI tracks thousands of wallets with *$1B+ in profits* to detect real-time memecoin momentum, sniper entries, and smart money buys before CT sees them.\n\n"
+    "💸 Use our alerts with BonkBot, Trojan, PepeBoost, and *any Telegram trading bot*.\n\n"
+    "✅ Trusted by *3,000+ traders* with over 12 months of proven results.\n\n"
+    "⚙️ Want to run your own smart money terminal?\n"
+    "Tap *Smart Wallets Access* to unlock the top 300 wallets with $1M+ PnL, ready to plug into BullX, Gmgn, and Axiom.\n\n"
+    "👇 Choose your weapon below and start printing:"
+)
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🚀 Get Premium Signals", url=MEMBERSHIP_LINK)],
