@@ -52,7 +52,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
 
     message = (
-    "🔥 *Welcome to Quantum AI Memecoin Alerts by Solana100xcall* 🔥\n\n"
+    "🔥 *Welcome to Solana100xcall Premium Bot* 🔥\n\n"
     "🧠 Our AI tracks thousands of wallets with *$1B+ in profits* to detect real-time memecoin momentum, sniper entries, and smart money buys before CT sees them.\n\n"
     "💸 Use our alerts with BonkBot, Trojan, PepeBoost, and *any Telegram trading bot*.\n\n"
     "✅ Trusted by *3,000+ traders* with over 12 months of proven results.\n\n"
@@ -62,14 +62,14 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 )
 
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🚀 Get Premium Signals", url=MEMBERSHIP_LINK)],
-        [InlineKeyboardButton("🧠 Smart Wallets Access", url="https://whop.com/solana100xcall-smartwallets-300")],
-        [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
-        [InlineKeyboardButton("📈 Latest Top Calls", url="https://t.me/Solana100xcall/4046")],
-        [InlineKeyboardButton("📖 How Signals Work", callback_data="show_help")],
-        [InlineKeyboardButton("💳 Get VIP Membership", callback_data="show_buy")],
-        [InlineKeyboardButton("💬 Contact Support", callback_data="show_support")]
-    ])
+    [InlineKeyboardButton("🚀 Get Premium Signals", url=MEMBERSHIP_LINK)],
+    [InlineKeyboardButton("🧠 Smart Wallets Access", url="https://whop.com/solana100xcall-smartwallets-300")],
+    [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
+    [InlineKeyboardButton("📈 Latest Top Calls", url="https://t.me/Solana100xcall/4046")],
+    [InlineKeyboardButton("📖 How Signals Work", callback_data="show_help")],
+    [InlineKeyboardButton("💳 Pay VIP with Card", callback_data="show_card")],
+    [InlineKeyboardButton("💬 Contact Support", callback_data="show_support")]
+])
 
     await context.bot.send_message(
         chat_id=user.id,
@@ -81,9 +81,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def buy(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🚀 Get Premium Access", url=MEMBERSHIP_LINK)],
-        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
-    ])
+    [InlineKeyboardButton("💳 Pay with Card via WHOP", url="https://whop.com/solana100xcall-alpha")],
+    [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
+])
 
     text = "👉 To get started, click the button below, select your membership, and proceed to payment:"
 
@@ -153,6 +153,31 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
             disable_web_page_preview=True
         )
 
+# ----- New function added here -----
+async def show_card(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("💳 Pay with Card via WHOP", url="https://whop.com/solana100xcall-alpha")],
+        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
+    ])
+
+    text = (
+        "💳 *Prefer to pay by card?*\n\n"
+        "Click the button below to securely pay for your VIP membership with your card via WHOP."
+    )
+
+    if update.callback_query:
+        await update.callback_query.message.edit_text(
+            text,
+            reply_markup=keyboard,
+            parse_mode=constants.ParseMode.MARKDOWN
+        )
+    else:
+        await update.message.reply_text(
+            text,
+            reply_markup=keyboard,
+            parse_mode=constants.ParseMode.MARKDOWN
+        )
+
 async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
@@ -165,6 +190,8 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await support(update, context)
     elif query.data == "go_home":
         await start(update, context)
+    elif query.data == "show_card":
+        await show_card(update, context)
 
 # -------- Main Entry Point --------
 
