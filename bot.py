@@ -52,24 +52,24 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
 
     message = (
-    "🔒 *Premium Access Includes:*\n\n"
-    "✅ *30+ high-quality signals per day* — running 24/7\n"
-    "✅ *Instant alerts* with full info + *Tap-To-Copy* contract address\n"
-    "✅ *AI-driven* — no crowdsourcing, no delay, no fluff\n"
-    "✅ *Private access to me* — ask questions, get strategy tips, or help understanding the alerts\n\n"
-    "👇🏼 *Choose your access below and start catching the next 10x plays:*"
-)
-
+        "🔒 *Premium Access Includes:*\n\n"
+        "✅ *30+ high-quality signals per day* — running 24/7\n"
+        "✅ *Instant alerts* with full info + *Tap-To-Copy* contract address\n"
+        "✅ *AI-driven* — no crowdsourcing, no delay, no fluff\n"
+        "✅ *Private access to me* — ask questions, get strategy tips, or help understanding the alerts\n\n"
+        "👇🏼 *Choose your access below and start catching the next 10x plays:*"
+    )
 
     keyboard = InlineKeyboardMarkup([
-    [InlineKeyboardButton("🚀 Get Premium Signals", url=MEMBERSHIP_LINK)],
-    [InlineKeyboardButton("🧠 Smart Wallets Access", url="https://whop.com/solana100xcall-smartwallets-300")],
-    [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
-    [InlineKeyboardButton("📈 Latest Top Calls", url="https://t.me/Solana100xcall/4046")],
-    [InlineKeyboardButton("📖 How Signals Work", callback_data="show_help")],
-    [InlineKeyboardButton("💳 Pay VIP with Card", callback_data="show_card")],
-    [InlineKeyboardButton("💬 Contact Support", callback_data="show_support")]
-])
+        [InlineKeyboardButton("🚀 Get Premium Signals", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("🧠 Smart Wallets Access", url="https://whop.com/solana100xcall-smartwallets-300")],
+        [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
+        [InlineKeyboardButton("📈 Latest Top Calls", url="https://t.me/Solana100xcall/4046")],
+        [InlineKeyboardButton("📖 How Signals Work", callback_data="show_help")],
+        [InlineKeyboardButton("💳 Pay VIP with Card", callback_data="show_card")],
+        [InlineKeyboardButton("👑 Pro Trader Mode", callback_data="show_pro_mode")],
+        [InlineKeyboardButton("💬 Contact Support", callback_data="show_support")]
+    ])
 
     await context.bot.send_message(
         chat_id=user.id,
@@ -81,9 +81,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def buy(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
-    [InlineKeyboardButton("💳 Pay with Card via WHOP", url="https://whop.com/solana100xcall-alpha")],
-    [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
-])
+        [InlineKeyboardButton("💳 Pay with Card via WHOP", url="https://whop.com/solana100xcall-alpha")],
+        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
+    ])
 
     text = "👉 To get started, click the button below, select your membership, and proceed to payment:"
 
@@ -153,7 +153,8 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
             disable_web_page_preview=True
         )
 
-# ----- New function added here -----
+# ----- New functions added here -----
+
 async def show_card(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("💳 Pay with Card via WHOP", url="https://whop.com/solana100xcall-alpha")],
@@ -178,6 +179,28 @@ async def show_card(update: Update, context: ContextTypes.DEFAULT_TYPE):
             parse_mode=constants.ParseMode.MARKDOWN
         )
 
+async def show_pro_mode(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("💸 Pay with Crypto", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("💳 Pay with Card", url="https://whop.com/solana100xcall-smartwallets-300")],
+        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
+    ])
+
+    text = (
+        "👑 *Want Even More Edge?*\n\n"
+        "Unlock *300+ elite wallets* used by top traders 🧠\n\n"
+        "📥 Import them into *BullX, Axiom, Gmgn*, or any wallet tracker.\n"
+        "🔍 Track smart money in real time and see what whales are buying before the crowd.\n\n"
+        "👇 Choose your access method:"
+    )
+
+    if update.callback_query:
+        await update.callback_query.message.edit_text(
+            text,
+            reply_markup=keyboard,
+            parse_mode=constants.ParseMode.MARKDOWN
+        )
+
 async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
@@ -192,6 +215,8 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await start(update, context)
     elif query.data == "show_card":
         await show_card(update, context)
+    elif query.data == "show_pro_mode":
+        await show_pro_mode(update, context)
 
 # -------- Main Entry Point --------
 
