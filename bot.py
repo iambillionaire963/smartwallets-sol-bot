@@ -38,14 +38,14 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
     "*Welcome to Solana100xcall Premium Bot* 🚀\n"
     "Get AI-powered sniper signals based on real-time smart money activity and on-chain data.\n\n"
-    "⚡️ *30+ daily alerts* with token info & copy-ready contracts\n"
-    "🤖 Tracks *1,000+ top wallets* with $1B+ PnL\n"
-    "📈 *100x+ calls* posted on our main channel — full transparency\n"
-    "🔗 Quick links to charts, bots, and trading tools\n\n"
+    "⚡️ *30+ instant alerts daily* with token metrics & tap-to-copy CA\n"
+    "🔗 Quick access to charts, bots, and trading tools\n"
+    "🤖 Our bot Tracks *1,000+ elite wallets* with $1B+ total PnL\n"
+    "📈 Multiple *100x+ calls posted in our main channel Solana100xcall*\n\n"
     "🎁 *Membership Bonuses:*\n"
-    "• *Monthly:* Unlimited VIP signals + 100 wallets ($1M+ PnL), tagged & ready for *Axiom, BullX, Gmgn*, or any DEX\n"
-    "• *Lifetime:* Full VIP access + 300 wallets for total smart money tracking across all platforms\n\n"
-    "👇 Choose your plan and catch the next 10x"
+    "• *Monthly:* 100 top wallets ($1M+ PnL), tagged & ready to import into *Axiom, BullX, Gmgn*, or any DEX\n"
+    "• *Lifetime:* 300 pro wallets for full smart money visibility & long-term edge\n\n"
+    "👇 Choose your plan and catch the next 100x"
 )
 
     keyboard = InlineKeyboardMarkup([
