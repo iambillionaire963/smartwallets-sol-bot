@@ -135,14 +135,12 @@ async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
-        "📲 Join the FREE main channel:
-https://t.me/Solana100xcall"
+        "📲 Join the FREE main channel: https://t.me/Solana100xcall"
     )
 
 async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
-        "🚀 Choose your VIP membership:
-" + MEMBERSHIP_LINK
+        "🚀 Choose your VIP membership:\n" + MEMBERSHIP_LINK
     )
 
 async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
