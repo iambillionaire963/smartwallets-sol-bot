@@ -14,7 +14,7 @@ load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
 ADMIN_ID = 7906225936
-BANNER_URL = "https://i.imgur.com/your-banner.jpg"  # Replace with direct image link
+BANNER_URL = "https://imgur.com/a/LAr8QFT"  # Replace with direct image link
 
 # -------- Handlers --------
 
