@@ -36,15 +36,16 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
 
     message = (
-    "*Welcome to Solana100xcall Premium Bot* 🚀\n"
+    "**Welcome to Solana100xcall Premium Bot** 🚀\n"
     "Get AI-powered sniper signals based on real-time smart money activity and on-chain data.\n\n"
-    "⚡️ *30+ instant alerts daily* with full token info & tap-to-copy CA\n"
-    "🤖 Tracks 1,000+ top wallets with $1B+ combined PnL\n"
-    "📈 Multiple 100x+ calls, shared with full transparency\n"
-    "🔗 Fast access to charts, trading bots, and tools\n\n"
-    "🎁 *Bonuses:*\n"
-    "Monthly = 100 elite wallets · Lifetime = 300 wallets for BullX, Axiom, Gmgn, and more\n\n"
-    "👇 Choose your plan and start catching the next 10x:"
+    "⚡️ **30+ instant alerts daily** with full token info & tap-to-copy CA\n"
+    "🔗 Fast access to charts, trading bots, and tools\n"
+    "🤖 Our bot tracks **1,000+ top wallets** with $1B+ combined PnL\n"
+    "📈 Multiple **100x+ calls published on our main channel Solana100xcall** — full transparency\n\n"
+    "🎁 **Bonuses:**\n"
+    "**Monthly** = 100 elite wallets with tags, emojis, ready to import into **Axiom, BullX, Gmgn**, and any other DEX with wallet tracking\n"
+    "**Lifetime** = 300 elite wallets, same ready-to-import benefits\n\n"
+    "👇 Choose your plan and start catching the next 10x"
 )
 
     keyboard = InlineKeyboardMarkup([
@@ -193,6 +194,8 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # -------- Main --------
 
+import asyncio
+
 def main():
     logging.basicConfig(level=logging.INFO)
     application = Application.builder().token(BOT_TOKEN).build()
@@ -203,8 +206,13 @@ def main():
     application.add_handler(CommandHandler("subscribe", subscribe_command))
     application.add_handler(CallbackQueryHandler(button_handler))
 
-    logging.info("Bot is running...")
-    application.run_polling()
+    async def runner():
+        # Delete any existing webhook to avoid conflict
+        await application.bot.delete_webhook()
+        logging.info("Webhook deleted, starting polling...")
+        await application.run_polling()
+
+    asyncio.run(runner())
 
 if __name__ == "__main__":
     main()
