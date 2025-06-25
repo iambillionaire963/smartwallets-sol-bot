@@ -36,14 +36,16 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
 
     message = (
-        "🔒 *Premium Membership Includes:*\n\n"
-        "✅ *30+ sniper-grade signals daily* — AI-powered, 24/7\n"
-        "✅ *Instant alerts* with full info + Tap-to-Copy CA\n"
-        "✅ *Private access to @The100xMooncaller* — Solana’s top memecoin trader\n\n"
-        "🎁 *BONUS with Monthly Membership:* 100 elite wallets (PnL $1M+)\n"
-        "🎁 *BONUS with Lifetime Membership:* 300+ elite wallets ready for BullX, Axiom, Gmgn, or any tracker\n\n"
-        "👇 Choose your membership and start catching 10x plays:"
-    )
+    "*Welcome to Solana100xcall Premium Bot* 🚀\n"
+    "Unlock AI-powered memecoin sniper signals driven by real-time on-chain data and smart money tracking.\n\n"
+    "⚡️ *30+ ultra-fast daily alerts* with instant token metrics & tap-to-copy contract addresses\n"
+    "🤖 Powered by AI analyzing 1,000+ elite wallets with $1B+ combined PnL\n"
+    "📈 Proven high-ROI calls with multiple 100x+ wins verified publicly\n"
+    "🔗 Quick links to charts, trading bots, and tools to trade faster\n\n"
+    "🎁 *Membership Bonuses:*\n"
+    "Monthly members get 100+ elite wallets, Lifetime unlocks 300+ wallets ready for BullX, Axiom, Gmgn, or any tracker.\n\n"
+    "👇 Choose your membership and start catching the next 10x plays!"
+)
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🚀 Get VIP Signals", url=MEMBERSHIP_LINK)],
