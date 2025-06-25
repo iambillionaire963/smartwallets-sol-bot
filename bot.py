@@ -173,7 +173,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await query.answer()
 
     if query.data == "show_howsignals":
-        await show_howsignals(update, context)
+        await how_signals_work(update, context)
     elif query.data == "show_card":
         await show_card(update, context)
     elif query.data == "show_pro":
