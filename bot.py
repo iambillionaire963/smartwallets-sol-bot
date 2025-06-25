@@ -36,24 +36,24 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
 
     message = (
-    "🔒 *Premium Access Includes:*\n\n"
-    "✅ *30+ high-quality signals per day* — running 24/7\n"
-    "✅ *Instant alerts* with full info + *Tap-To-Copy* contract address\n"
-    "✅ *AI-driven* — no crowdsourcing, no delay, no fluff\n"
-    "✅ *Private access to The100xMooncaller* — legendary Solana memecoins trader and founder of @Solana100xcall\n\n"
-    "🎁 *Membership Bonuses:*\n"
-    "🔹 Monthly: Access to 50+ smart wallets as a bonus\n"
-    "🔹 Lifetime: Unlock 300+ elite smart wallets for maximum edge\n\n"
-    "👇🏼 *Choose your access below and start catching the next 10x plays:*"
+    "🔒 *Premium Membership Options:*\n\n"
+    "✅ *30+ sniper-grade signals daily* — AI-powered, 24/7\n"
+    "✅ *Instant alerts* with tap-to-copy contract address\n"
+    "✅ *Smart wallet bonuses included:*\n"
+    "   • *100 elite wallets* with Monthly Access\n"
+    "   • *300+ elite wallets* with Alpha (Lifetime Membership\n"
+    "✅ *Import wallets to BullX, Axiom, Gmgn — or track in sniper bots*\n"
+    "✅ *Private support from @The100xMooncaller*\n"
+    "✅ *Lifetime updates to tools, wallet trackers & future alpha*\n\n"
+    "👇 *Choose your plan and start catching 10x plays before the crowd:*"
 )
 
     keyboard = InlineKeyboardMarkup([
-    [InlineKeyboardButton("🚀 Get Premium Signals", url=MEMBERSHIP_LINK)],
-    [InlineKeyboardButton("👑 Pro Trader Mode", callback_data="show_pro")],
+    [InlineKeyboardButton("🚀 Get VIP Signals", url="https://whop.com/solana100xcall-alpha")],
+    [InlineKeyboardButton("💳 Pay VIP with Card", callback_data="show_card")],
     [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
     [InlineKeyboardButton("📈 Latest Top Calls", url="https://t.me/Solana100xcall/4046")],
     [InlineKeyboardButton("📖 How Signals Work", callback_data="show_help")],
-    [InlineKeyboardButton("💳 Pay VIP with Card", callback_data="show_card")],
     [InlineKeyboardButton("💬 Contact Support", callback_data="show_support")]
 ])
 
@@ -72,11 +72,12 @@ async def show_card(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ])
 
     text = (
-        "💳 *Prefer to pay by card?*\n\n"
-        "You can instantly unlock VIP Memecoin Signals via *WHOP* — our official payment partner.\n"
-        "Fast, secure, and no Telegram setup required.\n\n"
-        "👇 Tap below to choose your plan:"
-    )
+    "💳 *Prefer to pay by card?*\n\n"
+    "You can unlock VIP Memecoin Signals via *WHOP* — our secure payment partner.\n\n"
+    "🏆 *Monthly Membership:* 100+ elite wallets + 30+ daily AI signals\n"
+    "👑 *Alpha (1-Year) Membership:* 300+ wallets, lifetime tools & support\n\n"
+    "👇 Choose your plan and start printing:"
+)
 
     await update.callback_query.message.edit_text(
         text, reply_markup=keyboard, parse_mode=constants.ParseMode.MARKDOWN
