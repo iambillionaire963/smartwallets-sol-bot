@@ -194,8 +194,6 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # -------- Main --------
 
-import asyncio
-
 def main():
     logging.basicConfig(level=logging.INFO)
     application = Application.builder().token(BOT_TOKEN).build()
@@ -206,13 +204,8 @@ def main():
     application.add_handler(CommandHandler("subscribe", subscribe_command))
     application.add_handler(CallbackQueryHandler(button_handler))
 
-    async def runner():
-        # Delete any existing webhook to avoid conflict
-        await application.bot.delete_webhook()
-        logging.info("Webhook deleted, starting polling...")
-        await application.run_polling()
-
-    asyncio.run(runner())
+    logging.info("Bot is running...")
+    application.run_polling()
 
 if __name__ == "__main__":
     main()
