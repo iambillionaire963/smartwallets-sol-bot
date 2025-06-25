@@ -29,23 +29,23 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     logging.info(f"[START] User {user.id} (@{user.username}) joined with payload: {payload}")
 
     await context.bot.send_message(chat_id=ADMIN_ID, text=(
-        f"{user.first_name}🪐 (@{user.username}) (#u{user.id}) has just launched this bot for the first time.\n\n"
+        f"{user.first_name}🎐 (@{user.username}) (#u{user.id}) has just launched this bot for the first time.\n\n"
         "You can send a private message to this member by replying to this message."
     ))
 
     await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
 
     message = (
-    "*Welcome to Solana100xcall Premium Bot* 🚀\n"
-    "Unlock AI-powered memecoin sniper signals driven by real-time on-chain data and smart money tracking.\n\n"
-    "⚡️ *30+ ultra-fast daily alerts* with instant token metrics & tap-to-copy contract addresses\n"
-    "🤖 Powered by AI analyzing 1,000+ elite wallets with $1B+ combined PnL\n"
-    "📈 Proven high-ROI calls with multiple 100x+ wins verified publicly\n"
-    "🔗 Quick links to charts, trading bots, and tools to trade faster\n\n"
-    "🎁 *Membership Bonuses:*\n"
-    "Monthly members get 100+ elite wallets, Lifetime unlocks 300+ wallets ready for BullX, Axiom, Gmgn, or any tracker.\n\n"
-    "👇 Choose your membership and start catching the next 10x plays!"
-)
+        "*Welcome to Solana100xcall Premium Bot* 🚀\n"
+        "Unlock AI-powered memecoin sniper signals driven by real-time on-chain data and smart money tracking.\n\n"
+        "⚡️ *30+ ultra-fast daily alerts* with instant token metrics & tap-to-copy contract addresses\n"
+        "🤖 Powered by AI analyzing 1,000+ elite wallets with $1B+ combined PnL\n"
+        "📈 Proven high-ROI calls with multiple 100x+ wins verified publicly\n"
+        "🔗 Quick links to charts, trading bots, and tools to trade faster\n\n"
+        "🏱 *Membership Bonuses:*\n"
+        "Monthly members get 100+ elite wallets, Lifetime unlocks 300+ wallets ready for BullX, Axiom, Gmgn, or any tracker.\n\n"
+        "👇 Choose your membership and start catching the next 10x plays!"
+    )
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🚀 Get VIP Signals", url=MEMBERSHIP_LINK)],
@@ -101,29 +101,7 @@ async def show_pro(update: Update, context: ContextTypes.DEFAULT_TYPE):
         text, reply_markup=keyboard, parse_mode=constants.ParseMode.MARKDOWN
     )
 
-async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    message = (
-        "🧠 *How Signals Work*\n\n"
-        "Our AI scans 1,000+ top Solana wallets with a combined PnL of $1B+.\n"
-        "It detects early memecoin buys, trends, and inflows from smart money.\n\n"
-        "You get sniper-grade alerts the moment smart wallets ape in — no delay, no fluff.\n\n"
-        "✅ Fully automated\n"
-        "⚡️ Real-time alerts\n"
-        "🌎 24/7 global monitoring\n\n"
-        "Need help? Message [@The100xMooncaller](https://t.me/The100xMooncaller)"
-    )
-
-    keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
-    ])
-
-    await update.callback_query.message.edit_text(
-        message,
-        reply_markup=keyboard,
-        parse_mode=constants.ParseMode.MARKDOWN,
-        disable_web_page_preview=True
-    )
-    async def how_signals_work(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def show_howsignals(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
         "🧠 *How Signals Work*\n\n"
         "Our AI scans 1,000+ top Solana wallets with a combined PnL of $1B+.\n"
@@ -153,7 +131,7 @@ async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ])
 
     await update.callback_query.message.edit_text(
-        "🆘 *Support* 🆘\n\nReach out any time, we respond fast.",
+        "🚘 *Support* 🚘\n\nReach out any time, we respond fast.",
         reply_markup=keyboard,
         parse_mode=constants.ParseMode.MARKDOWN
     )
@@ -168,12 +146,17 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🚀 Choose your VIP membership:\n" + MEMBERSHIP_LINK
     )
 
+async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "Need help? Message @The100xMooncaller"
+    )
+
 async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
     if query.data == "show_howsignals":
-        await how_signals_work(update, context)
+        await show_howsignals(update, context)
     elif query.data == "show_card":
         await show_card(update, context)
     elif query.data == "show_pro":
