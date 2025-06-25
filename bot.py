@@ -36,16 +36,16 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
 
     message = (
-        "*Welcome to Solana100xcall Premium Bot* 🚀\n"
-        "Unlock AI-powered memecoin sniper signals driven by real-time on-chain data and smart money tracking.\n\n"
-        "⚡️ *30+ ultra-fast daily alerts* with instant token metrics & tap-to-copy contract addresses\n"
-        "🤖 Powered by AI analyzing 1,000+ elite wallets with $1B+ combined PnL\n"
-        "📈 Proven high-ROI calls with multiple 100x+ wins verified publicly\n"
-        "🔗 Quick links to charts, trading bots, and tools to trade faster\n\n"
-        "🏱 *Membership Bonuses:*\n"
-        "Monthly members get 100+ elite wallets, Lifetime unlocks 300+ wallets ready for BullX, Axiom, Gmgn, or any tracker.\n\n"
-        "👇 Choose your membership and start catching the next 10x plays!"
-    )
+    "*Welcome to Solana100xcall Premium Bot* 🚀\n"
+    "Get AI-powered sniper signals based on real-time smart money activity and on-chain data.\n\n"
+    "⚡️ *30+ instant alerts daily* with full token info & tap-to-copy CA\n"
+    "🤖 Tracks 1,000+ top wallets with $1B+ combined PnL\n"
+    "📈 Multiple 100x+ calls, shared with full transparency\n"
+    "🔗 Fast access to charts, trading bots, and tools\n\n"
+    "🎁 *Bonuses:*\n"
+    "Monthly = 100 elite wallets · Lifetime = 300 wallets for BullX, Axiom, Gmgn, and more\n\n"
+    "👇 Choose your plan and start catching the next 10x:"
+)
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🚀 Get VIP Signals", url=MEMBERSHIP_LINK)],
@@ -147,8 +147,27 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    message = (
+        "🆘 *Need Help?*\n\n"
+        "This bot delivers sniper-grade Solana memecoin signals based on:\n"
+        "• On-chain wallet tracking (1,000+ smart wallets)\n"
+        "• High-liquidity inflow detection\n"
+        "• AI-powered trade pattern analysis\n\n"
+        "You’ll receive:\n"
+        "✅ Instant alerts with token data & copy-ready CAs\n"
+        "✅ Membership bonuses: smart wallets for BullX, Axiom, Gmgn\n\n"
+        "📬 For support, message [@The100xMooncaller](https://t.me/The100xMooncaller)"
+    )
+
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
+    ])
+
     await update.message.reply_text(
-        "Need help? Message @The100xMooncaller"
+        message,
+        parse_mode=constants.ParseMode.MARKDOWN,
+        reply_markup=keyboard,
+        disable_web_page_preview=True
     )
 
 async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
