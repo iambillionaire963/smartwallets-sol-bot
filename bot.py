@@ -36,15 +36,15 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
 
     message = (
-    "**Welcome to Solana100xcall Premium Bot** 🚀\n"
+    "*Welcome to Solana100xcall Premium Bot* 🚀\n"
     "Get AI-powered sniper signals based on real-time smart money activity and on-chain data.\n\n"
-    "⚡️ **30+ instant alerts daily** with full token info & tap-to-copy CA\n"
+    "⚡️ *30+ instant alerts daily* with full token info & tap-to-copy CA\n"
     "🔗 Fast access to charts, trading bots, and tools\n"
-    "🤖 Our bot tracks **1,000+ top wallets** with $1B+ combined PnL\n"
-    "📈 Multiple **100x+ calls published on our main channel Solana100xcall** — full transparency\n\n"
-    "🎁 **Bonuses:**\n"
-    "**Monthly** = 100 elite wallets with tags, emojis, ready to import into **Axiom, BullX, Gmgn**, and any other DEX with wallet tracking\n"
-    "**Lifetime** = 300 elite wallets, same ready-to-import benefits\n\n"
+    "🤖 Our bot tracks *1,000+ top wallets* with $1B+ combined PnL\n"
+    "📈 Multiple *100x+ calls published on our main channel Solana100xcall* — full transparency\n\n"
+    "🎁 *Membership Bonuses:*\n"
+    "• *Monthly* members get access to 100 elite wallets — tagged, emoji-coded, and ready to import into *Axiom, BullX, Gmgn*, or any DEX with wallet tracking.\n"
+    "• *Lifetime* members unlock 300 elite wallets with the same ready-to-import features and lifetime access.\n\n"
     "👇 Choose your plan and start catching the next 10x"
 )
 
