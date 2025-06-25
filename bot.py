@@ -36,23 +36,26 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
 
     message = (
-        "🔒 *Premium Access Includes:*\n\n"
-        "✅ *30+ high-quality signals per day* — running 24/7\n"
-        "✅ *Instant alerts* with full info + *Tap-To-Copy* contract address\n"
-        "✅ *AI-driven* — no crowdsourcing, no delay, no fluff\n"
-        "✅ *Private access to The100xMooncaller* — legendary Solana memecoins trader and founder of @Solana100xcall\n\n"
-        "👇🏼 *Choose your access below and start catching the next 10x plays:*"
-    )
+    "🔒 *Premium Access Includes:*\n\n"
+    "✅ *30+ high-quality signals per day* — running 24/7\n"
+    "✅ *Instant alerts* with full info + *Tap-To-Copy* contract address\n"
+    "✅ *AI-driven* — no crowdsourcing, no delay, no fluff\n"
+    "✅ *Private access to The100xMooncaller* — legendary Solana memecoins trader and founder of @Solana100xcall\n\n"
+    "🎁 *Membership Bonuses:*\n"
+    "🔹 Monthly: Access to 50+ smart wallets as a bonus\n"
+    "🔹 Lifetime: Unlock 300+ elite smart wallets for maximum edge\n\n"
+    "👇🏼 *Choose your access below and start catching the next 10x plays:*"
+)
 
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🚀 Get Premium Signals", url=MEMBERSHIP_LINK)],
-        [InlineKeyboardButton("👑 Pro Trader Mode", callback_data="show_pro")],
-        [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
-        [InlineKeyboardButton("📈 Latest Top Calls", url="https://t.me/Solana100xcall/4046")],
-        [InlineKeyboardButton("📖 How Signals Work", callback_data="show_help")],
-        [InlineKeyboardButton("💳 Pay VIP with Card", callback_data="show_card")],
-        [InlineKeyboardButton("💬 Contact Support", callback_data="show_support")]
-    ])
+    [InlineKeyboardButton("🚀 Get Premium Signals", url=MEMBERSHIP_LINK)],
+    [InlineKeyboardButton("👑 Pro Trader Mode", callback_data="show_pro")],
+    [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
+    [InlineKeyboardButton("📈 Latest Top Calls", url="https://t.me/Solana100xcall/4046")],
+    [InlineKeyboardButton("📖 How Signals Work", callback_data="show_help")],
+    [InlineKeyboardButton("💳 Pay VIP with Card", callback_data="show_card")],
+    [InlineKeyboardButton("💬 Contact Support", callback_data="show_support")]
+])
 
     await context.bot.send_message(
         chat_id=user.id,
