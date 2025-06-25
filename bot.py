@@ -6,7 +6,7 @@ from telegram.ext import (
     Application, CommandHandler, CallbackQueryHandler, ContextTypes
 )
 
-from sheets import log_user  # Make sure this function exists in sheets.py
+from sheets import log_user
 
 # Load environment variables
 load_dotenv()
@@ -14,7 +14,7 @@ load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
 ADMIN_ID = 7906225936
-BANNER_URL = "https://imgur.com/a/LAr8QFT"  # Replace with direct image link
+BANNER_URL = "https://imgur.com/a/LAr8QFT"  # Confirmed correct
 
 # -------- Handlers --------
 
@@ -46,14 +46,14 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     keyboard = InlineKeyboardMarkup([
-    [InlineKeyboardButton("🚀 Get VIP Signals", url="https://whop.com/solana100xcall-alpha")],
-    [InlineKeyboardButton("👑 Pro Trader Mode", callback_data="show_pro")],  # <-- comma here to separate rows
-    [InlineKeyboardButton("💳 Pay VIP with Card", callback_data="show_card")],
-    [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
-    [InlineKeyboardButton("📈 Latest Top Calls", url="https://t.me/Solana100xcall/4046")],
-    [InlineKeyboardButton("📖 How Signals Work", callback_data="show_help")],
-    [InlineKeyboardButton("💬 Contact Support", callback_data="show_support")]
-])
+        [InlineKeyboardButton("🚀 Get VIP Signals", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
+        [InlineKeyboardButton("📈 Latest Top Calls", url="https://t.me/Solana100xcall/4046")],
+        [InlineKeyboardButton("📖 How Signals Work", callback_data="show_help")],
+        [InlineKeyboardButton("💳 Pay VIP with Card", callback_data="show_card")],
+        [InlineKeyboardButton("👑 Pro Trader Mode", callback_data="show_pro")],
+        [InlineKeyboardButton("💬 Contact Support", callback_data="show_support")]
+    ])
 
     await context.bot.send_message(
         chat_id=user.id,
@@ -133,6 +133,18 @@ async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
         parse_mode=constants.ParseMode.MARKDOWN
     )
 
+async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "📲 Join the FREE main channel:
+https://t.me/Solana100xcall"
+    )
+
+async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "🚀 Choose your VIP membership:
+" + MEMBERSHIP_LINK
+    )
+
 async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
@@ -156,6 +168,8 @@ def main():
 
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("help", help_command))
+    application.add_handler(CommandHandler("join", join_command))
+    application.add_handler(CommandHandler("subscribe", subscribe_command))
     application.add_handler(CallbackQueryHandler(button_handler))
 
     logging.info("Bot is running...")
