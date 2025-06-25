@@ -51,7 +51,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("🚀 Get VIP Signals", url=MEMBERSHIP_LINK)],
         [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
         [InlineKeyboardButton("📈 Latest Top Calls", url="https://t.me/Solana100xcall/4046")],
-        [InlineKeyboardButton("📖 How Signals Work", callback_data="show_help")],
+        [InlineKeyboardButton("📖 How Signals Work", callback_data="show_howsignals")],
         [InlineKeyboardButton("💳 Pay VIP with Card", callback_data="show_card")],
         [InlineKeyboardButton("👑 Pro Trader Mode", callback_data="show_pro")],
         [InlineKeyboardButton("💬 Contact Support", callback_data="show_support")]
@@ -123,6 +123,23 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         parse_mode=constants.ParseMode.MARKDOWN,
         disable_web_page_preview=True
     )
+    async def show_howsignals(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    message = (
+        "📡 *How Signals Work*\n\n"
+        "Our AI scans 1,000+ top Solana wallets with a combined PnL of $1B+.\n"
+        "It detects memecoins gaining volume, liquidity, and smart wallet buys.\n\n"
+        "📈 You get sniper-grade alerts with zero delay, 24/7, no noise — just pure alpha."
+    )
+
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
+    ])
+
+    await update.callback_query.message.edit_text(
+        message,
+        reply_markup=keyboard,
+        parse_mode=constants.ParseMode.MARKDOWN
+    )
 
 async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
@@ -150,8 +167,8 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
-    if query.data == "show_help":
-        await help_command(update, context)
+    if query.data == "show_howsignals":
+        await show_howsignals(update, context)
     elif query.data == "show_card":
         await show_card(update, context)
     elif query.data == "show_pro":
