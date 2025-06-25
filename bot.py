@@ -101,23 +101,25 @@ async def show_pro(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
-        "🧠 *How it works*\n\n"
-        "Our AI monitors thousands of the smartest wallets on Solana — with a combined PnL of over **$1B+**.\n"
-        "These wallets consistently lead the biggest memecoin runs before anyone else.\n\n"
-        "We track their moves in real time and send you sniper-grade alerts with zero delays or noise.\n\n"
-        "❓ FAQs:\n"
-        "• Manual or automated? → Fully AI-powered. No human input.\n"
-        "• Speed? → Instant alerts. No lag.\n"
-        "• Alert timing? → Mostly during US market hours.\n\n"
-        "Need support? Reach out anytime: [@The100xMooncaller](https://t.me/The100xMooncaller)"
+        "🧠 *How VIP Signals Work*\n\n"
+        "Our AI scans 1,000+ smart wallets on Solana in real time. These are wallets that consistently catch the top 10x memecoins before they trend.\n\n"
+        "You'll get *30+ sniper-grade alerts daily* with:\n"
+        "• Full token info + chart\n"
+        "• Tap-to-copy contract\n"
+        "• No spam or noise — only top calls\n\n"
+        "✅ Automated. No human input.\n"
+        "✅ Instant alerts (no delay).\n"
+        "✅ Proven track record across 100x runners.\n\n"
+        "Want access?\n"
+        "🚀 Tap below to get started:"
     )
 
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🚀 Get Premium Access", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("🚀 Get Premium Signals", url=MEMBERSHIP_LINK)],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
 
-    await update.callback_query.message.edit_text(
+    await update.message.reply_text(
         message, reply_markup=keyboard, parse_mode=constants.ParseMode.MARKDOWN, disable_web_page_preview=True
     )
 
