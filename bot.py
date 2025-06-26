@@ -3,10 +3,13 @@ import logging
 from dotenv import load_dotenv
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, constants
 from telegram.ext import (
-    Application, CommandHandler, CallbackQueryHandler, ContextTypes
+    Application, CommandHandler, CallbackQueryHandler, ContextTypes,
+    MessageHandler, filters
 )
 
 from sheets import log_user
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 
 # Load environment variables
 load_dotenv()
@@ -14,7 +17,18 @@ load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
 ADMIN_ID = 7906225936
-BANNER_URL = "https://imgur.com/a/LAr8QFT"  # Confirmed correct
+BANNER_URL = "https://imgur.com/a/zwGFK7w"  # Confirmed correct
+
+# Get all user IDs from Google Sheets
+def get_all_user_ids():
+    scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+    creds = ServiceAccountCredentials.from_json_keyfile_name("service_account.json", scope)
+    client = gspread.authorize(creds)
+
+    sheet = client.open("Solana100xcallPremiunBot").sheet1
+    user_ids = sheet.col_values(1)[1:]  # ✅ Column A
+    return list(set([int(uid) for uid in user_ids if uid.isdigit()]))
+
 
 # -------- Handlers --------
 
@@ -67,6 +81,11 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 async def show_card(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_photo(
+        chat_id=update.effective_user.id,
+        photo="https://imgur.com/a/7ozHApz"
+    )
+
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🏆 1-Month Access — Pay with Card", url="https://whop.com/solana100xcall-alpha")],
         [InlineKeyboardButton("👑 Lifetime Access — Pay with Card", url="https://whop.com/solana100xcall-alpha-1year")],
@@ -86,11 +105,19 @@ async def show_card(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "👇 Tap a plan to get started:"
     )
 
-    await update.callback_query.message.edit_text(
-        text, reply_markup=keyboard, parse_mode=constants.ParseMode.MARKDOWN
+    await context.bot.send_message(
+        chat_id=update.effective_user.id,
+        text=text,
+        reply_markup=keyboard,
+        parse_mode=constants.ParseMode.MARKDOWN
     )
 
 async def show_pro(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_photo(
+        chat_id=update.effective_user.id,
+        photo="https://imgur.com/a/7VW8cqH"
+    )
+
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🔐 Pay with Crypto", url="https://whop.com/solana100xcall-smartwallets-300")],
         [InlineKeyboardButton("💳 Pay with Card", url="https://whop.com/solana100xcall-smartwallets-300")],
@@ -99,16 +126,25 @@ async def show_pro(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     text = (
         "👑 *Pro Trader Wallet Pack*\n\n"
-        "Unlock *300+ elite wallets* used by top traders 📥 Import them into *BullX, Axiom, Gmgn* or track in any Telegram bot.\n\n"
-        "See what whales are buying in real time.\n\n"
-        "👇 Choose a payment option:"
+        "Gain access to *300+ smart wallets* used by elite Solana traders.\n"
+        "📈 Plug them into *Axiom, BullX, Gmgn*, or any wallet tracking tool.\n\n"
+        "🧠 This is how pro traders catch the next 100x — before the herd.\n\n"
+        "👇 Choose your access plan:"
     )
 
-    await update.callback_query.message.edit_text(
-        text, reply_markup=keyboard, parse_mode=constants.ParseMode.MARKDOWN
+    await context.bot.send_message(
+        chat_id=update.effective_user.id,
+        text=text,
+        reply_markup=keyboard,
+        parse_mode=constants.ParseMode.MARKDOWN
     )
 
 async def show_howsignals(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_photo(
+        chat_id=update.effective_chat.id,
+        photo="https://imgur.com/a/IiUPMt8"  # replace if different
+    )
+
     message = (
         "🧠 *How Signals Work*\n\n"
         "Our AI scans 1,000+ top Solana wallets with a combined PnL of $1B+.\n"
@@ -119,39 +155,114 @@ async def show_howsignals(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🌎 24/7 global monitoring\n\n"
         "Need help? Message [@The100xMooncaller](https://t.me/The100xMooncaller)"
     )
-
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
-
-    await update.callback_query.message.edit_text(
+    await update.callback_query.message.reply_text(
         message,
         reply_markup=keyboard,
         parse_mode=constants.ParseMode.MARKDOWN,
         disable_web_page_preview=True
     )
 
-async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    message = (
+        "🆘 *Need Help?*\n\n"
+        "This bot delivers sniper-grade Solana memecoin signals based on:\n"
+        "• On-chain wallet tracking (1,000+ smart wallets)\n"
+        "• High-liquidity inflow detection\n"
+        "• AI-powered trade pattern analysis\n\n"
+        "You’ll receive:\n"
+        "✅ Instant alerts with token data & copy-ready CAs\n"
+        "✅ Membership bonuses: smart wallets for BullX, Axiom, Gmgn\n\n"
+        "📬 For support, message [@The100xMooncaller](https://t.me/The100xMooncaller)"
+    )
+
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("💬 Chat with Support", url="https://t.me/The100xMooncaller")],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
 
-    await update.callback_query.message.edit_text(
-        "🚘 *Support* 🚘\n\nReach out any time, we respond fast.",
-        reply_markup=keyboard,
-        parse_mode=constants.ParseMode.MARKDOWN
-    )
-
-async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
-        "📲 Join the FREE main channel: https://t.me/Solana100xcall"
+        message,
+        parse_mode=constants.ParseMode.MARKDOWN,
+        reply_markup=keyboard,
+        disable_web_page_preview=True
     )
 
 async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("🚀 Get VIP Signals", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("📲 Join Free Channel", url="https://t.me/Solana100xcall")]
+    ])
+
     await update.message.reply_text(
-        "🚀 Choose your VIP membership:\n" + MEMBERSHIP_LINK
+        "🚀 *Unlock Full Access to VIP Signals*\n\n"
+        "Get real-time alerts powered by AI & smart wallet tracking.\n"
+        "Includes:\n"
+        "• 30+ premium calls daily\n"
+        "• Auto CA detection\n"
+        "• 100+ elite wallets monitored\n\n"
+        "🎯 First-mover advantage starts here.",
+        parse_mode=constants.ParseMode.MARKDOWN,
+        reply_markup=keyboard,
+        disable_web_page_preview=True
     )
+
+# Step 1: Ask for the broadcast content
+async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if update.effective_user.id != ADMIN_ID:
+        await update.message.reply_text("❌ You are not authorized.")
+        return
+
+    await update.message.reply_text("✏️ Send the message you want to broadcast. You can also attach an image.")
+    context.user_data["awaiting_broadcast"] = True
+
+# Step 2: Handle the content and confirm
+async def handle_broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not context.user_data.get("awaiting_broadcast"):
+        return
+
+    context.user_data["awaiting_broadcast"] = False
+    context.user_data["broadcast_message"] = update.message
+
+    keyboard = InlineKeyboardMarkup([
+        [
+            InlineKeyboardButton("✅ Send to All Users", callback_data="confirm_broadcast"),
+            InlineKeyboardButton("❌ Cancel", callback_data="cancel_broadcast")
+        ]
+    ])
+
+    await update.message.reply_text("📢 Preview your message. Ready to send?", reply_markup=keyboard)
+
+# Step 3: Confirm and send the message to all users
+async def confirm_broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+
+    original = context.user_data.get("broadcast_message")
+    if not original:
+        await query.edit_message_text("⚠️ No message stored for broadcast.")
+        return
+
+    user_ids = get_all_user_ids()
+    count = 0
+    for user_id in user_ids:
+        try:
+            await context.bot.copy_message(
+                chat_id=user_id,
+                from_chat_id=original.chat.id,
+                message_id=original.message_id
+            )
+            count += 1
+        except Exception as e:
+            logging.warning(f"Failed to send to {user_id}: {e}")
+
+    await query.edit_message_text(f"✅ Broadcast sent to {count} users.")
+
+# Step 4: Cancel broadcast
+async def cancel_broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.callback_query.answer()
+    await update.callback_query.edit_message_text("🚫 Broadcast cancelled.")
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
@@ -198,10 +309,18 @@ def main():
     logging.basicConfig(level=logging.INFO)
     application = Application.builder().token(BOT_TOKEN).build()
 
+    # ➕ Add standard command handlers
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("help", help_command))
-    application.add_handler(CommandHandler("join", join_command))
     application.add_handler(CommandHandler("subscribe", subscribe_command))
+
+    # ✅ Broadcast system for admin
+    application.add_handler(CommandHandler("broadcast", broadcast))  # Trigger
+    application.add_handler(MessageHandler(filters.ALL & filters.User(ADMIN_ID), handle_broadcast))  # Admin reply
+    application.add_handler(CallbackQueryHandler(confirm_broadcast, pattern="^confirm_broadcast$"))  # Confirm
+    application.add_handler(CallbackQueryHandler(cancel_broadcast, pattern="^cancel_broadcast$"))  # Cancel
+
+    # 📲 Inline button logic
     application.add_handler(CallbackQueryHandler(button_handler))
 
     logging.info("Bot is running...")
