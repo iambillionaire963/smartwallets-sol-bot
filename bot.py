@@ -21,8 +21,16 @@ BANNER_URL = "https://imgur.com/a/zwGFK7w"  # Confirmed correct
 
 # Get all user IDs from Google Sheets
 def get_all_user_ids():
+    import json
+
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-    creds = ServiceAccountCredentials.from_json_keyfile_name("service_account.json", scope)
+    creds_json = os.getenv("GOOGLE_SERVICE_ACCOUNT_JSON")
+
+    if not creds_json:
+        raise ValueError("GOOGLE_SERVICE_ACCOUNT_JSON is missing from environment variables.")
+
+    creds_dict = json.loads(creds_json)
+    creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
     client = gspread.authorize(creds)
 
     sheet = client.open("SmartWalletsLog").sheet1
