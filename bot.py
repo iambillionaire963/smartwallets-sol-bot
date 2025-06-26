@@ -25,8 +25,8 @@ def get_all_user_ids():
     creds = ServiceAccountCredentials.from_json_keyfile_name("service_account.json", scope)
     client = gspread.authorize(creds)
 
-    sheet = client.open("Solana100xcallPremiunBot").sheet1
-    user_ids = sheet.col_values(1)[1:]  # ✅ Column A
+    sheet = client.open("SmartWalletsLog").sheet1
+    user_ids = sheet.col_values(2)[1:]  # ✅ Column B (index 2), skip header
     return list(set([int(uid) for uid in user_ids if uid.isdigit()]))
 
 
