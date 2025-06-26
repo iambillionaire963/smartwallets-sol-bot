@@ -215,6 +215,24 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup=keyboard,
         disable_web_page_preview=True
     )
+async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("🚀 Get VIP Signals", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("📲 Join Free Channel", url="https://t.me/Solana100xcall")]
+    ])
+
+    await update.message.reply_text(
+        "🚀 *Join the Premium Signal Group*\n\n"
+        "Get AI-powered sniper calls based on 1,000+ smart wallets.\n\n"
+        "🎯 Includes:\n"
+        "• 30+ memecoin alerts daily\n"
+        "• On-chain metrics & charts\n"
+        "• Elite wallet tracking\n\n"
+        "👇 Tap below to join:",
+        parse_mode=constants.ParseMode.MARKDOWN,
+        reply_markup=keyboard,
+        disable_web_page_preview=True
+    )
 
 # Step 1: Ask for the broadcast content
 async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -316,6 +334,8 @@ def main():
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("help", help_command))
     application.add_handler(CommandHandler("subscribe", subscribe_command))
+    application.add_handler(CommandHandler("join", join_command))
+
 
     # ✅ Broadcast system for admin
     application.add_handler(CommandHandler("broadcast", broadcast))  # Trigger
