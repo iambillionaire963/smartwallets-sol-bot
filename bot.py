@@ -35,7 +35,7 @@ def get_all_user_ids():
 
     sheet = client.open("SmartWalletsLog").sheet1
     user_ids = sheet.col_values(2)[1:]  # ✅ Column B (index 2), skip header
-    return list(set([int(uid) for uid in user_ids if uid.isdigit()]))
+    return list({int(uid.strip()) for uid in user_ids if uid and uid.strip().isdigit()})
 
 
 # -------- Handlers --------
@@ -271,25 +271,20 @@ async def confirm_broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def cancel_broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.callback_query.answer()
     await update.callback_query.edit_message_text("🚫 Broadcast cancelled.")
-
-async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
-        "🆘 *Need Help?*\n\n"
-        "This bot delivers sniper-grade Solana memecoin signals based on:\n"
-        "• On-chain wallet tracking (1,000+ smart wallets)\n"
-        "• High-liquidity inflow detection\n"
-        "• AI-powered trade pattern analysis\n\n"
-        "You’ll receive:\n"
-        "✅ Instant alerts with token data & copy-ready CAs\n"
-        "✅ Membership bonuses: smart wallets for BullX, Axiom, Gmgn\n\n"
-        "📬 For support, message [@The100xMooncaller](https://t.me/The100xMooncaller)"
+        "💬 *Contact Support*\n\n"
+        "Need help with VIP access, signals, or smart wallets?\n"
+        "Send a message to our support specialist:\n\n"
+        "📩 [@The100xMooncaller](https://t.me/The100xMooncaller)\n\n"
+        "We usually reply within minutes."
     )
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
 
-    await update.message.reply_text(
+    await update.callback_query.message.reply_text(
         message,
         parse_mode=constants.ParseMode.MARKDOWN,
         reply_markup=keyboard,
