@@ -220,11 +220,12 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "• Instant CAs, token metrics, and smart money tracking\n"
         "• 100 top wallets ($1M+ PnL) for BullX, Gmgn, Axiom\n"
         "• AI-powered signals from 1,000+ wallets\n\n"
-        "💳 Pay with card or crypto:\n"
-        "🔗 [Pay via Whop](https://whop.com/solana100xcall-alpha)\n\n"
-        "⬇️ Tap below to return"
+        "💳 Choose a payment method below:"
     )
+
     keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("🪙 Pay with Crypto", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("💳 Pay with Card", url="https://whop.com/solana100xcall-alpha")],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
 
@@ -245,11 +246,12 @@ async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "• 300+ elite wallets for full Pro Trader mode\n"
         "• Long-term access to VIP memecoin intelligence\n"
         "• No renewals — one-time payment\n\n"
-        "💳 Pay with card or crypto:\n"
-        "🔗 [Pay via Whop](https://whop.com/solana100xcall-alpha-1year)\n\n"
-        "⬇️ Tap below to return"
+        "💳 Choose a payment method below:"
     )
+
     keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("🪙 Pay with Crypto", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("💳 Pay with Card", url="https://whop.com/solana100xcall-alpha-1year")],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
 
