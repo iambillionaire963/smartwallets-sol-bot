@@ -59,12 +59,14 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     message = (
     "🚀 *Welcome to Solana100xcall Premium Bot*\n\n"
-    "Get sniper-grade memecoin signals powered by elite wallet tracking & AI.\n\n"
-    "⚡️ 30+ instant alerts daily  \n"
-    "🤖 Scans 1,000+ smart wallets in real time  \n"
-    "📈 Multiple 100x plays already hit\n\n"
-    "🏆 *1 Month:* Access 100 top Solana wallets\n"
-    "👑 *Lifetime:* Unlock 300 elite wallets — a printing terminal on your screen\n\n"
+    "Get sniper-grade memecoin signals powered by elite wallet tracking & AI.\n"
+    "Our custom bot scans *1,000+ top Solana wallets* in real time — so you don't have to.\n\n"
+    "⚡️ 30+ instant alerts daily with token metrics & tap-to-copy CA\n"
+    "📈 Multiple 100x+ plays already hit in our premium group\n"
+    "🔗 Built-in tools, fast charts, and real smart money flow\n\n"
+    "🎁 *Membership Bonuses:*\n"
+    "• 🏆 1 Month — 100 top wallets ($1M+ PnL), tagged for BullX, Gmgn, Axiom\n"
+    "• 👑 Lifetime — 300 elite wallets for full smart money visibility & long-term edge\n\n"
     "👇 Choose your plan to unlock full access:"
 )
 
