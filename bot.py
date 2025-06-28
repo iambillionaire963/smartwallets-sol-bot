@@ -58,13 +58,15 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
 
     message = (
-        "*Welcome to Solana100xcall Premium Bot* 🚀\n"
-        "Get real-time sniper signals powered by AI & on-chain data from 1,000+ smart wallets with $1B+ PnL.\n\n"
-        "⚡️ *30+ alerts/day* with instant token metrics\n"
-        "📈 Multiple *100x+ calls* already hit\n"
-        "🔍 Auto CA detection, wallet flows, and high-liquidity tracking\n\n"
-        "👇 Choose your membership to unlock full access:"
-    )
+    "🚀 *Welcome to Solana100xcall Premium Bot*\n\n"
+    "Get sniper-grade memecoin signals powered by elite wallet tracking & AI.\n\n"
+    "⚡️ 30+ instant alerts daily  \n"
+    "🤖 Scans 1,000+ smart wallets in real time  \n"
+    "📈 Multiple 100x plays already hit\n\n"
+    "🏆 *1 Month:* Access 100 top Solana wallets\n"
+    "👑 *Lifetime:* Unlock 300 elite wallets — a printing terminal on your screen\n\n"
+    "👇 Choose your plan to unlock full access:"
+)
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🏆 1 Month — $44.4", callback_data="plan_1month")],
@@ -216,11 +218,15 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     text = (
         "🏆 *1 Month Membership — $44.4*\n\n"
-        "• 30+ sniper-grade alerts/day\n"
-        "• Instant CAs, token metrics, and smart money tracking\n"
-        "• 100 top wallets ($1M+ PnL) for BullX, Gmgn, Axiom\n"
-        "• AI-powered signals from 1,000+ wallets\n\n"
-        "💳 Choose a payment method below:"
+        "⚡️ *30+ sniper-grade alerts/day*\n"
+        "📲 Instant CAs, token metrics & smart money flows\n"
+        "🤖 AI-powered insights from 1,000+ wallets\n"
+        "📉 Designed for lightning-fast action & early entries\n\n"
+        "🎁 *Membership Bonus:*\n"
+        "• *100 elite Solana wallets* with $1M+ avg. PnL\n"
+        "• Tagged & ready to import into *BullX, Axiom, Gmgn* or any DEX\n"
+        "• Use alongside premium alerts for max edge\n\n"
+        "💳 Choose your payment method below:"
     )
 
     keyboard = InlineKeyboardMarkup([
@@ -237,16 +243,23 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
         disable_web_page_preview=True
     )
 
+
 async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(chat_id=update.effective_user.id, photo=BANNER_URL)
 
     text = (
-        "👑 *Lifetime Membership — $96.3*\n\n"
-        "• All monthly features (30+ alerts/day, top wallets, smart tracking)\n"
-        "• 300+ elite wallets for full Pro Trader mode\n"
-        "• Long-term access to VIP memecoin intelligence\n"
-        "• No renewals — one-time payment\n\n"
-        "💳 Choose a payment method below:"
+        "👑 *Lifetime Membership*\n\n"
+        "Unlock lifetime access to our *Premium Signals Group* — where every alert is backed by real-time smart money flow.\n\n"
+        "⚡️ *30+ sniper-grade alerts/day* from 1,000+ top Solana wallets\n"
+        "📈 Instant token metrics: volume, LP, charts, copy-ready CAs\n"
+        "🔎 Track early inflows before tokens trend or go viral\n"
+        "🔔 Calls are based on live buys from whales, insiders, and proven alpha wallets\n\n"
+        "🎁 *BONUS — 300 Smart Money Wallets*\n"
+        "• Full list of high-PnL wallets used in our signals\n"
+        "• Built for BullX, Axiom, Gmgn, and any wallet tracker\n"
+        "• Watch buys, sells, size, and hold time — live\n"
+        "• Instantly import and follow the wallets that actually win\n\n"
+        "👇 Choose your payment method:"
     )
 
     keyboard = InlineKeyboardMarkup([
