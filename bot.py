@@ -58,25 +58,20 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
 
     message = (
-    "*Welcome to Solana100xcall Premium Bot* 🚀\n"
-    "Get AI-powered sniper signals based on real-time smart money activity and on-chain data.\n\n"
-    "⚡️ *30+ instant alerts daily* with token metrics & tap-to-copy CA\n"
-    "🔗 Quick access to charts, bots, and trading tools\n"
-    "🤖 Our bot Tracks *1,000+ elite wallets* with $1B+ total PnL\n"
-    "📈 Multiple *100x+ calls posted in our main channel Solana100xcall*\n\n"
-    "🎁 *Membership Bonuses:*\n"
-    "• *Monthly:* 100 top wallets ($1M+ PnL), tagged & ready to import into *Axiom, BullX, Gmgn*, or any DEX\n"
-    "• *Lifetime:* 300 pro wallets for full smart money visibility & long-term edge\n\n"
-    "👇 Choose your plan and catch the next 100x"
-)
+        "*Welcome to Solana100xcall Premium Bot* 🚀\n"
+        "Get real-time sniper signals powered by AI & on-chain data from 1,000+ smart wallets with $1B+ PnL.\n\n"
+        "⚡️ *30+ alerts/day* with instant token metrics\n"
+        "📈 Multiple *100x+ calls* already hit\n"
+        "🔍 Auto CA detection, wallet flows, and high-liquidity tracking\n\n"
+        "👇 Choose your membership to unlock full access:"
+    )
 
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🚀 Get VIP Signals", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("🏆 1 Month — $44.4", callback_data="plan_1month")],
+        [InlineKeyboardButton("👑 Lifetime — $96.3", callback_data="plan_lifetime")],
         [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
         [InlineKeyboardButton("📈 Latest Top Calls", url="https://t.me/Solana100xcall/4046")],
         [InlineKeyboardButton("📖 How Signals Work", callback_data="show_howsignals")],
-        [InlineKeyboardButton("💳 Pay VIP with Card", callback_data="show_card")],
-        [InlineKeyboardButton("👑 Pro Trader Mode", callback_data="show_pro")],
         [InlineKeyboardButton("💬 Contact Support", callback_data="show_support")]
     ])
 
@@ -87,6 +82,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup=keyboard,
         disable_web_page_preview=True
     )
+
 
 async def show_card(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(
@@ -215,6 +211,56 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup=keyboard,
         disable_web_page_preview=True
     )
+async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_photo(chat_id=update.effective_user.id, photo=BANNER_URL)
+
+    text = (
+        "🏆 *1 Month Membership — $44.4*\n\n"
+        "• 30+ sniper-grade alerts/day\n"
+        "• Instant CAs, token metrics, and smart money tracking\n"
+        "• 100 top wallets ($1M+ PnL) for BullX, Gmgn, Axiom\n"
+        "• AI-powered signals from 1,000+ wallets\n\n"
+        "💳 Pay with card or crypto:\n"
+        "🔗 [Pay via Whop](https://whop.com/solana100xcall-alpha)\n\n"
+        "⬇️ Tap below to return"
+    )
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
+    ])
+
+    await context.bot.send_message(
+        chat_id=update.effective_user.id,
+        text=text,
+        parse_mode=constants.ParseMode.MARKDOWN,
+        reply_markup=keyboard,
+        disable_web_page_preview=True
+    )
+
+async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await context.bot.send_photo(chat_id=update.effective_user.id, photo=BANNER_URL)
+
+    text = (
+        "👑 *Lifetime Membership — $96.3*\n\n"
+        "• All monthly features (30+ alerts/day, top wallets, smart tracking)\n"
+        "• 300+ elite wallets for full Pro Trader mode\n"
+        "• Long-term access to VIP memecoin intelligence\n"
+        "• No renewals — one-time payment\n\n"
+        "💳 Pay with card or crypto:\n"
+        "🔗 [Pay via Whop](https://whop.com/solana100xcall-alpha-1year)\n\n"
+        "⬇️ Tap below to return"
+    )
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
+    ])
+
+    await context.bot.send_message(
+        chat_id=update.effective_user.id,
+        text=text,
+        parse_mode=constants.ParseMode.MARKDOWN,
+        reply_markup=keyboard,
+        disable_web_page_preview=True
+    )
+
 async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🚀 Get VIP Signals", url=MEMBERSHIP_LINK)],
@@ -323,6 +369,11 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await support(update, context)
     elif query.data == "go_home":
         await start(update, context)
+    elif query.data == "plan_1month":
+        await show_1month(update, context)
+    elif query.data == "plan_lifetime":
+        await show_lifetime(update, context)
+
 
 # -------- Main --------
 
