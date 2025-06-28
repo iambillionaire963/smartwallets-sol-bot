@@ -59,25 +59,27 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     message = (
     "🚀 *Welcome to Solana100xcall Premium Bot*\n\n"
-    "Get sniper-grade memecoin signals powered by elite wallet tracking & AI.\n"
-    "Our custom bot scans *1,000+ top Solana wallets* in real time — so you don't have to.\n\n"
-    "⚡️ 30+ instant alerts daily with token metrics & tap-to-copy CA\n"
-    "📈 Multiple 100x+ plays already hit in our premium group\n"
-    "🔗 Built-in tools, fast charts, and real smart money flow\n\n"
+    "This is where real memecoin traders get ahead. Our system tracks *1,000+ top wallets* in real time — snipers, whales, insiders — and delivers the signals directly to you.\n\n"
+    "⚡️ *What You Get:*\n"
+    "📲 30+ sniper-grade alerts per day\n"
+    "📟 Instant CAs, token metrics & smart inflow data\n"
+    "📊 Fast charts, trading bots, and real-time wallet flows\n"
+    "🎯 Proven: multiple 100x+ calls hit in our premium group\n\n"
     "🎁 *Membership Bonuses:*\n"
-    "• 🏆 1 Month — 100 top wallets ($1M+ PnL), tagged for BullX, Gmgn, Axiom\n"
-    "• 👑 Lifetime — 300 elite wallets for full smart money visibility & long-term edge\n\n"
-    "👇 Choose your plan to unlock full access:"
+    "🏆 1 Month — 100 elite wallets ($1M+ PnL avg), ready to import into BullX, Gmgn, Axiom\n"
+    "👑 Lifetime — Full access to 300+ wallets for total smart money visibility & long-term edge\n\n"
+    "👇 Tap a plan below to get started:"
 )
 
+
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🏆 1 Month — $44.4", callback_data="plan_1month")],
-        [InlineKeyboardButton("👑 Lifetime — $96.3", callback_data="plan_lifetime")],
-        [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
-        [InlineKeyboardButton("📈 Latest Top Calls", url="https://t.me/Solana100xcall/4046")],
-        [InlineKeyboardButton("📖 How Signals Work", callback_data="show_howsignals")],
-        [InlineKeyboardButton("💬 Contact Support", callback_data="show_support")]
-    ])
+    [InlineKeyboardButton("⚡ 1 Month Alpha Premium Access: $44.4", callback_data="plan_1month")],
+    [InlineKeyboardButton("👑 Lifetime Alpha Premium Access: $96.3", callback_data="plan_lifetime")],
+    [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
+    [InlineKeyboardButton("📈 Latest Top Calls", url="https://t.me/Solana100xcall/4046")],
+    [InlineKeyboardButton("📖 How Signals Work", callback_data="show_howsignals")],
+    [InlineKeyboardButton("💬 Contact Support", callback_data="show_support")]
+])
 
     await context.bot.send_message(
         chat_id=user.id,
