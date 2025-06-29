@@ -59,19 +59,16 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     message = (
     "🚀 *Welcome to Solana100xcall Premium Bot*\n\n"
-    "This isn’t just signals — it’s where smart traders *print daily*.\n"
-    "Hundreds are already using our sniper alerts to catch 20x, 50x, even 100x plays *before the crowd*.\n\n"
-    "🔍 Powered by a custom-built system tracking *1,000+ top wallets* in real time — insiders, whales, snipers.\n\n"
-    "⚡️ You’ll get:\n"
-    "• 30+ instant alerts per day\n"
-    "• Tap-to-copy CAs, token metrics, and smart wallet inflows\n"
-    "• Real-time momentum — before charts move, before CT catches on\n\n"
+    "Hundreds of real traders are already printing with our sniper alerts.\n"
+    "We track *1,000+ elite wallets* — whales, insiders, gigabrains — in real time and drop the signals straight into our premium group.\n\n"
+    "📲 *30+ sniper-grade alerts per day*\n"
+    "📟 Instant CAs, token metrics & wallet inflow data\n"
+    "📈 Multiple 100x plays already hit — with proof\n\n"
     "🎁 *Membership Bonuses:*\n"
-    "🏆 1 Month: 100 elite wallets ($1M+ PnL) for BullX, Gmgn, Axiom\n"
-    "👑 Lifetime: Full access to 300+ wallets for long-term smart money dominance\n\n"
-    "👇 Select a membership to get in — and start seeing what they see:"
+    "🏆 1 Month — 100 elite wallets ($1M+ PnL avg), ready to import to BullX, Gmgn, Axiom\n"
+    "👑 Lifetime — 300 top wallets for full smart money visibility & long-term edge\n\n"
+    "👇 Tap a plan to unlock full access:"
 )
-
 
     keyboard = InlineKeyboardMarkup([
     [InlineKeyboardButton("⚡ 1 Month Alpha Premium Access: $44.4", callback_data="plan_1month")],
