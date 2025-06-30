@@ -59,15 +59,14 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     message = (
     "🚀 *Welcome to Solana100xcall Premium Bot*\n\n"
-    "Hundreds of real traders are already printing with our sniper alerts.\n"
-    "We track *1,000+ elite wallets* — whales, insiders, gigabrains — in real time and drop the signals straight into our premium group.\n\n"
-    "📲 *30+ sniper-grade alerts per day*\n"
-    "📟 Instant CAs, token metrics & wallet inflow data\n"
-    "📈 Multiple 100x plays already hit — with proof\n\n"
-    "🎁 *Membership Bonuses:*\n"
-    "🏆 1 Month — 100 elite wallets ($1M+ PnL avg), ready to import to BullX, Gmgn, Axiom\n"
-    "👑 Lifetime — 300 top wallets for full smart money visibility & long-term edge\n\n"
-    "👇 Tap a plan to unlock full access:"
+    "💰 *Built for profits. Powered by AI. Backed by 1,000+ smart wallets printing daily.*\n\n"
+    "We track *elite wallets* — whales, insiders, and gigabrains — in real time.\n"
+    "Our AI filters their buys and sends you sniper-grade entries before the pumps.\n\n"
+    "🎁 *Membership Bonus:*\n"
+    "🏆 1 Month — 100 top smart money wallets ($1M+ avg PnL)\n"
+    "👑 Lifetime — 300 fully tagged wallets for full visibility\n"
+    "🔓 Both import-ready for *BullX, Axiom, Gmgn* or any DEX\n\n"
+    "👇 Tap a plan to unlock everything:"
 )
 
     keyboard = InlineKeyboardMarkup([
@@ -219,17 +218,17 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(chat_id=update.effective_user.id, photo=BANNER_URL)
 
     text = (
-        "🏆 *1 Month Membership — $44.4*\n\n"
-        "⚡️ *30+ sniper-grade alerts/day*\n"
-        "📲 Instant CAs, token metrics & smart money flows\n"
-        "🤖 AI-powered insights from 1,000+ wallets\n"
-        "📉 Designed for lightning-fast action & early entries\n\n"
-        "🎁 *Membership Bonus:*\n"
-        "• *100 elite Solana wallets* with $1M+ avg. PnL\n"
-        "• Tagged & ready to import into *BullX, Axiom, Gmgn* or any DEX\n"
-        "• Use alongside premium alerts for max edge\n\n"
-        "💳 Choose your payment method below:"
-    )
+    "🏆 *1 Month Membership — $44.4*\n\n"
+    "⚡️ *30+ sniper-grade alerts/day*\n"
+    "📲 Instant CAs, token metrics & smart wallet flows\n"
+    "🤖 AI-powered insights from 1,000+ high-PnL wallets\n"
+    "📉 Built for early entries and lightning-fast profits\n\n"
+    "🎁 *Bonus Access:*\n"
+    "• *100 elite Solana wallets* with $1M+ avg PnL\n"
+    "• Import-ready for *BullX, Axiom, Gmgn*, or any DEX\n"
+    "• Use alongside premium alerts for max edge\n\n"
+    "💳 Choose your payment method below:"
+)
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🪙 Pay with Crypto", url=MEMBERSHIP_LINK)],
@@ -250,19 +249,19 @@ async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(chat_id=update.effective_user.id, photo=BANNER_URL)
 
     text = (
-        "👑 *Lifetime Membership*\n\n"
-        "Unlock lifetime access to our *Premium Signals Group* — where every alert is backed by real-time smart money flow.\n\n"
-        "⚡️ *30+ sniper-grade alerts/day* from 1,000+ top Solana wallets\n"
-        "📈 Instant token metrics: volume, LP, charts, copy-ready CAs\n"
-        "🔎 Track early inflows before tokens trend or go viral\n"
-        "🔔 Calls are based on live buys from whales, insiders, and proven alpha wallets\n\n"
-        "🎁 *BONUS — 300 Smart Money Wallets*\n"
-        "• Full list of high-PnL wallets used in our signals\n"
-        "• Built for BullX, Axiom, Gmgn, and any wallet tracker\n"
-        "• Watch buys, sells, size, and hold time — live\n"
-        "• Instantly import and follow the wallets that actually win\n\n"
-        "👇 Choose your payment method:"
-    )
+    "👑 *Lifetime Membership*\n\n"
+    "Unlock lifetime access to our *Premium Signals Group* — where every alert is backed by real-time smart money flow.\n\n"
+    "⚡️ *30+ sniper-grade alerts/day* powered by 1,000+ elite wallets\n"
+    "📈 Instant token metrics: volume, LP, charts, copy-paste CAs\n"
+    "🔎 Get in early on trending tokens before the crowd\n"
+    "🔔 Every call is backed by real buys from whales, insiders & alpha wallets\n\n"
+    "🎁 *BONUS — 300 Smart Wallets Included:*\n"
+    "• Full list of wallets we use for alerts\n"
+    "• Built for BullX, Axiom, Gmgn & wallet trackers\n"
+    "• See buys, sells, size, and hold time in real-time\n"
+    "• Import and track the wallets that actually win\n\n"
+    "👇 Choose your payment method:"
+)
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🪙 Pay with Crypto", url=MEMBERSHIP_LINK)],
