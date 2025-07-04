@@ -63,8 +63,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     "🤖 Bot filters real-time buys from elite wallets and finds the next 100x before the crowd.\n"
     "📡 You get sniper-grade alerts for tokens about to explode.\n\n"
     "🎁 *Membership Bonus:*\n"
-    "🏆 1 Month: 100 top smart wallets ($1M+ avg PnL)\n"
-    "👑 Lifetime: 300 smart money-wallets printing terminal\n"
+    "🏆 1 Month: 100 top smart money wallets\n"
+    "👑 Lifetime: 300 smart money-printing terminal\n"
     "🔓 Both import-ready for *BullX, Axiom, Gmgn* or any DEX\n\n"
     "👇 Tap a plan to see everything your premium membership unlocks:"
 )
