@@ -17,7 +17,7 @@ load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
 ADMIN_ID = 7906225936
-BANNER_URL = "https://imgur.com/a/zwGFK7w"  # Confirmed correct
+BANNER_URL = "https://imgur.com/a/vHfTuaI"  # Confirmed correct
 
 # Get all user IDs from Google Sheets
 def get_all_user_ids():
@@ -60,11 +60,11 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
     "🚀 *Welcome to Solana100xcall Premium Bot*\n\n"
     "💰 *Built for profits. Powered by AI. Backed by 1,000+ smart wallets printing daily.*\n\n"
-    "🤖 Our bot filters real-time buys from elite wallets — and finds the next 100x before the crowd.\n"
+    "🤖 Bot filters real-time buys from elite wallets and finds the next 100x before the crowd.\n"
     "📡 You get sniper-grade alerts for tokens about to explode.\n\n"
     "🎁 *Membership Bonus:*\n"
-    "🏆 1 Month — 100 top smart money wallets ($1M+ avg PnL)\n"
-    "👑 Lifetime — 300 fully tagged wallets for full visibility\n"
+    "🏆 1 Month: 100 top smart wallets ($1M+ avg PnL)\n"
+    "👑 Lifetime: 300 smart money-wallets printing terminal\n"
     "🔓 Both import-ready for *BullX, Axiom, Gmgn* or any DEX\n\n"
     "👇 Tap a plan to see everything your premium membership unlocks:"
 )
@@ -110,33 +110,6 @@ async def show_card(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "✅ 300+ elite wallets for BullX, Axiom, Gmgn\n"
         "✅ Lifetime access, tools & support\n\n"
         "👇 Tap a plan to get started:"
-    )
-
-    await context.bot.send_message(
-        chat_id=update.effective_user.id,
-        text=text,
-        reply_markup=keyboard,
-        parse_mode=constants.ParseMode.MARKDOWN
-    )
-
-async def show_pro(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_photo(
-        chat_id=update.effective_user.id,
-        photo="https://imgur.com/a/7VW8cqH"
-    )
-
-    keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🔐 Pay with Crypto", url="https://whop.com/solana100xcall-smartwallets-300")],
-        [InlineKeyboardButton("💳 Pay with Card", url="https://whop.com/solana100xcall-smartwallets-300")],
-        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
-    ])
-
-    text = (
-        "👑 *Pro Trader Wallet Pack*\n\n"
-        "Gain access to *300+ smart wallets* used by elite Solana traders.\n"
-        "📈 Plug them into *Axiom, BullX, Gmgn*, or any wallet tracking tool.\n\n"
-        "🧠 This is how pro traders catch the next 100x — before the herd.\n\n"
-        "👇 Choose your access plan:"
     )
 
     await context.bot.send_message(
@@ -379,8 +352,6 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await show_howsignals(update, context)
     elif query.data == "show_card":
         await show_card(update, context)
-    elif query.data == "show_pro":
-        await show_pro(update, context)
     elif query.data == "show_support":
         await support(update, context)
     elif query.data == "go_home":
