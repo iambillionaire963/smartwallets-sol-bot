@@ -17,7 +17,7 @@ load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
 ADMIN_ID = 7906225936
-BANNER_URL = "https://imgur.com/a/vHfTuaI"  # Confirmed correct
+BANNER_URL = "https://imgur.com/a/l5Mu7mZ"  # Confirmed correct
 
 # Get all user IDs from Google Sheets
 def get_all_user_ids():
@@ -86,38 +86,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         disable_web_page_preview=True
     )
 
-
-async def show_card(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_photo(
-        chat_id=update.effective_user.id,
-        photo="https://imgur.com/a/7ozHApz"
-    )
-
-    keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🏆 1-Month Access — Pay with Card", url="https://whop.com/solana100xcall-alpha")],
-        [InlineKeyboardButton("👑 Lifetime Access — Pay with Card", url="https://whop.com/solana100xcall-alpha-1year")],
-        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
-    ])
-
-    text = (
-        "💳 *Prefer to pay by card?*\n\n"
-        "Get instant access to *VIP Memecoin Signals* via *WHOP*, our secure payment partner.\n\n"
-        "🏆 *1-Month Membership:*\n"
-        "✅ 30+ sniper-grade signals daily\n"
-        "✅ 100+ elite wallets included\n\n"
-        "👑 *Lifetime Membership:*\n"
-        "✅ All monthly benefits\n"
-        "✅ 300+ elite wallets for BullX, Axiom, Gmgn\n"
-        "✅ Lifetime access, tools & support\n\n"
-        "👇 Tap a plan to get started:"
-    )
-
-    await context.bot.send_message(
-        chat_id=update.effective_user.id,
-        text=text,
-        reply_markup=keyboard,
-        parse_mode=constants.ParseMode.MARKDOWN
-    )
 
 async def show_howsignals(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(
@@ -205,7 +173,6 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🪙 Pay with Crypto", url=MEMBERSHIP_LINK)],
-        [InlineKeyboardButton("💳 Pay with Card", url="https://whop.com/solana100xcall-alpha")],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
 
@@ -238,7 +205,6 @@ async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🪙 Pay with Crypto", url=MEMBERSHIP_LINK)],
-        [InlineKeyboardButton("💳 Pay with Card", url="https://whop.com/solana100xcall-alpha-1year")],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
 
