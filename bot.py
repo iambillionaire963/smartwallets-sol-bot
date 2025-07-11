@@ -58,16 +58,16 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
 
     message = (
-    "🚨 *AI Signals. Real-Time Pumps. Elite Access.*\n\n"
-    "📈 30+ sniper alerts/day for fresh Solana memecoins\n"
-    "🤖 AI scans 1,000+ smart wallets with $1B+ PnL\n"
-    "⚡ Instant CA, LP, volume, chart — no delay, no fluff\n"
-    "🎯 Strategy: 0.1–0.5 SOL entries | 2.3x TP | -30% SL\n\n"
-    "🔥 Only serious traders inside Premium. Hundreds already printing.\n\n"
-    "🎁 Bonus — 1M: 100 wallets · Lifetime: 300 smart wallets\n"
-    "🧠 Both import-ready for *BullX, Axiom, Gmgn* or any DEX\n\n"
-    "👇 Choose your access. Start printing today:"
+    "💰 *You’ve just unlocked the sniper terminal for Solana memecoins.*\n\n"
+    "⚡ 30+ elite alerts/day ⚡️ lightning-fast, fully filtered\n"
+    "📲 Every drop includes CA, LP, volume, chart, and more\n"
+    "🧠 Backed by a winning strategy that minimizes risk and maximizes gains\n\n"
+    "🔥 The top traders are already inside. Hundreds are printing daily.\n\n"
+    "🎁 Bonus 🏆 1M: 100 smart wallets 👑 Lifetime: 300 smart wallets\n"
+    "📦 Import-ready for *BullX, Axiom, Gmgn* or any DEX tool\n\n"
+    "👇 Tap below. Join Premium. Let the bot work for you:"
 )
+
 
     keyboard = InlineKeyboardMarkup([
     [InlineKeyboardButton("⚡ 1 Month Alpha Premium Access: $44.4", callback_data="plan_1month")],
@@ -159,12 +159,12 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(chat_id=update.effective_user.id, photo=BANNER_URL)
 
     text = (
-    "⚡ *1 Month Premium — $44.4*\n\n"
+    "⚡ *1 Month Premium 🤝 $44.4*\n\n"
     "📈 30+ sniper alerts/day for fresh Solana memecoins\n"
     "🤖 AI scans 1,000+ smart wallets with $1B+ PnL\n"
     "📲 Instant CA, LP, volume, chart — no delay, no fluff\n"
-    "🎯 Strategy: 0.1–0.5 SOL entries | 2.3x TP | -30% SL\n\n"
-    "🎁 Bonus — 100 smart wallets (import-ready)\n"
+    "🧠 Winning strategy that minimizes risk and maximizes gains\n\n"
+    "🎁 Bonus: 100 smart money wallets (import-ready)\n"
     "🧠 Works with *BullX, Axiom, Gmgn* or any DEX\n\n"
     "💳 Tap below to unlock your access:"
 )
@@ -188,12 +188,12 @@ async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(chat_id=update.effective_user.id, photo=BANNER_URL)
 
     text = (
-    "👑 *Lifetime Premium — $96.3*\n\n"
+    "👑 *Lifetime Premium 🤝 $96.3*\n\n"
     "📈 Unlimited access to AI-powered sniper signals\n"
     "🤖 Tracks 1,000+ elite wallets in real time\n"
-    "📲 Auto CA, LP, volume, dev sold — 100% filtered\n"
-    "🎯 Strategy: 0.1–0.5 SOL entries | 2.3x TP | -30% SL\n\n"
-    "🎁 Bonus — 300 smart wallets (import-ready)\n"
+    "📲 Auto CA, LP, volume, dev sold ⚡️ 100% filtered\n"
+    "🧠 Winning strategy that minimizes risk and maximizes gains\n\n"
+    "🎁 Bonus: 300 smart wallets (import-ready)\n"
     "🧠 For *BullX, Axiom, Gmgn* and advanced wallet tools\n\n"
     "💳 Tap below to unlock Lifetime access:"
 )
