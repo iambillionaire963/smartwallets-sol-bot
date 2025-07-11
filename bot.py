@@ -58,15 +58,15 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
 
     message = (
-    "🚀 *Welcome to Solana100xcall Premium Bot*\n\n"
-    "💰 *Built for profits. Powered by AI. Backed by 1,000+ smart wallets printing daily.*\n\n"
-    "🤖 Bot filters real-time buys from elite wallets and finds the next 100x before the crowd.\n"
-    "📡 You get sniper-grade alerts for tokens about to explode.\n\n"
-    "🎁 *Membership Bonus:*\n"
-    "🏆 1 Month: 100 top smart money wallets\n"
-    "👑 Lifetime: 300 smart money-printing terminal\n"
-    "🔓 Both import-ready for *BullX, Axiom, Gmgn* or any DEX\n\n"
-    "👇 Tap a plan to see everything your premium membership unlocks:"
+    "🚨 *AI Signals. Real-Time Pumps. Elite Access.*\n\n"
+    "📈 30+ sniper alerts/day for fresh Solana memecoins\n"
+    "🤖 AI scans 1,000+ smart wallets with $1B+ PnL\n"
+    "⚡ Instant CA, LP, volume, chart — no delay, no fluff\n"
+    "🎯 Strategy: 0.1–0.5 SOL entries | 2.3x TP | -30% SL\n\n"
+    "🔥 Only serious traders inside Premium. Hundreds already printing.\n\n"
+    "🎁 Bonus — 1M: 100 wallets · Lifetime: 300 smart wallets\n"
+    "🧠 Both import-ready for *BullX, Axiom, Gmgn* or any DEX\n\n"
+    "👇 Choose your access. Start printing today:"
 )
 
     keyboard = InlineKeyboardMarkup([
@@ -159,17 +159,16 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(chat_id=update.effective_user.id, photo=BANNER_URL)
 
     text = (
-    "🏆 *1 Month Membership — $44.4*\n\n"
-    "⚡️ *30+ sniper-grade alerts/day*\n"
-    "📲 Instant CAs, token metrics & smart wallet flows\n"
-    "🤖 AI-powered insights from 1,000+ high-PnL wallets\n"
-    "📉 Built for early entries and lightning-fast profits\n\n"
-    "🎁 *Bonus Access:*\n"
-    "• *100 elite Solana wallets* with $1M+ avg PnL\n"
-    "• Import-ready for *BullX, Axiom, Gmgn*, or any DEX\n"
-    "• Use alongside premium alerts for max edge\n\n"
-    "💳 Choose your payment method below:"
+    "⚡ *1 Month Premium — $44.4*\n\n"
+    "📈 30+ sniper alerts/day for fresh Solana memecoins\n"
+    "🤖 AI scans 1,000+ smart wallets with $1B+ PnL\n"
+    "📲 Instant CA, LP, volume, chart — no delay, no fluff\n"
+    "🎯 Strategy: 0.1–0.5 SOL entries | 2.3x TP | -30% SL\n\n"
+    "🎁 Bonus — 100 smart wallets (import-ready)\n"
+    "🧠 Works with *BullX, Axiom, Gmgn* or any DEX\n\n"
+    "💳 Tap below to unlock your access:"
 )
+
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🪙 Pay with Crypto", url=MEMBERSHIP_LINK)],
@@ -189,19 +188,16 @@ async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(chat_id=update.effective_user.id, photo=BANNER_URL)
 
     text = (
-    "👑 *Lifetime Membership*\n\n"
-    "Unlock lifetime access to our *Premium Signals Group* — where every alert is backed by real-time smart money flow.\n\n"
-    "⚡️ *30+ sniper-grade alerts/day* powered by 1,000+ elite wallets\n"
-    "📈 Instant token metrics: volume, LP, charts, copy-paste CAs\n"
-    "🔎 Get in early on trending tokens before the crowd\n"
-    "🔔 Every call is backed by real buys from whales, insiders & alpha wallets\n\n"
-    "🎁 *BONUS — 300 Smart Wallets Included:*\n"
-    "• Full list of wallets we use for alerts\n"
-    "• Built for BullX, Axiom, Gmgn & wallet trackers\n"
-    "• See buys, sells, size, and hold time in real-time\n"
-    "• Import and track the wallets that actually win\n\n"
-    "👇 Choose your payment method:"
+    "👑 *Lifetime Premium — $96.3*\n\n"
+    "📈 Unlimited access to AI-powered sniper signals\n"
+    "🤖 Tracks 1,000+ elite wallets in real time\n"
+    "📲 Auto CA, LP, volume, dev sold — 100% filtered\n"
+    "🎯 Strategy: 0.1–0.5 SOL entries | 2.3x TP | -30% SL\n\n"
+    "🎁 Bonus — 300 smart wallets (import-ready)\n"
+    "🧠 For *BullX, Axiom, Gmgn* and advanced wallet tools\n\n"
+    "💳 Tap below to unlock Lifetime access:"
 )
+
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🪙 Pay with Crypto", url=MEMBERSHIP_LINK)],
