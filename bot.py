@@ -63,7 +63,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     "📲 Every drop includes CA, LP, volume, chart, and more\n"
     "🧠 Backed by a winning strategy that minimizes risk and maximizes gains\n\n"
     "🔥 The top traders are already inside. Hundreds are printing daily.\n\n"
-    "🎁 Bonus 🏆 1M: 100 smart wallets 👑 Lifetime: 300 smart wallets\n"
+    "🎁 Bonus 🏆 1 Month: 100 smart wallets 👑 Lifetime: 300 smart money wallets\n"
     "📦 Import-ready for *BullX, Axiom, Gmgn* or any DEX tool\n\n"
     "👇 Tap below. Join Premium. Let the bot work for you:"
 )
@@ -94,15 +94,18 @@ async def show_howsignals(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     message = (
-        "🧠 *How Signals Work*\n\n"
-        "Our AI scans 1,000+ top Solana wallets with a combined PnL of $1B+.\n"
-        "It detects early memecoin buys, trends, and inflows from smart money.\n\n"
-        "You get sniper-grade alerts the moment smart wallets ape in — no delay, no fluff.\n\n"
-        "✅ Fully automated\n"
-        "⚡️ Real-time alerts\n"
-        "🌎 24/7 global monitoring\n\n"
-        "Need help? Message [@The100xMooncaller](https://t.me/The100xMooncaller)"
-    )
+    "🧠 *How Signals Work*\n\n"
+    "Our proprietary AI system continuously monitors 1,000+ elite Solana wallets with a combined PnL exceeding $1B.\n\n"
+    "It captures real-time smart money activity across newly launched tokens, identifying:\n"
+    "• 📥 Stealth entries from insiders\n"
+    "• 💧 Liquidity movements and inflows\n"
+    "• 🔍 On-chain volume shifts and wallet clusters\n\n"
+    "Each alert is filtered by our algorithm for precision — removing noise, fake volume, and bait setups.\n\n"
+    "⚙️ 100% autonomous execution\n"
+    "⚡ Millisecond-grade detection and dispatch\n"
+    "📡 24/7 live on-chain surveillance\n\n"
+    "🔗 Need help or support? Message [@The100xMooncaller](https://t.me/The100xMooncaller)"
+)
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
