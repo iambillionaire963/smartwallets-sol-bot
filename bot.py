@@ -17,7 +17,7 @@ load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
 ADMIN_ID = 7906225936
-BANNER_URL = "https://imgur.com/a/l5Mu7mZ"  # Confirmed correct
+BANNER_URL = "https://imgur.com/a/QcDo7RF"  # Confirmed correct
 
 # Get all user IDs from Google Sheets
 def get_all_user_ids():
