@@ -58,14 +58,16 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
 
     message = (
-    "🚀 *Welcome to Premium Sniper Signals By Solana100xcall*\n\n"
-    "Hundreds of traders rely on our sniper bot inside the Premium group to catch the biggest Solana pumps 💥 before the hype, before the charts move.\n\n"
-    "🤖 Our bot filters 30,000+ tokens every day across Pumpfun, LetsBonk, Moonshot and any Launchpad.\n"
-    "⚡ Detects stealth launches, tracks smart inflows, and delivers the top plays 24/7 ✅ straight to Premium.\n\n"
-    "No noise. No guesswork. Just sniper-grade entries that hit hard.\n\n"
-    "🎁 Bonus 🏆 1 Month: 100 smart wallets 👑 Lifetime: 300 smart money wallets\n"
-    "📦 Import-ready for *BullX, Axiom, Gmgn* or any DEX tool\n\n"
-    "👇 Tap a plan below to join Premium and let the bot work for you:"
+"🚀 *Welcome to Premium Sniper Signals by Solana100xcall*\n\n"
+"Hundreds of traders use our bot to catch Solana pumps 💥 before the hype.\n\n"
+"🤖 Filters 25,000+ tokens daily across Pumpfun, LetsBonk, Moonshot, and all launchpads.\n"
+"⚡ Detects stealth launches, tracks smart inflows, and delivers top plays 24/7 ✅.\n\n"
+"No noise. No guesswork. Just sniper entries that hit hard.\n\n"
+"🎁 *Bonuses*\n"
+"🏆 1 Month: 100 smart wallets\n"
+"👑 Lifetime: 300 smart wallets\n\n"
+"📦 Works with *BullX, Axiom, Gmgn*, or any DEX tool.\n\n"
+"👇 Tap a plan below to join Premium."
 )
 
 
