@@ -59,13 +59,12 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     message = (
 "🚀 *Welcome to Premium Sniper Signals by Solana100xcall*\n\n"
-"Hundreds of traders use our bot to catch Solana pumps 💥 before the hype.\n\n"
+"Hundreds of traders use our bot to catch Solana pumps 💥 before the hype inside the VIP group.\n\n"
 "🤖 Filters 25,000+ tokens daily across Pumpfun, LetsBonk, Moonshot, and all launchpads.\n"
 "⚡ Detects stealth launches, tracks smart inflows, and delivers top plays 24/7 ✅.\n\n"
-"No noise. No guesswork. Just sniper entries that hit hard.\n\n"
-"🎁 *Bonuses*\n"
-"🏆 1 Month: 100 smart wallets\n"
-"👑 Lifetime: 300 smart wallets\n\n"
+"🎁 *Bonuses:*\n"
+"🏆 1 Month: 100 smart money wallets\n"
+"👑 Lifetime: TOP 300 smart money printing wallets\n\n"
 "📦 Works with *BullX, Axiom, Gmgn*, or any DEX tool.\n\n"
 "👇 Tap a plan below to join Premium."
 )
