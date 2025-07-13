@@ -58,14 +58,14 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
 
     message = (
-    "💰 *You’ve just unlocked the sniper terminal for Solana memecoins.*\n\n"
-    "⚡ 30+ elite alerts/day ⚡️ lightning-fast, fully filtered\n"
-    "📲 Every drop includes CA, LP, volume, chart, and more\n"
-    "🧠 Backed by a winning strategy that minimizes risk and maximizes gains\n\n"
-    "🔥 The top traders are already inside. Hundreds are printing daily.\n\n"
+    "🚀 *Welcome to Premium Sniper Signals By Solana100xcall*\n\n"
+    "Hundreds of traders rely on our sniper bot inside the Premium group to catch the biggest Solana pumps 💥 before the hype, before the charts move.\n\n"
+    "🤖 Our bot filters 30,000+ tokens every day across Pumpfun, LetsBonk, Moonshot and any Launchpad.\n"
+    "⚡ Detects stealth launches, tracks smart inflows, and delivers the top plays 24/7 ✅ straight to Premium.\n\n"
+    "No noise. No guesswork. Just sniper-grade entries that hit hard.\n\n"
     "🎁 Bonus 🏆 1 Month: 100 smart wallets 👑 Lifetime: 300 smart money wallets\n"
     "📦 Import-ready for *BullX, Axiom, Gmgn* or any DEX tool\n\n"
-    "👇 Tap below. Join Premium. Let the bot work for you:"
+    "👇 Tap a plan below to join Premium and let the bot work for you:"
 )
 
 
