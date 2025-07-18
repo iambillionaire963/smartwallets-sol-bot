@@ -64,7 +64,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 "⚡ Detects stealth launches, tracks smart inflows, and delivers top plays 24/7 ✅.\n\n"
 "🎁 *Bonuses:*\n"
 "🏆 1 Month: 100 smart money wallets\n"
-"👑 Lifetime: TOP 300 smart money printing wallets\n\n"
+"👑 Lifetime: TOP 300 smart money wallets\n\n"
 "📦 Works with *BullX, Axiom, Gmgn*, or any DEX tool.\n\n"
 "👇 Tap a plan below to join Premium."
 )
