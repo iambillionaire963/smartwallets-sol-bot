@@ -65,7 +65,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 "🎁 *Bonuses:*\n"
 "🏆 1 Month: 100 smart money wallets\n"
 "👑 Lifetime: TOP 300 smart money wallets\n\n"
-"📦 Works with *BullX, Axiom, Gmgn*, or any DEX tool.\n\n"
+"📦 Works with *BullX, Axiom, Padre, Gmgn*, or any DEX tool.\n\n"
 "👇 Tap a plan below to join Premium."
 )
 
@@ -73,8 +73,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
     [InlineKeyboardButton("⚡ 1 Month Alpha Premium Access: $44.4", callback_data="plan_1month")],
     [InlineKeyboardButton("👑 Lifetime Alpha Premium Access: $96.3", callback_data="plan_lifetime")],
-    [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
-    [InlineKeyboardButton("📈 Latest Top Calls", url="https://t.me/Solana100xcall/4046")],
+     [InlineKeyboardButton("🥇 Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
+    [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall/4046")],
     [InlineKeyboardButton("📖 How Signals Work", callback_data="show_howsignals")],
     [InlineKeyboardButton("💬 Contact Support", callback_data="show_support")]
 ])
@@ -126,7 +126,7 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "• AI-powered trade pattern analysis\n\n"
         "You’ll receive:\n"
         "✅ Instant alerts with token data & copy-ready CAs\n"
-        "✅ Membership bonuses: smart wallets for BullX, Axiom, Gmgn\n\n"
+        "✅ Membership bonuses: smart wallets for BullX, Axiom, Padre, Gmgn\n\n"
         "📬 For support, message [@The100xMooncaller](https://t.me/The100xMooncaller)"
     )
 
@@ -169,7 +169,7 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     "📲 Instant CA, LP, volume, chart — no delay, no fluff\n"
     "🧠 Winning strategy that minimizes risk and maximizes gains\n\n"
     "🎁 Bonus: 100 smart money wallets (import-ready)\n"
-    "🧠 Works with *BullX, Axiom, Gmgn* or any DEX\n\n"
+    "🧠 Works with *BullX, Axiom, Padre, Gmgn* or any DEX\n\n"
     "💳 Tap below to unlock your access:"
 )
 
@@ -198,7 +198,7 @@ async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
     "📲 Auto CA, LP, volume, dev sold ⚡️ 100% filtered\n"
     "🧠 Winning strategy that minimizes risk and maximizes gains\n\n"
     "🎁 Bonus: 300 smart wallets (import-ready)\n"
-    "🧠 For *BullX, Axiom, Gmgn* and advanced wallet tools\n\n"
+    "🧠 For *BullX, Axiom, Padre, Gmgn* and advanced wallet tools\n\n"
     "💳 Tap below to unlock Lifetime access:"
 )
 
