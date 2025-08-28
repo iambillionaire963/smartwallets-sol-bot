@@ -64,7 +64,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 "⚡ Detects stealth launches, tracks smart inflows, and delivers top plays 24/7 ✅.\n\n"
 "🎁 *Bonuses:*\n"
 "🏆 1 Month: 100 smart money wallets\n"
-"👑 Lifetime: TOP 300 smart money wallets\n\n"
+"👑 Lifetime: TOP 500 smart money wallets\n\n"
 "📦 Works with *BullX, Axiom, Padre, Gmgn*, or any DEX tool.\n\n"
 "👇 Tap a plan below to join Premium."
 )
@@ -197,7 +197,7 @@ async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
     "🤖 Tracks 1,000+ elite wallets in real time\n"
     "📲 Auto CA, LP, volume, dev sold ⚡️ 100% filtered\n"
     "🧠 Winning strategy that minimizes risk and maximizes gains\n\n"
-    "🎁 Bonus: 300 smart wallets (import-ready)\n"
+    "🎁 Bonus: 500 smart wallets (import-ready)\n"
     "🧠 For *BullX, Axiom, Padre, Gmgn* and advanced wallet tools\n\n"
     "💳 Tap below to unlock Lifetime access:"
 )
