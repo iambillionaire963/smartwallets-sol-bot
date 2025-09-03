@@ -72,7 +72,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     keyboard = InlineKeyboardMarkup([
     [InlineKeyboardButton("⚡ 1 Month Alpha Premium Access: $44.4", callback_data="plan_1month")],
-    [InlineKeyboardButton("👑 Lifetime Alpha Premium Access: $77.7", callback_data="plan_lifetime")],
+    [InlineKeyboardButton("👑 Lifetime Alpha Premium Access: $111", callback_data="plan_lifetime")],
      [InlineKeyboardButton("🥇 Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
     [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall/4046")],
     [InlineKeyboardButton("📖 How Signals Work", callback_data="show_howsignals")],
@@ -192,7 +192,7 @@ async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(chat_id=update.effective_user.id, photo=BANNER_URL)
 
     text = (
-    "👑 *Lifetime Premium 🤝 $77.7*\n\n"
+    "👑 *Lifetime Premium 🤝 $111*\n\n"
     "📈 Unlimited access to AI-powered sniper signals\n"
     "🤖 Tracks 1,000+ elite wallets in real time\n"
     "📲 Auto CA, LP, volume, dev sold ⚡️ 100% filtered\n"
