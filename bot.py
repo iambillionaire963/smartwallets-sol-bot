@@ -58,28 +58,34 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
 
     message = (
-"🚀 *Welcome to Premium Sniper Signals by Solana100xcall*\n\n"
-"Hundreds of traders use our bot to catch Solana pumps 💥 before the hype inside the VIP group.\n\n"
-"🤖 Filters 25,000+ tokens daily across Pumpfun, LetsBonk, Moonshot, and all launchpads.\n"
-"⚡ Detects stealth launches, tracks smart inflows, and delivers top plays 24/7 ✅.\n\n"
+"🚀 *Welcome to Premium Trading Signals by Solana100xcall*\n\n"
+"Join hundreds of traders already catching Solana pumps 💥 *before the hype* inside our VIP group.\n\n"
+"🤖 Our system filters 25,000+ tokens daily across Pumpfun, LetsBonk, Moonshot, and every major launchpad.\n\n"
+"⚡️ Instantly detects stealth launches, smart inflows, and top plays — delivered to you 24/7 ✅.\n\n"
 "🎁 *Bonuses:*\n"
-"🏆 1 Month: 100 smart money wallets\n"
-"👑 Lifetime: TOP 500 smart money wallets\n\n"
-"📦 Works with *BullX, Axiom, Padre, Gmgn*, or any DEX tool.\n\n"
+"🏆 *1 Month:* 100 smart money wallets\n"
+"💎 *3 Months:* 300 smart money wallets\n"
+"👑 *Lifetime:* TOP 500 smart money wallets\n\n"
+"📦 Works with *BullX, Axiom, Gmgn*, or any DEX tool.\n\n"
 "👇 Tap a plan below to join Premium."
 )
 
 
     keyboard = InlineKeyboardMarkup([
     [InlineKeyboardButton("⚡ 1 Month Alpha Premium Access: $44.4", callback_data="plan_1month")],
+    [InlineKeyboardButton("💎 3 Months Alpha Premium Access: $77.7", callback_data="plan_3month")],
     [InlineKeyboardButton("👑 Lifetime Alpha Premium Access: $111", callback_data="plan_lifetime")],
-     [InlineKeyboardButton("🥇 Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
-    [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall/4046")],
     [InlineKeyboardButton("📖 How Signals Work", callback_data="show_howsignals")],
-    [InlineKeyboardButton("💬 Contact Support", callback_data="show_support")]
+    [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
+    [InlineKeyboardButton("🥇Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
+        [
+            InlineKeyboardButton("🤖 Help Bot", url="https://t.me/MyPremiumHelpBot"),
+            InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
+        ]
 ])
 
-    await context.bot.send_message(
+    # send the main menu message and save its id so we can edit it later
+    menu_msg = await context.bot.send_message(
         chat_id=user.id,
         text=message,
         parse_mode=constants.ParseMode.MARKDOWN,
@@ -87,12 +93,11 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         disable_web_page_preview=True
     )
 
+    # persist message id + chat id in chat_data (per-chat storage)
+    context.chat_data["menu_message_id"] = menu_msg.message_id
+    context.chat_data["menu_chat_id"] = menu_msg.chat.id
 
 async def show_howsignals(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_photo(
-        chat_id=update.effective_chat.id,
-        photo="https://imgur.com/a/IiUPMt8"  # replace if different
-    )
 
     message = (
     "🧠 *How Signals Work*\n\n"
@@ -110,8 +115,8 @@ async def show_howsignals(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
-    await update.callback_query.message.reply_text(
-        message,
+    await update.callback_query.edit_message_text(
+        text=message,
         reply_markup=keyboard,
         parse_mode=constants.ParseMode.MARKDOWN,
         disable_web_page_preview=True
@@ -126,7 +131,7 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "• AI-powered trade pattern analysis\n\n"
         "You’ll receive:\n"
         "✅ Instant alerts with token data & copy-ready CAs\n"
-        "✅ Membership bonuses: smart wallets for BullX, Axiom, Padre, Gmgn\n\n"
+        "✅ *Membership bonuses:* smart wallets for BullX, Axiom, Gmgn\n\n"
         "📬 For support, message [@The100xMooncaller](https://t.me/The100xMooncaller)"
     )
 
@@ -134,33 +139,157 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
 
-    await update.message.reply_text(
-        message,
-        parse_mode=constants.ParseMode.MARKDOWN,
-        reply_markup=keyboard,
-        disable_web_page_preview=True
-    )
+    # Button click → edit that message
+    if update.callback_query:
+        await update.callback_query.answer()
+        try:
+            await update.callback_query.edit_message_text(
+                text=message,
+                reply_markup=keyboard,
+                parse_mode=constants.ParseMode.MARKDOWN,
+                disable_web_page_preview=True
+            )
+            context.chat_data["menu_message_id"] = update.callback_query.message.message_id
+            context.chat_data["menu_chat_id"] = update.callback_query.message.chat.id
+        except Exception:
+            # fallback: send new and store id
+            menu_msg = await context.bot.send_message(
+                chat_id=update.callback_query.message.chat.id,
+                text=message,
+                reply_markup=keyboard,
+                parse_mode=constants.ParseMode.MARKDOWN,
+                disable_web_page_preview=True
+            )
+            context.chat_data["menu_message_id"] = menu_msg.message_id
+            context.chat_data["menu_chat_id"] = menu_msg.chat.id
+
+    else:
+        # Typed command → delete it and edit the stored menu message (or send new one)
+        if update.message:
+            try:
+                await update.message.delete()
+            except Exception:
+                pass
+
+        chat_id = update.effective_chat.id
+        menu_id = context.chat_data.get("menu_message_id")
+        menu_chat = context.chat_data.get("menu_chat_id", chat_id)
+
+        if menu_id:
+            try:
+                await context.bot.edit_message_text(
+                    chat_id=menu_chat,
+                    message_id=menu_id,
+                    text=message,
+                    reply_markup=keyboard,
+                    parse_mode=constants.ParseMode.MARKDOWN,
+                    disable_web_page_preview=True
+                )
+            except Exception:
+                menu_msg = await context.bot.send_message(
+                    chat_id=chat_id,
+                    text=message,
+                    reply_markup=keyboard,
+                    parse_mode=constants.ParseMode.MARKDOWN,
+                    disable_web_page_preview=True
+                )
+                context.chat_data["menu_message_id"] = menu_msg.message_id
+                context.chat_data["menu_chat_id"] = menu_msg.chat.id
+        else:
+            menu_msg = await context.bot.send_message(
+                chat_id=chat_id,
+                text=message,
+                reply_markup=keyboard,
+                parse_mode=constants.ParseMode.MARKDOWN,
+                disable_web_page_preview=True
+            )
+            context.chat_data["menu_message_id"] = menu_msg.message_id
+            context.chat_data["menu_chat_id"] = menu_msg.chat.id
 
 async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🚀 Get VIP Signals", url=MEMBERSHIP_LINK)],
-        [InlineKeyboardButton("📲 Join Free Channel", url="https://t.me/Solana100xcall")]
+        [InlineKeyboardButton("📲 Join Free Channel", url="https://t.me/Solana100xcall")],
+        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
 
-    await update.message.reply_text(
+    text = (
         "🚀 *Unlock Full Access to VIP Signals*\n\n"
         "Get real-time alerts powered by AI & smart wallet tracking.\n"
         "Includes:\n"
         "• 30+ premium calls daily\n"
         "• Auto CA detection\n"
         "• 100+ elite wallets monitored\n\n"
-        "🎯 First-mover advantage starts here.",
-        parse_mode=constants.ParseMode.MARKDOWN,
-        reply_markup=keyboard,
-        disable_web_page_preview=True
+        "🎯 First-mover advantage starts here."
     )
+
+    # Button press → edit
+    if update.callback_query:
+        await update.callback_query.answer()
+        try:
+            await update.callback_query.edit_message_text(
+                text=text,
+                reply_markup=keyboard,
+                parse_mode=constants.ParseMode.MARKDOWN,
+                disable_web_page_preview=True
+            )
+            context.chat_data["menu_message_id"] = update.callback_query.message.message_id
+            context.chat_data["menu_chat_id"] = update.callback_query.message.chat.id
+        except Exception:
+            menu_msg = await context.bot.send_message(
+                chat_id=update.callback_query.message.chat.id,
+                text=text,
+                reply_markup=keyboard,
+                parse_mode=constants.ParseMode.MARKDOWN,
+                disable_web_page_preview=True
+            )
+            context.chat_data["menu_message_id"] = menu_msg.message_id
+            context.chat_data["menu_chat_id"] = menu_msg.chat.id
+
+    else:
+        # Typed /subscribe → delete the user command, then edit stored menu
+        if update.message:
+            try:
+                await update.message.delete()
+            except Exception:
+                pass
+
+        chat_id = update.effective_chat.id
+        menu_id = context.chat_data.get("menu_message_id")
+        menu_chat = context.chat_data.get("menu_chat_id", chat_id)
+
+        if menu_id:
+            try:
+                await context.bot.edit_message_text(
+                    chat_id=menu_chat,
+                    message_id=menu_id,
+                    text=text,
+                    reply_markup=keyboard,
+                    parse_mode=constants.ParseMode.MARKDOWN,
+                    disable_web_page_preview=True
+                )
+            except Exception:
+                menu_msg = await context.bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=keyboard,
+                    parse_mode=constants.ParseMode.MARKDOWN,
+                    disable_web_page_preview=True
+                )
+                context.chat_data["menu_message_id"] = menu_msg.message_id
+                context.chat_data["menu_chat_id"] = menu_msg.chat.id
+        else:
+            menu_msg = await context.bot.send_message(
+                chat_id=chat_id,
+                text=text,
+                reply_markup=keyboard,
+                parse_mode=constants.ParseMode.MARKDOWN,
+                disable_web_page_preview=True
+            )
+            context.chat_data["menu_message_id"] = menu_msg.message_id
+            context.chat_data["menu_chat_id"] = menu_msg.chat.id
+
 async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_photo(chat_id=update.effective_user.id, photo=BANNER_URL)
 
     text = (
     "⚡ *1 Month Premium 🤝 $44.4*\n\n"
@@ -168,8 +297,8 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     "🤖 AI scans 1,000+ smart wallets with $1B+ PnL\n"
     "📲 Instant CA, LP, volume, chart — no delay, no fluff\n"
     "🧠 Winning strategy that minimizes risk and maximizes gains\n\n"
-    "🎁 Bonus: 100 smart money wallets (import-ready)\n"
-    "🧠 Works with *BullX, Axiom, Padre, Gmgn* or any DEX\n\n"
+    "🎁 *Bonus:* 100 smart money wallets (import-ready)\n"
+    "🧠 Works with *BullX, Axiom, Gmgn* or any DEX\n\n"
     "💳 Tap below to unlock your access:"
 )
 
@@ -179,17 +308,39 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
 
-    await context.bot.send_message(
-        chat_id=update.effective_user.id,
+    await update.callback_query.edit_message_text(
         text=text,
-        parse_mode=constants.ParseMode.MARKDOWN,
         reply_markup=keyboard,
+        parse_mode=constants.ParseMode.MARKDOWN,
         disable_web_page_preview=True
     )
 
+async def show_3month(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    text = (
+        "💎 *3 Months Premium 🤝 $77.70*\n\n"
+        "📈 30+ sniper alerts/day for the hottest Solana memecoins\n"
+        "🤖 AI scans 1,000+ smart wallets with $1B+ PnL\n"
+        "📲 Instant CA, LP, volume, and chart — no delay, no fluff\n"
+        "🧠 Proven strategy to minimize risk and maximize gains\n\n"
+        "🎁 *Bonus:* 300 Smart Money wallets (import-ready)\n"
+        "🧠 Works seamlessly with *BullX, Axiom, Gmgn* or any DEX tool\n\n"
+        "💳 Tap below to unlock 3-Month Premium access:"
+    )
+
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("🪙 Pay with Crypto", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
+    ])
+
+    await query.edit_message_text(
+        text=text,
+        reply_markup=keyboard,
+        parse_mode=constants.ParseMode.MARKDOWN,
+        disable_web_page_preview=True
+    )
 
 async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await context.bot.send_photo(chat_id=update.effective_user.id, photo=BANNER_URL)
 
     text = (
     "👑 *Lifetime Premium 🤝 $111*\n\n"
@@ -197,43 +348,188 @@ async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
     "🤖 Tracks 1,000+ elite wallets in real time\n"
     "📲 Auto CA, LP, volume, dev sold ⚡️ 100% filtered\n"
     "🧠 Winning strategy that minimizes risk and maximizes gains\n\n"
-    "🎁 Bonus: 500 smart wallets (import-ready)\n"
-    "🧠 For *BullX, Axiom, Padre, Gmgn* and advanced wallet tools\n\n"
+    "🎁 *Bonus:* 500 smart wallets (import-ready)\n"
+    "🧠 For *BullX, Axiom, Gmgn* and advanced wallet tools\n\n"
     "💳 Tap below to unlock Lifetime access:"
 )
-
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🪙 Pay with Crypto", url=MEMBERSHIP_LINK)],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
 
-    await context.bot.send_message(
-        chat_id=update.effective_user.id,
+    await update.callback_query.edit_message_text(
         text=text,
-        parse_mode=constants.ParseMode.MARKDOWN,
         reply_markup=keyboard,
+        parse_mode=constants.ParseMode.MARKDOWN,
         disable_web_page_preview=True
     )
 
 async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🚀 Get VIP Signals", url=MEMBERSHIP_LINK)],
-        [InlineKeyboardButton("📲 Join Free Channel", url="https://t.me/Solana100xcall")]
+        [InlineKeyboardButton("📲 Join Free Channel", url="https://t.me/Solana100xcall")],
+        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
 
-    await update.message.reply_text(
+    text = (
         "🚀 *Join the Premium Signal Group*\n\n"
         "Get AI-powered sniper calls based on 1,000+ smart wallets.\n\n"
         "🎯 Includes:\n"
         "• 30+ memecoin alerts daily\n"
         "• On-chain metrics & charts\n"
         "• Elite wallet tracking\n\n"
-        "👇 Tap below to join:",
-        parse_mode=constants.ParseMode.MARKDOWN,
-        reply_markup=keyboard,
-        disable_web_page_preview=True
+        "👇 Tap below to join:"
     )
+
+    if update.callback_query:
+        await update.callback_query.answer()
+        try:
+            await update.callback_query.edit_message_text(
+                text=text,
+                reply_markup=keyboard,
+                parse_mode=constants.ParseMode.MARKDOWN,
+                disable_web_page_preview=True
+            )
+            context.chat_data["menu_message_id"] = update.callback_query.message.message_id
+            context.chat_data["menu_chat_id"] = update.callback_query.message.chat.id
+        except Exception:
+            menu_msg = await context.bot.send_message(
+                chat_id=update.callback_query.message.chat.id,
+                text=text,
+                reply_markup=keyboard,
+                parse_mode=constants.ParseMode.MARKDOWN,
+                disable_web_page_preview=True
+            )
+            context.chat_data["menu_message_id"] = menu_msg.message_id
+            context.chat_data["menu_chat_id"] = menu_msg.chat.id
+
+    else:
+        # Typed /join
+        if update.message:
+            try:
+                 await update.message.delete()
+            except Exception:
+                pass
+
+        chat_id = update.effective_chat.id
+        menu_id = context.chat_data.get("menu_message_id")
+        menu_chat = context.chat_data.get("menu_chat_id", chat_id)
+
+        if menu_id:
+            try:
+                await context.bot.edit_message_text(
+                    chat_id=menu_chat,
+                    message_id=menu_id,
+                    text=text,
+                    reply_markup=keyboard,
+                    parse_mode=constants.ParseMode.MARKDOWN,
+                    disable_web_page_preview=True
+                )
+            except Exception:
+                menu_msg = await context.bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=keyboard,
+                    parse_mode=constants.ParseMode.MARKDOWN,
+                    disable_web_page_preview=True
+                )
+                context.chat_data["menu_message_id"] = menu_msg.message_id
+                context.chat_data["menu_chat_id"] = menu_msg.chat.id
+        else:
+            menu_msg = await context.bot.send_message(
+                chat_id=chat_id,
+                text=text,
+                reply_markup=keyboard,
+                parse_mode=constants.ParseMode.MARKDOWN,
+                disable_web_page_preview=True
+            )
+            context.chat_data["menu_message_id"] = menu_msg.message_id
+            context.chat_data["menu_chat_id"] = menu_msg.chat.id
+
+    
+async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("🚀 Get VIP Signals", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("📲 Join Free Channel", url="https://t.me/Solana100xcall")],
+        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
+     ])
+
+    text = (
+        "🚀 *Join the Premium Signal Group*\n\n"
+        "Get AI-powered sniper calls based on 1,000+ smart wallets.\n\n"
+        "🎯 Includes:\n"
+        "• 30+ memecoin alerts daily\n"
+        "• On-chain metrics & charts\n"
+        "• Elite wallet tracking\n\n"
+        "👇 Tap below to join:"
+    )
+
+    if update.callback_query:
+        await update.callback_query.answer()
+        try:
+            await update.callback_query.edit_message_text(
+                text=text,
+                reply_markup=keyboard,
+                parse_mode=constants.ParseMode.MARKDOWN,
+                disable_web_page_preview=True
+            )
+            context.chat_data["menu_message_id"] = update.callback_query.message.message_id
+            context.chat_data["menu_chat_id"] = update.callback_query.message.chat.id
+        except Exception:
+            menu_msg = await context.bot.send_message(
+                chat_id=update.callback_query.message.chat.id,
+                text=text,
+                reply_markup=keyboard,
+                parse_mode=constants.ParseMode.MARKDOWN,
+                disable_web_page_preview=True
+            )
+            context.chat_data["menu_message_id"] = menu_msg.message_id
+            context.chat_data["menu_chat_id"] = menu_msg.chat.id
+
+    else:
+        # Typed /join
+        if update.message:
+            try:
+                await update.message.delete()
+            except Exception:
+                pass
+
+        chat_id = update.effective_chat.id
+        menu_id = context.chat_data.get("menu_message_id")
+        menu_chat = context.chat_data.get("menu_chat_id", chat_id)
+
+        if menu_id:
+            try:
+                await context.bot.edit_message_text(
+                    chat_id=menu_chat,
+                    message_id=menu_id,
+                    text=text,
+                    reply_markup=keyboard,
+                    parse_mode=constants.ParseMode.MARKDOWN,
+                    disable_web_page_preview=True
+                )
+            except Exception:
+                menu_msg = await context.bot.send_message(
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=keyboard,
+                    parse_mode=constants.ParseMode.MARKDOWN,
+                    disable_web_page_preview=True
+                )
+                context.chat_data["menu_message_id"] = menu_msg.message_id
+                context.chat_data["menu_chat_id"] = menu_msg.chat.id
+        else:
+            menu_msg = await context.bot.send_message(
+                chat_id=chat_id,
+                text=text,
+                reply_markup=keyboard,
+                parse_mode=constants.ParseMode.MARKDOWN,
+                disable_web_page_preview=True
+            )
+            context.chat_data["menu_message_id"] = menu_msg.message_id
+            context.chat_data["menu_chat_id"] = menu_msg.chat.id
+
 
 # Step 1: Ask for the broadcast content
 async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -303,13 +599,113 @@ async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
 
-    await update.callback_query.message.reply_text(
-        message,
-        parse_mode=constants.ParseMode.MARKDOWN,
+    await update.callback_query.edit_message_text(
+        text=message,
         reply_markup=keyboard,
+        parse_mode=constants.ParseMode.MARKDOWN,
         disable_web_page_preview=True
     )
 
+async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    # shared main menu text + keyboard
+    message = (
+"🚀 *Welcome to Premium Trading Signals by Solana100xcall*\n\n"
+"Join hundreds of traders already catching Solana pumps 💥 *before the hype* inside our VIP group.\n\n"
+"🤖 Our system filters 25,000+ tokens daily across Pumpfun, LetsBonk, Moonshot, and every major launchpad.\n\n"
+"⚡️ Instantly detects stealth launches, smart inflows, and top plays — delivered to you 24/7 ✅.\n\n"
+"🎁 *Bonuses:*\n"
+"🏆 *1 Month:* 100 smart money wallets\n"
+"💎 *3 Months:* 300 smart money wallets\n"
+"👑 *Lifetime:* TOP 500 smart money wallets\n\n"
+"📦 Works with *BullX, Axiom, Gmgn*, or any DEX tool.\n\n"
+"👇 Tap a plan below to join Premium."
+)
+
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("⚡ 1 Month Alpha Premium Access: $44.4", callback_data="plan_1month")],
+        [InlineKeyboardButton("💎 3 Months Alpha Premium Access: $77.70", callback_data="plan_3month")],
+        [InlineKeyboardButton("👑 Lifetime Alpha Premium Access: $111", callback_data="plan_lifetime")],
+        [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
+        [InlineKeyboardButton("🥇Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
+        [
+            InlineKeyboardButton("🤖 Help Bot", url="https://t.me/MyPremiumHelpBot"),
+            InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
+        ]
+    ])
+
+    # If triggered by a button press (callback_query) → edit that message
+    if update.callback_query:
+        query = update.callback_query
+        await query.answer()
+        try:
+            await query.edit_message_text(
+                text=message,
+                reply_markup=keyboard,
+                parse_mode=constants.ParseMode.MARKDOWN,
+                disable_web_page_preview=True
+            )
+            # update stored ids to the edited message
+            context.chat_data["menu_message_id"] = query.message.message_id
+            context.chat_data["menu_chat_id"] = query.message.chat.id
+        except Exception:
+            # fallback — send a fresh message and store it
+            menu_msg = await context.bot.send_message(
+                chat_id=query.message.chat.id,
+                text=message,
+                reply_markup=keyboard,
+                parse_mode=constants.ParseMode.MARKDOWN,
+                disable_web_page_preview=True
+            )
+            context.chat_data["menu_message_id"] = menu_msg.message_id
+            context.chat_data["menu_chat_id"] = menu_msg.chat.id
+
+    else:
+        # Triggered by typing the command (e.g. /start or typing /menu)
+        chat_id = update.effective_chat.id
+        # delete the user's command message to avoid clutter
+        if update.message:
+            try:
+                await update.message.delete()
+            except Exception:
+                pass
+
+        menu_id = context.chat_data.get("menu_message_id")
+        menu_chat = context.chat_data.get("menu_chat_id", chat_id)
+
+        if menu_id:
+            # try to edit the stored menu message
+            try:
+                await context.bot.edit_message_text(
+                    chat_id=menu_chat,
+                    message_id=menu_id,
+                    text=message,
+                    reply_markup=keyboard,
+                    parse_mode=constants.ParseMode.MARKDOWN,
+                    disable_web_page_preview=True
+                )
+            except Exception:
+                # if edit fails (e.g. message was deleted) — send a new one and store it
+                menu_msg = await context.bot.send_message(
+                    chat_id=chat_id,
+                    text=message,
+                    reply_markup=keyboard,
+                    parse_mode=constants.ParseMode.MARKDOWN,
+                    disable_web_page_preview=True
+                )
+                context.chat_data["menu_message_id"] = menu_msg.message_id
+                context.chat_data["menu_chat_id"] = menu_msg.chat.id
+        else:
+            # no stored menu — send fresh and store
+            menu_msg = await context.bot.send_message(
+                chat_id=chat_id,
+                text=message,
+                reply_markup=keyboard,
+                parse_mode=constants.ParseMode.MARKDOWN,
+                disable_web_page_preview=True
+            )
+            context.chat_data["menu_message_id"] = menu_msg.message_id
+            context.chat_data["menu_chat_id"] = menu_msg.chat.id
+    
 async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
@@ -321,12 +717,13 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif query.data == "show_support":
         await support(update, context)
     elif query.data == "go_home":
-        await start(update, context)
+        await show_main_menu(update, context)
     elif query.data == "plan_1month":
         await show_1month(update, context)
+    elif query.data == "plan_3month":
+        await show_3month(update, context)
     elif query.data == "plan_lifetime":
         await show_lifetime(update, context)
-
 
 # -------- Main --------
 
