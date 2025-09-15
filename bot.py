@@ -74,7 +74,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
     [InlineKeyboardButton("⚡ 1 Month Alpha Premium Access: $44.4", callback_data="plan_1month")],
     [InlineKeyboardButton("💎 3 Months Alpha Premium Access: $77.7", callback_data="plan_3month")],
-    [InlineKeyboardButton("👑 Lifetime Alpha Premium Access: $96.3 (20% OFF)", callback_data="plan_lifetime")],
+    [InlineKeyboardButton("👑 Lifetime Alpha Premium Access: $88.8 (20% OFF)", callback_data="plan_lifetime")],
     [InlineKeyboardButton("📖 How Signals Work", callback_data="show_howsignals")],
     [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
     [InlineKeyboardButton("🥇Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
