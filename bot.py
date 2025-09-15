@@ -74,7 +74,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
     [InlineKeyboardButton("⚡ 1 Month Alpha Premium Access: $44.4", callback_data="plan_1month")],
     [InlineKeyboardButton("💎 3 Months Alpha Premium Access: $77.7", callback_data="plan_3month")],
-    [InlineKeyboardButton("👑 Lifetime Alpha Premium Access: $111", callback_data="plan_lifetime")],
+    [InlineKeyboardButton("👑 Lifetime Alpha Premium Access: $96.3 (20% OFF)", callback_data="plan_lifetime")],
     [InlineKeyboardButton("📖 How Signals Work", callback_data="show_howsignals")],
     [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
     [InlineKeyboardButton("🥇Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
@@ -343,7 +343,7 @@ async def show_3month(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     text = (
-    "👑 *Lifetime Premium 🤝 $111*\n\n"
+    "👑 *Lifetime Premium 🤝 $96.3 (20% OFF)*\n\n"
     "📈 Unlimited access to AI-powered sniper signals\n"
     "🤖 Tracks 1,000+ elite wallets in real time\n"
     "📲 Auto CA, LP, volume, dev sold ⚡️ 100% filtered\n"
@@ -624,7 +624,7 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("⚡ 1 Month Alpha Premium Access: $44.4", callback_data="plan_1month")],
         [InlineKeyboardButton("💎 3 Months Alpha Premium Access: $77.70", callback_data="plan_3month")],
-        [InlineKeyboardButton("👑 Lifetime Alpha Premium Access: $111", callback_data="plan_lifetime")],
+        [InlineKeyboardButton("👑 Lifetime Alpha Premium Access: $96.3 (20%OFF)", callback_data="plan_lifetime")],
         [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
         [InlineKeyboardButton("🥇Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
         [
