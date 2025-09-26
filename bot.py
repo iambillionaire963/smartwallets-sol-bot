@@ -59,13 +59,13 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     # --- Move main menu message here ---
     message = (
-"🏠 *Main Menu — Premium Trading Signals*\n\n"
-"🚀 Stay ahead with AI-powered Solana signals.\n\n"
-"🤖 Top Solana plays filtered daily from 25,000+ tokens.\n"
-"⚡ Instant alerts 24/7 on smart inflows & trending plays.\n\n"
-"🎁 *Bonus:* 100 Top Killer Smart Money Wallets\n"
-"📦 Optimized for all major DEX tools\n\n"
-"👇 Select an option:"
+    "🏠 *Main Menu — Premium Trading Signals*\n\n"
+    "🚀 Stay ahead of the market with AI-powered Solana signals.\n\n"
+    "🤖 Our system scans 25,000+ tokens daily, delivering only the top Solana plays from Pumpfun, LetsBonk, Moonshot & major launchpads.\n\n"
+    "⚡ Receive instant alerts on stealth launches, smart inflows & trending plays — 24/7.\n\n"
+    "🎁 *Bonus (all plans):* 100 Top Killer Smart Money Wallets (import-ready)\n\n"
+    "📦 Fully optimized for *BullX, Axiom, Padre, Gmgn* & all major DEX tools.\n\n"
+    "👇 Choose a plan to upgrade your trading edge:"
 )
 
     keyboard = InlineKeyboardMarkup([
@@ -490,17 +490,15 @@ async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # shared main menu text + keyboard
-    message = (
+     message = (
     "🏠 *Main Menu — Premium Trading Signals*\n\n"
     "🚀 Stay ahead of the market with AI-powered Solana signals.\n\n"
-    "🤖 Filtering 25,000+ tokens daily to bring you only the top Solana plays from Pumpfun, LetsBonk, Moonshot & major launchpads.\n\n"
-    "⚡ Instant alerts on stealth launches, smart inflows & trending plays — 24/7.\n\n"
+    "🤖 Our system scans 25,000+ tokens daily, delivering only the top Solana plays from Pumpfun, LetsBonk, Moonshot & major launchpads.\n\n"
+    "⚡ Receive instant alerts on stealth launches, smart inflows & trending plays — 24/7.\n\n"
     "🎁 *Bonus (all plans):* 100 Top Killer Smart Money Wallets (import-ready)\n\n"
-    "📦 Optimized for *BullX, Axiom, Padre, Gmgn* & all major DEX tools.\n\n"
-    "👇 Select a plan to upgrade your trading edge:"
+    "📦 Fully optimized for *BullX, Axiom, Padre, Gmgn* & all major DEX tools.\n\n"
+    "👇 Choose a plan to upgrade your trading edge:"
 )
-
-
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("⚡ 1 Month Alpha Premium Access: 0.25 SOL", callback_data="plan_1month")],
         [InlineKeyboardButton("👑 Lifetime Alpha Premium Access: 0.444 SOL (20%OFF)", callback_data="plan_lifetime")],
