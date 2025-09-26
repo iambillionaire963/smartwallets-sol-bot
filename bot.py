@@ -489,25 +489,26 @@ async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # shared main menu text + keyboard
-        message = (
-    "🏠 *Main Menu — Premium Trading Signals*\n\n"
-    "🚀 Stay ahead of the market with AI-powered Solana signals.\n\n"
-    "🤖 Our system scans 25,000+ tokens daily, delivering only the top Solana plays from Pumpfun, LetsBonk, Moonshot & major launchpads.\n\n"
-    "⚡ Receive instant alerts on stealth launches, smart inflows & trending plays — 24/7.\n\n"
-    "🎁 *Bonus (all plans):* 100 Top Killer Smart Money Wallets (import-ready)\n\n"
-    "📦 Fully optimized for *BullX, Axiom, Padre, Gmgn* & all major DEX tools.\n\n"
-    "👇 Choose a plan to upgrade your trading edge:"
-)
+    message = (
+        "🏠 *Main Menu — Premium Trading Signals*\n\n"
+        "🚀 Stay ahead of the market with AI-powered Solana signals.\n\n"
+        "🤖 Our system scans 25,000+ tokens daily, delivering only the top Solana plays from Pumpfun, LetsBonk, Moonshot & major launchpads.\n\n"
+        "⚡ Receive instant alerts on stealth launches, smart inflows & trending plays — 24/7.\n\n"
+        "🎁 *Bonus (all plans):* 100 Top Killer Smart Money Wallets (import-ready)\n\n"
+        "📦 Fully optimized for *BullX, Axiom, Padre, Gmgn* & all major DEX tools.\n\n"
+        "👇 Choose a plan to upgrade your trading edge:"
+    )
+
     keyboard = InlineKeyboardMarkup([
-    [InlineKeyboardButton("⚡ 1 Month Alpha Premium Access: 0.25 SOL", callback_data="plan_1month")],
-    [InlineKeyboardButton("👑 Lifetime Alpha Premium Access: 0.444 SOL (20%OFF)", callback_data="plan_lifetime")],
-    [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
-    [InlineKeyboardButton("🥇Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
-    [
-        InlineKeyboardButton("🤖 Help Bot", url="https://t.me/MyPremiumHelpBot"),
-        InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
-    ]
-])
+        [InlineKeyboardButton("⚡ 1 Month Alpha Premium Access: 0.25 SOL", callback_data="plan_1month")],
+        [InlineKeyboardButton("👑 Lifetime Alpha Premium Access: 0.444 SOL (20%OFF)", callback_data="plan_lifetime")],
+        [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
+        [InlineKeyboardButton("🥇 Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
+        [
+            InlineKeyboardButton("🤖 Help Bot", url="https://t.me/MyPremiumHelpBot"),
+            InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
+        ]
+    ])
 
     # If triggered by a button press (callback_query) → edit that message
     if update.callback_query:
