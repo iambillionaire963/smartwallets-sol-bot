@@ -57,41 +57,39 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
 
-# --- inside start() ---
+    # --- main menu message ---
+    message = (
+        "🏠 *Main Menu — Premium Trading Signals*\n\n"
+        "🚀 Stay ahead of the market with AI-powered Solana signals.\n\n"
+        "🤖 We track 25,000+ tokens daily across Pumpfun, LetsBonk, Moonshot & every major launchpad.\n\n"
+        "⚡ Get instant alerts on stealth launches, smart inflows & trending plays — 24/7, no delays.\n\n"
+        "🎁 *Bonus (all plans):* 100 Top Killer Smart Money Wallets (import-ready)\n\n"
+        "📦 Optimized for *BullX, Axiom, Gmgn* & all major DEX tools.\n\n"
+        "👇 Select a plan to upgrade your trading edge:"
+    )
 
-message = (
-    "🏠 *Main Menu — Premium Trading Signals*\n\n"
-    "🚀 Stay ahead of the market with AI-powered Solana signals.\n\n"
-    "🤖 We track 25,000+ tokens daily across Pumpfun, LetsBonk, Moonshot & every major launchpad.\n\n"
-    "⚡ Get instant alerts on stealth launches, smart inflows & trending plays — 24/7, no delays.\n\n"
-    "🎁 *Bonus (all plans):* 100 Top Killer Smart Money Wallets (import-ready)\n\n"
-    "📦 Optimized for *BullX, Axiom, Gmgn* & all major DEX tools.\n\n"
-    "👇 Select a plan to upgrade your trading edge:"
-)
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("⚡ 1 Month Alpha Premium Access: 0.25 SOL", callback_data="plan_1month")],
+        [InlineKeyboardButton("👑 Lifetime Alpha Premium Access: 0.444 SOL", callback_data="plan_lifetime")],
+        [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
+        [InlineKeyboardButton("🥇 Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
+        [
+            InlineKeyboardButton("🤖 Help Bot", url="https://t.me/MyPremiumHelpBot"),
+            InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
+        ]
+    ])
 
-keyboard = InlineKeyboardMarkup([
-    [InlineKeyboardButton("⚡ 1 Month Alpha Premium Access: 0.25 SOL", callback_data="plan_1month")],
-    [InlineKeyboardButton("👑 Lifetime Alpha Premium Access: 0.444 SOL", callback_data="plan_lifetime")],
-    [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
-    [InlineKeyboardButton("🥇 Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
-    [
-        InlineKeyboardButton("🤖 Help Bot", url="https://t.me/MyPremiumHelpBot"),
-        InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
-    ]
-])
+    menu_msg = await context.bot.send_message(
+        chat_id=user.id,
+        text=message,
+        parse_mode=constants.ParseMode.MARKDOWN,
+        reply_markup=keyboard,
+        disable_web_page_preview=True
+    )
 
-# send the main menu message and save its id so we can edit it later
-menu_msg = await context.bot.send_message(
-    chat_id=user.id,
-    text=message,
-    parse_mode=constants.ParseMode.MARKDOWN,
-    reply_markup=keyboard,
-    disable_web_page_preview=True
-)
-
-# persist message id + chat id in chat_data (per-chat storage)
-context.chat_data["menu_message_id"] = menu_msg.message_id
-context.chat_data["menu_chat_id"] = menu_msg.chat.id
+    # persist message id + chat id in chat_data
+    context.chat_data["menu_message_id"] = menu_msg.message_id
+    context.chat_data["menu_chat_id"] = menu_msg.chat.id
 
 
 async def show_howsignals(update: Update, context: ContextTypes.DEFAULT_TYPE):
