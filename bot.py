@@ -94,7 +94,7 @@ async def show_howsignals(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     message = (
     "🧠 *How Signals Work*\n\n"
-    "Our proprietary AI system continuously monitors 1,000+ elite Solana wallets with a combined PnL exceeding $1B.\n\n"
+    "Our proprietary AI system continuously monitors thousands of elite Solana wallets with a combined PnL exceeding $1B.\n\n"
     "It captures real-time smart money activity across newly launched tokens, identifying:\n"
     "• 📥 Stealth entries from insiders\n"
     "• 💧 Liquidity movements and inflows\n"
@@ -119,7 +119,7 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
         "🆘 *Need Help?*\n\n"
         "This bot delivers sniper-grade Solana memecoin signals based on:\n"
-        "• On-chain wallet tracking (1,000+ smart wallets)\n"
+        "• On-chain wallet tracking (thousands of smart wallets)\n"
         "• High-liquidity inflow detection\n"
         "• AI-powered trade pattern analysis\n\n"
         "You’ll receive:\n"
@@ -287,7 +287,7 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
 "⚡ *1 Month Premium 🤝 0.25 SOL*\n\n"
 "📈 30+ sniper alerts/day for fresh Solana memecoins\n"
-"🤖 AI scans 1,000+ smart wallets with $1B+ PnL\n"
+"🤖 AI scans thousands of smart wallets with $1B+ PnL\n"
 "📲 Instant CA, LP, volume, chart — no delay, no fluff\n\n"
 "🎁 *Bonus:* 100 Top Killer Smart Money Wallets (import-ready)\n"
 "🧠 Works with *BullX, Axiom, Gmgn* or any DEX\n\n"
@@ -311,7 +311,7 @@ async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
 "👑 *Lifetime Premium 🤝 0.444 SOL*\n\n"
 "📈 Unlimited access to AI-powered sniper signals\n"
-"🤖 Tracks 1,000+ elite wallets in real time\n"
+"🤖 Tracks thousands of elite wallets in real time\n"
 "📲 Auto CA, LP, volume, dev sold ⚡️ 100% filtered\n\n"
 "🎁 *Bonus:* 100 Top Killer Smart Money Wallets (import-ready)\n"
 "🧠 For *BullX, Axiom, Gmgn* and advanced wallet tools\n\n"
