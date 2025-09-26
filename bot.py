@@ -57,16 +57,16 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
 
-    # --- inside start() and show_main_menu(), replace the messages like this ---
+# --- inside start() ---
 
 message = (
-"🏠 *Main Menu — Premium Trading Signals*\n\n"
-"🚀 Stay ahead of the market with AI-powered Solana signals.\n\n"
-"🤖 We track 25,000+ tokens daily across Pumpfun, LetsBonk, Moonshot & every major launchpad.\n\n"
-"⚡ Get instant alerts on stealth launches, smart inflows & trending plays — 24/7, no delays.\n\n"
-"🎁 *Bonus (all plans):* 100 Top Killer Smart Money Wallets (import-ready)\n\n"
-"📦 Optimized for *BullX, Axiom, Gmgn* & all major DEX tools.\n\n"
-"👇 Select a plan to upgrade your trading edge:"
+    "🏠 *Main Menu — Premium Trading Signals*\n\n"
+    "🚀 Stay ahead of the market with AI-powered Solana signals.\n\n"
+    "🤖 We track 25,000+ tokens daily across Pumpfun, LetsBonk, Moonshot & every major launchpad.\n\n"
+    "⚡ Get instant alerts on stealth launches, smart inflows & trending plays — 24/7, no delays.\n\n"
+    "🎁 *Bonus (all plans):* 100 Top Killer Smart Money Wallets (import-ready)\n\n"
+    "📦 Optimized for *BullX, Axiom, Gmgn* & all major DEX tools.\n\n"
+    "👇 Select a plan to upgrade your trading edge:"
 )
 
 keyboard = InlineKeyboardMarkup([
@@ -80,18 +80,19 @@ keyboard = InlineKeyboardMarkup([
     ]
 ])
 
-    # send the main menu message and save its id so we can edit it later
-    menu_msg = await context.bot.send_message(
-        chat_id=user.id,
-        text=message,
-        parse_mode=constants.ParseMode.MARKDOWN,
-        reply_markup=keyboard,
-        disable_web_page_preview=True
-    )
+# send the main menu message and save its id so we can edit it later
+menu_msg = await context.bot.send_message(
+    chat_id=user.id,
+    text=message,
+    parse_mode=constants.ParseMode.MARKDOWN,
+    reply_markup=keyboard,
+    disable_web_page_preview=True
+)
 
-    # persist message id + chat id in chat_data (per-chat storage)
-    context.chat_data["menu_message_id"] = menu_msg.message_id
-    context.chat_data["menu_chat_id"] = menu_msg.chat.id
+# persist message id + chat id in chat_data (per-chat storage)
+context.chat_data["menu_message_id"] = menu_msg.message_id
+context.chat_data["menu_chat_id"] = menu_msg.chat.id
+
 
 async def show_howsignals(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
