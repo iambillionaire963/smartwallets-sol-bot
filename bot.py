@@ -61,7 +61,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
     "🏠 *Main Menu — Premium Trading Signals*\n\n"
     "🚀 Stay ahead of the market with AI-powered Solana signals.\n"
-    "🤖 Tracking 25,000+ tokens daily across Pumpfun, LetsBonk, Moonshot & major launchpads.\n"
+    "🤖 Filtering 25,000+ tokens daily to bring you only the top Solana plays from Pumpfun, LetsBonk, Moonshot & major launchpads.\n"
     "⚡ Instant alerts on stealth launches, smart inflows & trending plays — 24/7.\n"
     "🎁 *Bonus (all plans):* 100 Top Killer Smart Money Wallets (import-ready)\n"
     "📦 Optimized for *BullX, Axiom, Gmgn* & all major DEX tools.\n\n"
@@ -492,10 +492,10 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # shared main menu text + keyboard
     message = (
     "🏠 *Main Menu — Premium Trading Signals*\n\n"
-    "🚀 Stay ahead of the market with AI-powered Solana signals.\n"
-    "🤖 Tracking 25,000+ tokens daily across Pumpfun, LetsBonk, Moonshot & major launchpads.\n"
-    "⚡ Instant alerts on stealth launches, smart inflows & trending plays — 24/7.\n"
-    "🎁 *Bonus (all plans):* 100 Top Killer Smart Money Wallets (import-ready)\n"
+    "🚀 Stay ahead of the market with AI-powered Solana signals.\n\n"
+    "🤖 Filtering 25,000+ tokens daily to bring you only the top Solana plays from Pumpfun, LetsBonk, Moonshot & major launchpads.\n\n"
+    "⚡ Instant alerts on stealth launches, smart inflows & trending plays — 24/7.\n\n"
+    "🎁 *Bonus (all plans):* 100 Top Killer Smart Money Wallets (import-ready)\n\n"
     "📦 Optimized for *BullX, Axiom, Gmgn* & all major DEX tools.\n\n"
     "👇 Select a plan to upgrade your trading edge:"
 )
