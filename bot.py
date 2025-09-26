@@ -59,13 +59,13 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     # --- Move main menu message here ---
     message = (
-    "🏠 *Main Menu — Premium Trading Signals*\n\n"
-    "🚀 Stay ahead of the market with AI-powered Solana signals.\n"
-    "🤖 Filtering 25,000+ tokens daily to bring you only the top Solana plays from Pumpfun, LetsBonk, Moonshot & major launchpads.\n"
-    "⚡ Instant alerts on stealth launches, smart inflows & trending plays — 24/7.\n"
-    "🎁 *Bonus (all plans):* 100 Top Killer Smart Money Wallets (import-ready)\n"
-    "📦 Optimized for *BullX, Axiom, Padre, Gmgn* & all major DEX tools.\n\n"
-    "👇 Select a plan to upgrade your trading edge:"
+"🏠 *Main Menu — Premium Trading Signals*\n\n"
+"🚀 Stay ahead with AI-powered Solana signals.\n\n"
+"🤖 Top Solana plays filtered daily from 25,000+ tokens.\n"
+"⚡ Instant alerts 24/7 on smart inflows & trending plays.\n\n"
+"🎁 *Bonus:* 100 Top Killer Smart Money Wallets\n"
+"📦 Optimized for all major DEX tools\n\n"
+"👇 Select an option:"
 )
 
     keyboard = InlineKeyboardMarkup([
