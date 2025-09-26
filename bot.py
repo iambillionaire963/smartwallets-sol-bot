@@ -57,7 +57,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
 
-    # --- main menu message ---
+    # --- Move main menu message here ---
     message = (
         "🏠 *Main Menu — Premium Trading Signals*\n\n"
         "🚀 Stay ahead of the market with AI-powered Solana signals.\n\n"
@@ -87,10 +87,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         disable_web_page_preview=True
     )
 
-    # persist message id + chat id in chat_data
     context.chat_data["menu_message_id"] = menu_msg.message_id
     context.chat_data["menu_chat_id"] = menu_msg.chat.id
-
 
 async def show_howsignals(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
