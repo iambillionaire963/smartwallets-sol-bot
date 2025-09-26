@@ -67,7 +67,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     "📦 Fully optimized for *BullX, Axiom, Padre, Gmgn* & all major DEX tools.\n\n"
     "👇 Choose a plan to upgrade your trading edge:"
 )
-
+    
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("⚡ 1 Month Alpha Premium Access: 0.25 SOL", callback_data="plan_1month")],
         [InlineKeyboardButton("👑 Lifetime Alpha Premium Access: 0.444 SOL", callback_data="plan_lifetime")],
@@ -283,16 +283,15 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
             context.chat_data["menu_chat_id"] = menu_msg.chat.id
 
 async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
     text = (
-"⚡ *1 Month Premium 🤝 0.25 SOL*\n\n"
-"📈 30+ sniper alerts/day for fresh Solana memecoins\n"
-"🤖 AI scans thousands of smart wallets with $1B+ PnL\n"
-"📲 Instant CA, LP, volume, chart — no delay, no fluff\n\n"
-"🎁 *Bonus:* 100 Top Killer Smart Money Wallets (import-ready)\n"
-"🧠 Works with *BullX, Axiom, Padre, Gmgn* or any DEX\n\n"
-"💳 Tap below to unlock your access:"
-)
+        "⚡ *1 Month Premium 🤝 0.25 SOL*\n\n"
+        "📈 30+ sniper alerts/day for fresh Solana memecoins\n"
+        "🤖 AI scans thousands of smart wallets with $1B+ PnL\n"
+        "📲 Instant CA, LP, volume, chart — no delay, no fluff\n\n"
+        "🎁 *Bonus:* 100 Top Killer Smart Money Wallets (import-ready)\n"
+        "🧠 Works with *BullX, Axiom, Padre, Gmgn* or any DEX\n\n"
+        "💳 Tap below to unlock your access:"
+    )
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🪙 Pay with Crypto", url=MEMBERSHIP_LINK)],
@@ -490,7 +489,7 @@ async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # shared main menu text + keyboard
-     message = (
+        message = (
     "🏠 *Main Menu — Premium Trading Signals*\n\n"
     "🚀 Stay ahead of the market with AI-powered Solana signals.\n\n"
     "🤖 Our system scans 25,000+ tokens daily, delivering only the top Solana plays from Pumpfun, LetsBonk, Moonshot & major launchpads.\n\n"
@@ -500,15 +499,15 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     "👇 Choose a plan to upgrade your trading edge:"
 )
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("⚡ 1 Month Alpha Premium Access: 0.25 SOL", callback_data="plan_1month")],
-        [InlineKeyboardButton("👑 Lifetime Alpha Premium Access: 0.444 SOL (20%OFF)", callback_data="plan_lifetime")],
-        [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
-        [InlineKeyboardButton("🥇Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
-        [
-            InlineKeyboardButton("🤖 Help Bot", url="https://t.me/MyPremiumHelpBot"),
-            InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
-        ]
-    ])
+    [InlineKeyboardButton("⚡ 1 Month Alpha Premium Access: 0.25 SOL", callback_data="plan_1month")],
+    [InlineKeyboardButton("👑 Lifetime Alpha Premium Access: 0.444 SOL (20%OFF)", callback_data="plan_lifetime")],
+    [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
+    [InlineKeyboardButton("🥇Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
+    [
+        InlineKeyboardButton("🤖 Help Bot", url="https://t.me/MyPremiumHelpBot"),
+        InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
+    ]
+])
 
     # If triggered by a button press (callback_query) → edit that message
     if update.callback_query:
