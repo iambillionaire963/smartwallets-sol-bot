@@ -487,13 +487,13 @@ async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # shared main menu text + keyboard
-     message = (
-"🚀 *Solana100xcall — Premium Trading Signals* 🚀\n\n"
-"🚀 Trade smarter! Our AI scans 25,000+ tokens daily from LetsBonk, Pumpfun, Moonshot & top launchpads. 🤖 You get 30+ sniper-grade signals every day with instant buy options — 24/7.\n\n"
-"🎁 *Bonus for all plans:* 100 Top Killer Smart Money Wallets ready to import\n"
-"📦 Fully compatible with *BullX, Axiom, Padre, Gmgn* and all major DEX tools\n\n"
-"👇 Choose a plan to upgrade your trading edge"
-)
+    message = (
+        "🚀 *Solana100xcall — Premium Trading Signals* 🚀\n\n"
+        "🚀 Trade smarter! Our AI scans 25,000+ tokens daily from LetsBonk, Pumpfun, Moonshot & top launchpads. 🤖 You get 30+ sniper-grade signals every day with instant buy options — 24/7.\n\n"
+        "🎁 *Bonus for all plans:* 100 Top Killer Smart Money Wallets ready to import\n"
+        "📦 Fully compatible with *BullX, Axiom, Padre, Gmgn* and all major DEX tools\n\n"
+        "👇 Choose a plan to upgrade your trading edge"
+    )
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("⚡ 1 Month Alpha VIP Access: 0.25 SOL", callback_data="plan_1month")],
