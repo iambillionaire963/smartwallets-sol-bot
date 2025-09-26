@@ -64,7 +64,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     "🤖 Filtering 25,000+ tokens daily to bring you only the top Solana plays from Pumpfun, LetsBonk, Moonshot & major launchpads.\n"
     "⚡ Instant alerts on stealth launches, smart inflows & trending plays — 24/7.\n"
     "🎁 *Bonus (all plans):* 100 Top Killer Smart Money Wallets (import-ready)\n"
-    "📦 Optimized for *BullX, Axiom, Gmgn* & all major DEX tools.\n\n"
+    "📦 Optimized for *BullX, Axiom, Padre, Gmgn* & all major DEX tools.\n\n"
     "👇 Select a plan to upgrade your trading edge:"
 )
 
@@ -124,7 +124,7 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "• AI-powered trade pattern analysis\n\n"
         "You’ll receive:\n"
         "✅ Instant alerts with token data & copy-ready CAs\n"
-        "✅ *Membership bonuses:* smart wallets for BullX, Axiom, Gmgn\n\n"
+        "✅ *Membership bonuses:* smart wallets for BullX, Axiom, Padre, Gmgn\n\n"
         "📬 For support, message [@The100xMooncaller](https://t.me/The100xMooncaller)"
     )
 
@@ -290,7 +290,7 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
 "🤖 AI scans thousands of smart wallets with $1B+ PnL\n"
 "📲 Instant CA, LP, volume, chart — no delay, no fluff\n\n"
 "🎁 *Bonus:* 100 Top Killer Smart Money Wallets (import-ready)\n"
-"🧠 Works with *BullX, Axiom, Gmgn* or any DEX\n\n"
+"🧠 Works with *BullX, Axiom, Padre, Gmgn* or any DEX\n\n"
 "💳 Tap below to unlock your access:"
 )
 
@@ -314,7 +314,7 @@ async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
 "🤖 Tracks thousands of elite wallets in real time\n"
 "📲 Auto CA, LP, volume, dev sold ⚡️ 100% filtered\n\n"
 "🎁 *Bonus:* 100 Top Killer Smart Money Wallets (import-ready)\n"
-"🧠 For *BullX, Axiom, Gmgn* and advanced wallet tools\n\n"
+"🧠 For *BullX, Axiom, Padre, Gmgn* and advanced wallet tools\n\n"
 "💳 Tap below to unlock Lifetime access:"
 )
 
@@ -496,7 +496,7 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     "🤖 Filtering 25,000+ tokens daily to bring you only the top Solana plays from Pumpfun, LetsBonk, Moonshot & major launchpads.\n\n"
     "⚡ Instant alerts on stealth launches, smart inflows & trending plays — 24/7.\n\n"
     "🎁 *Bonus (all plans):* 100 Top Killer Smart Money Wallets (import-ready)\n\n"
-    "📦 Optimized for *BullX, Axiom, Gmgn* & all major DEX tools.\n\n"
+    "📦 Optimized for *BullX, Axiom, Padre, Gmgn* & all major DEX tools.\n\n"
     "👇 Select a plan to upgrade your trading edge:"
 )
 
