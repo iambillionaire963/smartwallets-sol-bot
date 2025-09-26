@@ -57,31 +57,27 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
 
-    message = (
-"🚀 *Welcome to Premium Trading Signals by Solana100xcall*\n\n"
-"Join hundreds of traders already catching Solana pumps 💥 *before the hype* inside our VIP group.\n\n"
-"🤖 Our system filters 25,000+ tokens daily across Pumpfun, LetsBonk, Moonshot, and every major launchpad.\n\n"
-"⚡️ Instantly detects stealth launches, smart inflows, and top plays — delivered to you 24/7 ✅.\n\n"
-"🎁 *Bonuses:*\n"
-"🏆 *1 Month:* 100 smart money wallets\n"
-"💎 *3 Months:* 300 smart money wallets\n"
-"👑 *Lifetime:* TOP 500 smart money wallets\n\n"
-"📦 Works with *BullX, Axiom, Gmgn*, or any DEX tool.\n\n"
-"👇 Tap a plan below to join Premium."
+    # --- inside start() and show_main_menu(), replace the messages like this ---
+
+message = (
+"🏠 *Main Menu — Premium Trading Signals*\n\n"
+"🚀 Stay ahead of the market with AI-powered Solana signals.\n\n"
+"🤖 We track 25,000+ tokens daily across Pumpfun, LetsBonk, Moonshot & every major launchpad.\n\n"
+"⚡ Get instant alerts on stealth launches, smart inflows & trending plays — 24/7, no delays.\n\n"
+"🎁 *Bonus (all plans):* 100 Top Killer Smart Money Wallets (import-ready)\n\n"
+"📦 Optimized for *BullX, Axiom, Gmgn* & all major DEX tools.\n\n"
+"👇 Select a plan to upgrade your trading edge:"
 )
 
-
-    keyboard = InlineKeyboardMarkup([
-    [InlineKeyboardButton("⚡ 1 Month Alpha Premium Access: $44.4", callback_data="plan_1month")],
-    [InlineKeyboardButton("💎 3 Months Alpha Premium Access: $77.7", callback_data="plan_3month")],
-    [InlineKeyboardButton("👑 Lifetime Alpha Premium Access: $88.8 (20% OFF)", callback_data="plan_lifetime")],
-    [InlineKeyboardButton("📖 How Signals Work", callback_data="show_howsignals")],
+keyboard = InlineKeyboardMarkup([
+    [InlineKeyboardButton("⚡ 1 Month Alpha Premium Access: 0.25 SOL", callback_data="plan_1month")],
+    [InlineKeyboardButton("👑 Lifetime Alpha Premium Access: 0.444 SOL", callback_data="plan_lifetime")],
     [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
-    [InlineKeyboardButton("🥇Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
-        [
-            InlineKeyboardButton("🤖 Help Bot", url="https://t.me/MyPremiumHelpBot"),
-            InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
-        ]
+    [InlineKeyboardButton("🥇 Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
+    [
+        InlineKeyboardButton("🤖 Help Bot", url="https://t.me/MyPremiumHelpBot"),
+        InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
+    ]
 ])
 
     # send the main menu message and save its id so we can edit it later
@@ -214,13 +210,13 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ])
 
     text = (
-        "🚀 *Unlock Full Access to VIP Signals*\n\n"
-        "Get real-time alerts powered by AI & smart wallet tracking.\n"
-        "Includes:\n"
-        "• 30+ premium calls daily\n"
-        "• Auto CA detection\n"
-        "• 100+ elite wallets monitored\n\n"
-        "🎯 First-mover advantage starts here."
+        "🚀 *Unlock Full VIP Access — Premium Signals*\n\n"
+        "Gain instant alerts powered by AI & smart wallet tracking.\n\n"
+        "📈 *What you get:*\n"
+        "• 30+ sniper alerts daily for fresh Solana memecoins\n"
+        "• Auto contract address detection & real-time metrics\n"
+        "• Insights from 100+ elite wallets\n\n"
+        "🎯 *First-mover advantage starts here — catch pumps before the hype!*"
     )
 
     # Button press → edit
@@ -292,16 +288,14 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     text = (
-    "⚡ *1 Month Premium 🤝 $44.4*\n\n"
-    "📈 30+ sniper alerts/day for fresh Solana memecoins\n"
-    "🤖 AI scans 1,000+ smart wallets with $1B+ PnL\n"
-    "📲 Instant CA, LP, volume, chart — no delay, no fluff\n"
-    "🧠 Winning strategy that minimizes risk and maximizes gains\n\n"
-    "🎁 *Bonus:* 100 smart money wallets (import-ready)\n"
-    "🧠 Works with *BullX, Axiom, Gmgn* or any DEX\n\n"
-    "💳 Tap below to unlock your access:"
+"⚡ *1 Month Premium 🤝 0.25 SOL*\n\n"
+"📈 30+ sniper alerts/day for fresh Solana memecoins\n"
+"🤖 AI scans 1,000+ smart wallets with $1B+ PnL\n"
+"📲 Instant CA, LP, volume, chart — no delay, no fluff\n\n"
+"🎁 *Bonus:* 100 Top Killer Smart Money Wallets (import-ready)\n"
+"🧠 Works with *BullX, Axiom, Gmgn* or any DEX\n\n"
+"💳 Tap below to unlock your access:"
 )
-
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🪙 Pay with Crypto", url=MEMBERSHIP_LINK)],
@@ -309,31 +303,6 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ])
 
     await update.callback_query.edit_message_text(
-        text=text,
-        reply_markup=keyboard,
-        parse_mode=constants.ParseMode.MARKDOWN,
-        disable_web_page_preview=True
-    )
-
-async def show_3month(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    query = update.callback_query
-    text = (
-        "💎 *3 Months Premium 🤝 $77.70*\n\n"
-        "📈 30+ sniper alerts/day for the hottest Solana memecoins\n"
-        "🤖 AI scans 1,000+ smart wallets with $1B+ PnL\n"
-        "📲 Instant CA, LP, volume, and chart — no delay, no fluff\n"
-        "🧠 Proven strategy to minimize risk and maximize gains\n\n"
-        "🎁 *Bonus:* 300 Smart Money wallets (import-ready)\n"
-        "🧠 Works seamlessly with *BullX, Axiom, Gmgn* or any DEX tool\n\n"
-        "💳 Tap below to unlock 3-Month Premium access:"
-    )
-
-    keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🪙 Pay with Crypto", url=MEMBERSHIP_LINK)],
-        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
-    ])
-
-    await query.edit_message_text(
         text=text,
         reply_markup=keyboard,
         parse_mode=constants.ParseMode.MARKDOWN,
@@ -343,14 +312,13 @@ async def show_3month(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     text = (
-    "👑 *Lifetime Premium 🤝 $88.8 (20% OFF)*\n\n"
-    "📈 Unlimited access to AI-powered sniper signals\n"
-    "🤖 Tracks 1,000+ elite wallets in real time\n"
-    "📲 Auto CA, LP, volume, dev sold ⚡️ 100% filtered\n"
-    "🧠 Winning strategy that minimizes risk and maximizes gains\n\n"
-    "🎁 *Bonus:* 500 smart wallets (import-ready)\n"
-    "🧠 For *BullX, Axiom, Gmgn* and advanced wallet tools\n\n"
-    "💳 Tap below to unlock Lifetime access:"
+"👑 *Lifetime Premium 🤝 0.444 SOL*\n\n"
+"📈 Unlimited access to AI-powered sniper signals\n"
+"🤖 Tracks 1,000+ elite wallets in real time\n"
+"📲 Auto CA, LP, volume, dev sold ⚡️ 100% filtered\n\n"
+"🎁 *Bonus:* 100 Top Killer Smart Money Wallets (import-ready)\n"
+"🧠 For *BullX, Axiom, Gmgn* and advanced wallet tools\n\n"
+"💳 Tap below to unlock Lifetime access:"
 )
 
     keyboard = InlineKeyboardMarkup([
@@ -364,7 +332,7 @@ async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
         parse_mode=constants.ParseMode.MARKDOWN,
         disable_web_page_preview=True
     )
-
+    
 async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🚀 Get VIP Signals", url=MEMBERSHIP_LINK)],
@@ -374,12 +342,12 @@ async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     text = (
         "🚀 *Join the Premium Signal Group*\n\n"
-        "Get AI-powered sniper calls based on 1,000+ smart wallets.\n\n"
-        "🎯 Includes:\n"
-        "• 30+ memecoin alerts daily\n"
-        "• On-chain metrics & charts\n"
-        "• Elite wallet tracking\n\n"
-        "👇 Tap below to join:"
+        "Gain exclusive AI-powered memecoin alerts based on real-time smart wallet tracking.\n\n"
+        "📈 *Benefits of joining:*\n"
+        "• 30+ premium memecoin alerts daily\n"
+        "• Auto contract address (CA) detection & on-chain metrics\n"
+        "• Insights from 100+ top-performing wallets\n\n"
+        "🎯 *Stay ahead of the market — catch pumps before the hype!*"
     )
 
     if update.callback_query:
@@ -405,90 +373,7 @@ async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
             context.chat_data["menu_chat_id"] = menu_msg.chat.id
 
     else:
-        # Typed /join
-        if update.message:
-            try:
-                 await update.message.delete()
-            except Exception:
-                pass
-
-        chat_id = update.effective_chat.id
-        menu_id = context.chat_data.get("menu_message_id")
-        menu_chat = context.chat_data.get("menu_chat_id", chat_id)
-
-        if menu_id:
-            try:
-                await context.bot.edit_message_text(
-                    chat_id=menu_chat,
-                    message_id=menu_id,
-                    text=text,
-                    reply_markup=keyboard,
-                    parse_mode=constants.ParseMode.MARKDOWN,
-                    disable_web_page_preview=True
-                )
-            except Exception:
-                menu_msg = await context.bot.send_message(
-                    chat_id=chat_id,
-                    text=text,
-                    reply_markup=keyboard,
-                    parse_mode=constants.ParseMode.MARKDOWN,
-                    disable_web_page_preview=True
-                )
-                context.chat_data["menu_message_id"] = menu_msg.message_id
-                context.chat_data["menu_chat_id"] = menu_msg.chat.id
-        else:
-            menu_msg = await context.bot.send_message(
-                chat_id=chat_id,
-                text=text,
-                reply_markup=keyboard,
-                parse_mode=constants.ParseMode.MARKDOWN,
-                disable_web_page_preview=True
-            )
-            context.chat_data["menu_message_id"] = menu_msg.message_id
-            context.chat_data["menu_chat_id"] = menu_msg.chat.id
-
-    
-async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🚀 Get VIP Signals", url=MEMBERSHIP_LINK)],
-        [InlineKeyboardButton("📲 Join Free Channel", url="https://t.me/Solana100xcall")],
-        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
-     ])
-
-    text = (
-        "🚀 *Join the Premium Signal Group*\n\n"
-        "Get AI-powered sniper calls based on 1,000+ smart wallets.\n\n"
-        "🎯 Includes:\n"
-        "• 30+ memecoin alerts daily\n"
-        "• On-chain metrics & charts\n"
-        "• Elite wallet tracking\n\n"
-        "👇 Tap below to join:"
-    )
-
-    if update.callback_query:
-        await update.callback_query.answer()
-        try:
-            await update.callback_query.edit_message_text(
-                text=text,
-                reply_markup=keyboard,
-                parse_mode=constants.ParseMode.MARKDOWN,
-                disable_web_page_preview=True
-            )
-            context.chat_data["menu_message_id"] = update.callback_query.message.message_id
-            context.chat_data["menu_chat_id"] = update.callback_query.message.chat.id
-        except Exception:
-            menu_msg = await context.bot.send_message(
-                chat_id=update.callback_query.message.chat.id,
-                text=text,
-                reply_markup=keyboard,
-                parse_mode=constants.ParseMode.MARKDOWN,
-                disable_web_page_preview=True
-            )
-            context.chat_data["menu_message_id"] = menu_msg.message_id
-            context.chat_data["menu_chat_id"] = menu_msg.chat.id
-
-    else:
-        # Typed /join
+        # Typed /join → delete the user command, then edit stored menu
         if update.message:
             try:
                 await update.message.delete()
@@ -613,18 +498,14 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
 "Join hundreds of traders already catching Solana pumps 💥 *before the hype* inside our VIP group.\n\n"
 "🤖 Our system filters 25,000+ tokens daily across Pumpfun, LetsBonk, Moonshot, and every major launchpad.\n\n"
 "⚡️ Instantly detects stealth launches, smart inflows, and top plays — delivered to you 24/7 ✅.\n\n"
-"🎁 *Bonuses:*\n"
-"🏆 *1 Month:* 100 smart money wallets\n"
-"💎 *3 Months:* 300 smart money wallets\n"
-"👑 *Lifetime:* TOP 500 smart money wallets\n\n"
+"🎁 *Bonus (all plans):* 100 Top Killer Smart Money Wallets (import-ready)\n\n"
 "📦 Works with *BullX, Axiom, Gmgn*, or any DEX tool.\n\n"
 "👇 Tap a plan below to join Premium."
 )
 
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("⚡ 1 Month Alpha Premium Access: $44.4", callback_data="plan_1month")],
-        [InlineKeyboardButton("💎 3 Months Alpha Premium Access: $77.70", callback_data="plan_3month")],
-        [InlineKeyboardButton("👑 Lifetime Alpha Premium Access: $88.8 (20%OFF)", callback_data="plan_lifetime")],
+        [InlineKeyboardButton("⚡ 1 Month Alpha Premium Access: 0.25 SOL", callback_data="plan_1month")],
+        [InlineKeyboardButton("👑 Lifetime Alpha Premium Access: 0.444 SOL (20%OFF)", callback_data="plan_lifetime")],
         [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
         [InlineKeyboardButton("🥇Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
         [
@@ -712,16 +593,12 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if query.data == "show_howsignals":
         await show_howsignals(update, context)
-    elif query.data == "show_card":
-        await show_card(update, context)
     elif query.data == "show_support":
         await support(update, context)
     elif query.data == "go_home":
         await show_main_menu(update, context)
     elif query.data == "plan_1month":
         await show_1month(update, context)
-    elif query.data == "plan_3month":
-        await show_3month(update, context)
     elif query.data == "plan_lifetime":
         await show_lifetime(update, context)
 
