@@ -60,8 +60,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # --- Move main menu message here ---
     message = (
 "🚀 *Solana100xcall — Premium Trading Signals* 🚀\n\n"
-"Start trading smarter! Our AI scans over 25,000 tokens daily from LetsBonk, Pumpfun, Moonshot and other major launchpads.\n"
-"🤖 It filters all the noise and delivers 30+ sniper-grade trading signals every day with quick buy options so you can act instantly, 24/7.\n\n"
+"🚀 Trade smarter! Our AI scans 25,000+ tokens daily from LetsBonk, Pumpfun, Moonshot & top launchpads. 🤖 You get 30+ sniper-grade signals every day with instant buy options — 24/7.\n\n"
 "🎁 *Bonus for all plans:* 100 Top Killer Smart Money Wallets ready to import\n"
 "📦 Fully compatible with *BullX, Axiom, Padre, Gmgn* and all major DEX tools\n\n"
 "👇 Choose a plan to upgrade your trading edge"
@@ -488,15 +487,13 @@ async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # shared main menu text + keyboard
-    message = (
-        "🏠 *Main Menu — Premium Trading Signals*\n\n"
-        "🚀 Stay ahead of the market with AI-powered Solana signals.\n\n"
-        "🤖 Our system scans 25,000+ tokens daily, delivering only the top Solana plays from Pumpfun, LetsBonk, Moonshot & major launchpads.\n\n"
-        "⚡ Receive instant alerts on stealth launches, smart inflows & trending plays — 24/7.\n\n"
-        "🎁 *Bonus (all plans):* 100 Top Killer Smart Money Wallets (import-ready)\n\n"
-        "📦 Fully optimized for *BullX, Axiom, Padre, Gmgn* & all major DEX tools.\n\n"
-        "👇 Choose a plan to upgrade your trading edge:"
-    )
+     message = (
+"🚀 *Solana100xcall — Premium Trading Signals* 🚀\n\n"
+"🚀 Trade smarter! Our AI scans 25,000+ tokens daily from LetsBonk, Pumpfun, Moonshot & top launchpads. 🤖 You get 30+ sniper-grade signals every day with instant buy options — 24/7.\n\n"
+"🎁 *Bonus for all plans:* 100 Top Killer Smart Money Wallets ready to import\n"
+"📦 Fully compatible with *BullX, Axiom, Padre, Gmgn* and all major DEX tools\n\n"
+"👇 Choose a plan to upgrade your trading edge"
+)
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("⚡ 1 Month Alpha VIP Access: 0.25 SOL", callback_data="plan_1month")],
