@@ -67,8 +67,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 )
     
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("⚡ 1 Month Alpha VIP Access: 0.25 SOL", callback_data="plan_1month")],
-        [InlineKeyboardButton("👑 Lifetime Alpha VIP Access: 0.444 SOL", callback_data="plan_lifetime")],
+        [InlineKeyboardButton("⚡ 1 Month VIP Access: 0.2 SOL • 20% OFF", callback_data="plan_1month")],
+        [InlineKeyboardButton("👑 Lifetime VIP Access: 0.355 SOL • 20% OFF", callback_data="plan_lifetime")],
         [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
         [InlineKeyboardButton("🥇 Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
         [
@@ -282,48 +282,49 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
-        "⚡ *1 Month Premium 🤝 0.25 SOL*\n\n"
-        "📈 30+ sniper alerts/day for fresh Solana memecoins\n"
-        "🤖 AI scans thousands of smart wallets with $1B+ PnL\n"
-        "📲 Instant CA, LP, volume, chart — no delay, no fluff\n\n"
-        "🎁 *Bonus:* 100 Top Killer Smart Money Wallets (import-ready)\n"
-        "🧠 Works with *BullX, Axiom, Padre, Gmgn* or any DEX\n\n"
-        "💳 Tap below to unlock your access:"
-    )
-
-    keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🪙 Pay with Crypto", url=MEMBERSHIP_LINK)],
-        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
-    ])
-
-    await update.callback_query.edit_message_text(
-        text=text,
-        reply_markup=keyboard,
-        parse_mode=constants.ParseMode.MARKDOWN,
-        disable_web_page_preview=True
-    )
-
-async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
-    text = (
-"👑 *Lifetime Premium 🤝 0.444 SOL*\n\n"
-"📈 Unlimited access to AI-powered sniper signals\n"
-"🤖 Tracks thousands of elite wallets in real time\n"
-"📲 Auto CA, LP, volume, dev sold ⚡️ 100% filtered\n\n"
-"🎁 *Bonus:* 100 Top Killer Smart Money Wallets (import-ready)\n"
-"🧠 For *BullX, Axiom, Padre, Gmgn* and advanced wallet tools\n\n"
-"💳 Tap below to unlock Lifetime access:"
+    "⚡ <b>1 Month Premium</b>\n"
+    "<s>0.25 SOL</s> ➜ <b>0.2 SOL</b>  <i>(20% OFF)</i>\n\n"
+    "📈 30+ sniper alerts/day for fresh Solana memecoins\n"
+    "🤖 AI scans thousands of smart wallets with $1B+ PnL\n"
+    "📲 Instant CA, LP, volume, chart — no delay, no fluff\n\n"
+    "🎁 <b>Bonus:</b> 100 Top Killer Smart Money Wallets (import-ready)\n"
+    "🧠 Works with <b>BullX, Axiom, Padre, Gmgn</b>\n\n"
+    "💳 Tap below to unlock your access:"
 )
 
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🪙 Pay with Crypto", url=MEMBERSHIP_LINK)],
+    [InlineKeyboardButton("🪙 Pay 0.2 SOL", url=MEMBERSHIP_LINK)],
+    [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
+])
+
+    await update.callback_query.edit_message_text(
+    text=text,
+    reply_markup=keyboard,
+    parse_mode=constants.ParseMode.HTML,
+    disable_web_page_preview=True
+)
+
+async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    text = (
+        "👑 <b>Lifetime Premium</b>\n"
+        "<s>0.444 SOL</s> ➜ <b>0.355 SOL</b>  <i>(20% OFF)</i>\n\n"
+        "📈 Unlimited access to AI-powered sniper signals\n"
+        "🤖 Tracks thousands of elite wallets in real time\n"
+        "📲 Auto CA, LP, volume, dev sold ⚡ 100% filtered\n\n"
+        "🎁 <b>Bonus:</b> 100 Top Killer Smart Money Wallets (import-ready)\n"
+        "🧠 For <b>BullX, Axiom, Padre, Gmgn</b> and advanced wallet tools\n\n"
+        "💳 Tap below to unlock Lifetime access:"
+    )
+
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("🪙 Pay 0.355 SOL", url=MEMBERSHIP_LINK)],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
 
     await update.callback_query.edit_message_text(
         text=text,
         reply_markup=keyboard,
-        parse_mode=constants.ParseMode.MARKDOWN,
+        parse_mode=constants.ParseMode.HTML,
         disable_web_page_preview=True
     )
     
@@ -496,8 +497,8 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("⚡ 1 Month Alpha VIP Access: 0.25 SOL", callback_data="plan_1month")],
-        [InlineKeyboardButton("👑 Lifetime Alpha VIP Access: 0.444 SOL", callback_data="plan_lifetime")],
+        [InlineKeyboardButton("⚡ 1 Month VIP Access: 0.20 SOL • 20% OFF", callback_data="plan_1month")],
+        [InlineKeyboardButton("👑 Lifetime VIP Access: 0.355 SOL • 20% OFF", callback_data="plan_lifetime")],
         [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
         [InlineKeyboardButton("🥇 Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
         [
