@@ -509,13 +509,16 @@ async def confirm_broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     # 1) Fetch audience and make a backup
-    user_ids = get_all_user_ids()
-    _backup_users_csv_json(user_ids)
+    try:
+        user_ids = get_all_user_ids()
+    except Exception as e:
+        await query.edit_message_text(f"❌ Audience fetch failed: {e}")
+        return
 
-    # 2) Load suppression
+    _backup_users_csv_json(user_ids)
     suppressed = _load_suppressed_ids()
 
-    # 3) Prepare log file and counters
+    # 2) Open log + counters
     log_file, log_writer, log_path = _open_log_writer()
     counts = {
         "delivered": 0,
@@ -527,62 +530,110 @@ async def confirm_broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "error": 0
     }
     new_suppressed_rows = []
+    lock = asyncio.Lock()  # protect shared counters/logs
 
-    # 4) Send loop with logging
-    for uid in user_ids:
-        ts = datetime.datetime.now().isoformat(timespec="seconds")
+    # 3) Concurrency + simple rate limit
+    #    Telegram global safe budget ≈ ~28 msgs / sec. We'll cap concurrency and pace.
+    CONCURRENCY = 20     # parallel workers
+    PACE_DELAY = 0.05    # 50ms between sends per worker (~20/sec aggregate with concurrency)
 
+    sem = asyncio.Semaphore(CONCURRENCY)
+
+    async def log_row(uid: int, status: str, err: str = ""):
+        async with lock:
+            ts = datetime.datetime.now().isoformat(timespec="seconds")
+            log_writer.writerow({"user_id": uid, "status": status, "error": err, "timestamp": ts})
+
+    async def send_one(uid: int):
         if uid in suppressed:
-            counts["skipped_suppressed"] += 1
-            log_writer.writerow({"user_id": uid, "status": "skipped_suppressed", "error": "", "timestamp": ts})
-            continue
+            async with lock:
+                counts["skipped_suppressed"] += 1
+            await log_row(uid, "skipped_suppressed")
+            return
 
-        try:
-            await context.bot.copy_message(
-                chat_id=uid,
-                from_chat_id=original.chat.id,
-                message_id=original.message_id
-            )
-            counts["delivered"] += 1
-            log_writer.writerow({"user_id": uid, "status": "delivered", "error": "", "timestamp": ts})
-
-        except Forbidden as e:
-            counts["blocked"] += 1
-            log_writer.writerow({"user_id": uid, "status": "blocked", "error": str(e), "timestamp": ts})
-            new_suppressed_rows.append({"user_id": uid, "reason": "blocked", "date_added": datetime.date.today().isoformat()})
-
-        except BadRequest as e:
-            counts["deleted_or_invalid"] += 1
-            log_writer.writerow({"user_id": uid, "status": "deleted_or_invalid", "error": str(e), "timestamp": ts})
-            new_suppressed_rows.append({"user_id": uid, "reason": "deleted_or_invalid", "date_added": datetime.date.today().isoformat()})
-
-        except RetryAfter as e:
+        async with sem:
+            # light pacing to avoid spikes
+            await asyncio.sleep(PACE_DELAY)
             try:
-                await asyncio.sleep(int(getattr(e, "retry_after", 5)))
                 await context.bot.copy_message(
                     chat_id=uid,
                     from_chat_id=original.chat.id,
                     message_id=original.message_id
                 )
-                counts["delivered_after_retry"] += 1
-                log_writer.writerow({"user_id": uid, "status": "delivered_after_retry", "error": "", "timestamp": ts})
-            except Exception as e2:
-                counts["error"] += 1
-                log_writer.writerow({"user_id": uid, "status": "error", "error": f"RetryAfter-> {e2}", "timestamp": ts})
+                async with lock:
+                    counts["delivered"] += 1
+                await log_row(uid, "delivered")
 
-        except NetworkError as e:
-            counts["network_error"] += 1
-            log_writer.writerow({"user_id": uid, "status": "network_error", "error": str(e), "timestamp": ts})
+            except RetryAfter as e:
+                await asyncio.sleep(int(getattr(e, "retry_after", 5)))
+                try:
+                    await context.bot.copy_message(
+                        chat_id=uid,
+                        from_chat_id=original.chat.id,
+                        message_id=original.message_id
+                    )
+                    async with lock:
+                        counts["delivered_after_retry"] += 1
+                    await log_row(uid, "delivered_after_retry")
+                except Exception as e2:
+                    async with lock:
+                        counts["error"] += 1
+                    await log_row(uid, "error", f"RetryAfter-> {e2}")
 
-        except Exception as e:
-            counts["error"] += 1
-            log_writer.writerow({"user_id": uid, "status": "error", "error": str(e), "timestamp": ts})
+            except Forbidden as e:
+                msg = str(e).lower()
+                reason = "deleted_or_invalid" if "deactivated" in msg else "blocked"
+                async with lock:
+                    counts[reason] += 1
+                    new_suppressed_rows.append({
+                        "user_id": uid,
+                        "reason": reason,
+                        "date_added": datetime.date.today().isoformat()
+                    })
+                await log_row(uid, reason, str(e))
 
-    # 5) Close log and update suppression
+            except NetworkError as e:
+                async with lock:
+                    counts["network_error"] += 1
+                await log_row(uid, "network_error", str(e))
+
+            except Exception as e:
+                async with lock:
+                    counts["error"] += 1
+                await log_row(uid, "error", str(e))
+
+    # 4) Kick off tasks and live progress updates
+    total = len(user_ids)
+    progress_msg = await query.edit_message_text(f"📤 Sending… 0/{total}")
+
+    BATCH = 200  # update progress every ~200 users
+    tasks = []
+    for i, uid in enumerate(user_ids, 1):
+        tasks.append(asyncio.create_task(send_one(uid)))
+        if i % BATCH == 0:
+            # allow some tasks to advance, then update progress
+            await asyncio.sleep(0.1)
+            sent = (
+                counts["delivered"]
+                + counts["delivered_after_retry"]
+                + counts["skipped_suppressed"]
+                + counts["blocked"]
+                + counts["deleted_or_invalid"]
+                + counts["network_error"]
+                + counts["error"]
+            )
+            try:
+                await progress_msg.edit_text(f"📤 Sending… {sent}/{total}")
+            except Exception:
+                pass
+
+    await asyncio.gather(*tasks)
+
+    # 5) Close log + apply suppression
     log_file.close()
     _append_suppression(new_suppressed_rows)
 
-    # 6) Summary to admin
+    # 6) Final summary
     summary = (
         "✅ Broadcast complete\n"
         f"• delivered: {counts['delivered']}\n"
@@ -594,7 +645,8 @@ async def confirm_broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"• error: {counts['error']}\n\n"
         f"🧾 Log saved: {log_path}"
     )
-    await query.edit_message_text(summary)
+    await progress_msg.edit_text(summary)
+
 
 # Step 4: Cancel broadcast
 async def cancel_broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
