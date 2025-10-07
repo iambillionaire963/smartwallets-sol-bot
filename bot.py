@@ -633,7 +633,7 @@ async def confirm_broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
     log_file.close()
     _append_suppression(new_suppressed_rows)
 
-    # 6) Final summary
+           # 6) Final summary
     summary = (
         "✅ Broadcast complete\n"
         f"• delivered: {counts['delivered']}\n"
@@ -645,7 +645,29 @@ async def confirm_broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"• error: {counts['error']}\n\n"
         f"🧾 Log saved: {log_path}"
     )
-    await progress_msg.edit_text(summary)
+
+    # add percentage lines for quick read
+    def _pct(n, d):
+        return f"{(n/d*100):.1f}%" if d else "0%"
+
+    total_sent = (
+        counts["delivered"]
+        + counts["delivered_after_retry"]
+        + counts["blocked"]
+        + counts["deleted_or_invalid"]
+        + counts["skipped_suppressed"]
+        + counts["network_error"]
+        + counts["error"]
+    )
+
+    percent_summary = (
+        f"\n% delivered: {_pct(counts['delivered'], total_sent)}"
+        f"\n% blocked: {_pct(counts['blocked'], total_sent)}"
+        f"\n% deleted_or_invalid: {_pct(counts['deleted_or_invalid'], total_sent)}"
+    )
+
+    await progress_msg.edit_text(summary + percent_summary)
+
 
 
 # Step 4: Cancel broadcast
@@ -784,6 +806,56 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # -------- Main --------
 
+# --- Admin utils: latest log + summary ---
+
+def _latest_log_path():
+    try:
+        paths = sorted(LOGS_DIR.glob("broadcast_*.csv"))
+        return paths[-1] if paths else None
+    except Exception:
+        return None
+
+async def lastlog(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if update.effective_user.id != ADMIN_ID:
+        return
+    p = _latest_log_path()
+    if not p:
+        await update.message.reply_text("No logs found yet.")
+        return
+    await context.bot.send_document(chat_id=ADMIN_ID, document=open(p, "rb"), filename=p.name, caption=f"🧾 Latest log: {p}")
+
+async def broadcast_stats(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if update.effective_user.id != ADMIN_ID:
+        return
+    p = _latest_log_path()
+    if not p:
+        await update.message.reply_text("No logs found to summarize.")
+        return
+    import csv
+    total = 0
+    counts = {"delivered":0,"delivered_after_retry":0,"blocked":0,"deleted_or_invalid":0,"skipped_suppressed":0,"network_error":0,"error":0}
+    with open(p, newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            total += 1
+            status = row.get("status","")
+            if status in counts:
+                counts[status] += 1
+    def pct(n):
+        return f"{(n/total*100):.1f}%" if total else "0%"
+    msg = (
+        f"🧮 Summary for {p.name}\n"
+        f"• total rows: {total}\n"
+        f"• delivered: {counts['delivered']}  ({pct(counts['delivered'])})\n"
+        f"• delivered_after_retry: {counts['delivered_after_retry']}  ({pct(counts['delivered_after_retry'])})\n"
+        f"• blocked: {counts['blocked']}  ({pct(counts['blocked'])})\n"
+        f"• deleted_or_invalid: {counts['deleted_or_invalid']}  ({pct(counts['deleted_or_invalid'])})\n"
+        f"• skipped_suppressed: {counts['skipped_suppressed']}  ({pct(counts['skipped_suppressed'])})\n"
+        f"• network_error: {counts['network_error']}  ({pct(counts['network_error'])})\n"
+        f"• error: {counts['error']}  ({pct(counts['error'])})\n"
+    )
+    await update.message.reply_text(msg)
+
+
 def main():
     logging.basicConfig(level=logging.INFO)
     application = Application.builder().token(BOT_TOKEN).build()
@@ -794,19 +866,31 @@ def main():
     application.add_handler(CommandHandler("subscribe", subscribe_command))
     application.add_handler(CommandHandler("join", join_command))
 
+    # 🧾 Admin utility commands
+    application.add_handler(CommandHandler("lastlog", lastlog))
+    application.add_handler(CommandHandler("broadcast_stats", broadcast_stats))
+
     # ✅ Broadcast system for admin
     application.add_handler(CommandHandler("broadcast", broadcast))  # Trigger
-    application.add_handler(MessageHandler(filters.ALL & filters.User(ADMIN_ID), handle_broadcast))  # Admin reply
+    # Admin reply for broadcast content — exclude /commands so admin utils still work
+    application.add_handler(
+        MessageHandler(
+            filters.User(ADMIN_ID) & (filters.TEXT | filters.PHOTO) & ~filters.COMMAND,
+            handle_broadcast
+        )
+    )
     application.add_handler(CallbackQueryHandler(confirm_broadcast, pattern="^confirm_broadcast$"))  # Confirm
-    application.add_handler(CallbackQueryHandler(cancel_broadcast, pattern="^cancel_broadcast$"))  # Cancel
+    application.add_handler(CallbackQueryHandler(cancel_broadcast, pattern="^cancel_broadcast$"))    # Cancel
 
     # 📲 Inline button logic
     application.add_handler(CallbackQueryHandler(button_handler))
 
     logging.info("Bot is running...")
     application.run_polling()
-    
-    # ✅ Paste this line right here:
+
+    # ✅ Log storage paths after startup
     logging.info(f"[storage] BASE_DIR={BASE_DIR} LOGS_DIR={LOGS_DIR} BACKUPS_DIR={BACKUPS_DIR}")
+
+
 if __name__ == "__main__":
     main()
