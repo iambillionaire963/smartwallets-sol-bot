@@ -1,11 +1,20 @@
-import os
-import logging
+# -------------------------------
+# Solana100xcall Membership Bot
+# with Broadcast Logging + Suppression
+# -------------------------------
+
+# Standard libs
+import os, logging, csv, json, asyncio, datetime
+from pathlib import Path
+
+# Third-party
 from dotenv import load_dotenv
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, constants
 from telegram.ext import (
     Application, CommandHandler, CallbackQueryHandler, ContextTypes,
     MessageHandler, filters
 )
+from telegram.error import Forbidden, BadRequest, RetryAfter, NetworkError
 
 from sheets import log_user
 import gspread
@@ -19,10 +28,64 @@ MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
 ADMIN_ID = 7906225936
 BANNER_URL = "https://imgur.com/a/cltw5k3"  # Confirmed correct
 
+# -------- Broadcast logging helpers (disk-aware for Render) --------
+# If DATA_DIR is set (e.g., /var/data on Render), use it. Otherwise default to current folder.
+BASE_DIR = Path(os.getenv("DATA_DIR", ".")).resolve()
+
+LOGS_DIR = BASE_DIR / "logs"
+BACKUPS_DIR = BASE_DIR / "backups"
+SUPPRESSION_PATH = BASE_DIR / "suppression.csv"
+
+LOGS_DIR.mkdir(parents=True, exist_ok=True)
+BACKUPS_DIR.mkdir(parents=True, exist_ok=True)
+
+
+def _load_suppressed_ids() -> set[int]:
+    s = set()
+    if SUPPRESSION_PATH.exists():
+        with open(SUPPRESSION_PATH, newline="", encoding="utf-8") as f:
+            for row in csv.DictReader(f):
+                try:
+                    s.add(int(row["user_id"]))
+                except Exception:
+                    continue
+    return s
+
+def _append_suppression(rows: list[dict]):
+    if not rows:
+        return
+    write_header = not SUPPRESSION_PATH.exists()
+    with open(SUPPRESSION_PATH, "a", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=["user_id","reason","date_added"])
+        if write_header:
+            w.writeheader()
+        w.writerows(rows)
+
+def _backup_users_csv_json(user_ids: list[int]):
+    ts = datetime.datetime.now().strftime("%Y-%m-%d_%H%M%S")
+    folder = BACKUPS_DIR / ts
+    folder.mkdir(parents=True, exist_ok=True)
+    csv_path = folder / "users_backup.csv"
+    json_path = folder / "users_backup.json"
+    with open(csv_path, "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["user_id"])
+        for uid in user_ids:
+            w.writerow([uid])
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump([{"user_id": uid} for uid in user_ids], f, ensure_ascii=False, indent=2)
+    return folder
+
+def _open_log_writer():
+    ts = datetime.datetime.now().strftime("%Y-%m-%d_%H%M%S")
+    log_path = LOGS_DIR / f"broadcast_{ts}.csv"
+    f = open(log_path, "w", newline="", encoding="utf-8")
+    w = csv.DictWriter(f, fieldnames=["user_id","status","error","timestamp"])
+    w.writeheader()
+    return f, w, log_path
+
 # Get all user IDs from Google Sheets
 def get_all_user_ids():
-    import json
-
     scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
     creds_json = os.getenv("GOOGLE_SERVICE_ACCOUNT_JSON")
 
@@ -36,7 +99,6 @@ def get_all_user_ids():
     sheet = client.open("SmartWalletsLog").sheet1
     user_ids = sheet.col_values(2)[1:]  # ✅ Column B (index 2), skip header
     return list({int(uid.strip()) for uid in user_ids if uid and uid.strip().isdigit()})
-
 
 # -------- Handlers --------
 
@@ -60,7 +122,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # --- Move main menu message here ---
     message = (
 "🚀 *Solana100xcall — Premium Trading Signals* 🚀\n\n"
-"🚀 Trade smarter! Our AI scans 25,000+ tokens daily from LetsBonk, Pumpfun, Moonshot & top launchpads. 🤖 You get 30+ sniper-grade signals every day with instant buy options — 24/7.\n\n"
+"🚀 Trade smarter! Our AI scans 25,000+ tokens daily from LetsBonk, Pumpfun, Moonshot & top launchpads. 🤖 You get 30+ sniper-grade signals every day with instant buy options, 24/7.\n\n"
 "🎁 *Bonus for all plans:* 100 Top Killer Smart Money Wallets ready to import\n"
 "📦 Fully compatible with *BullX, Axiom, Padre, Gmgn* and all major DEX tools\n\n"
 "👇 Choose a plan to upgrade your trading edge"
@@ -410,7 +472,6 @@ async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
             context.chat_data["menu_message_id"] = menu_msg.message_id
             context.chat_data["menu_chat_id"] = menu_msg.chat.id
 
-
 # Step 1: Ask for the broadcast content
 async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.effective_user.id != ADMIN_ID:
@@ -437,7 +498,7 @@ async def handle_broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await update.message.reply_text("📢 Preview your message. Ready to send?", reply_markup=keyboard)
 
-# Step 3: Confirm and send the message to all users
+# Step 3: Confirm and send the message to all users  (with logs + suppression)
 async def confirm_broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
@@ -447,25 +508,99 @@ async def confirm_broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await query.edit_message_text("⚠️ No message stored for broadcast.")
         return
 
+    # 1) Fetch audience and make a backup
     user_ids = get_all_user_ids()
-    count = 0
-    for user_id in user_ids:
+    _backup_users_csv_json(user_ids)
+
+    # 2) Load suppression
+    suppressed = _load_suppressed_ids()
+
+    # 3) Prepare log file and counters
+    log_file, log_writer, log_path = _open_log_writer()
+    counts = {
+        "delivered": 0,
+        "delivered_after_retry": 0,
+        "blocked": 0,
+        "deleted_or_invalid": 0,
+        "skipped_suppressed": 0,
+        "network_error": 0,
+        "error": 0
+    }
+    new_suppressed_rows = []
+
+    # 4) Send loop with logging
+    for uid in user_ids:
+        ts = datetime.datetime.now().isoformat(timespec="seconds")
+
+        if uid in suppressed:
+            counts["skipped_suppressed"] += 1
+            log_writer.writerow({"user_id": uid, "status": "skipped_suppressed", "error": "", "timestamp": ts})
+            continue
+
         try:
             await context.bot.copy_message(
-                chat_id=user_id,
+                chat_id=uid,
                 from_chat_id=original.chat.id,
                 message_id=original.message_id
             )
-            count += 1
-        except Exception as e:
-            logging.warning(f"Failed to send to {user_id}: {e}")
+            counts["delivered"] += 1
+            log_writer.writerow({"user_id": uid, "status": "delivered", "error": "", "timestamp": ts})
 
-    await query.edit_message_text(f"✅ Broadcast sent to {count} users.")
+        except Forbidden as e:
+            counts["blocked"] += 1
+            log_writer.writerow({"user_id": uid, "status": "blocked", "error": str(e), "timestamp": ts})
+            new_suppressed_rows.append({"user_id": uid, "reason": "blocked", "date_added": datetime.date.today().isoformat()})
+
+        except BadRequest as e:
+            counts["deleted_or_invalid"] += 1
+            log_writer.writerow({"user_id": uid, "status": "deleted_or_invalid", "error": str(e), "timestamp": ts})
+            new_suppressed_rows.append({"user_id": uid, "reason": "deleted_or_invalid", "date_added": datetime.date.today().isoformat()})
+
+        except RetryAfter as e:
+            try:
+                await asyncio.sleep(int(getattr(e, "retry_after", 5)))
+                await context.bot.copy_message(
+                    chat_id=uid,
+                    from_chat_id=original.chat.id,
+                    message_id=original.message_id
+                )
+                counts["delivered_after_retry"] += 1
+                log_writer.writerow({"user_id": uid, "status": "delivered_after_retry", "error": "", "timestamp": ts})
+            except Exception as e2:
+                counts["error"] += 1
+                log_writer.writerow({"user_id": uid, "status": "error", "error": f"RetryAfter-> {e2}", "timestamp": ts})
+
+        except NetworkError as e:
+            counts["network_error"] += 1
+            log_writer.writerow({"user_id": uid, "status": "network_error", "error": str(e), "timestamp": ts})
+
+        except Exception as e:
+            counts["error"] += 1
+            log_writer.writerow({"user_id": uid, "status": "error", "error": str(e), "timestamp": ts})
+
+    # 5) Close log and update suppression
+    log_file.close()
+    _append_suppression(new_suppressed_rows)
+
+    # 6) Summary to admin
+    summary = (
+        "✅ Broadcast complete\n"
+        f"• delivered: {counts['delivered']}\n"
+        f"• delivered_after_retry: {counts['delivered_after_retry']}\n"
+        f"• blocked: {counts['blocked']}\n"
+        f"• deleted_or_invalid: {counts['deleted_or_invalid']}\n"
+        f"• skipped_suppressed: {counts['skipped_suppressed']}\n"
+        f"• network_error: {counts['network_error']}\n"
+        f"• error: {counts['error']}\n\n"
+        f"🧾 Log saved: {log_path}"
+    )
+    await query.edit_message_text(summary)
 
 # Step 4: Cancel broadcast
 async def cancel_broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.callback_query.answer()
     await update.callback_query.edit_message_text("🚫 Broadcast cancelled.")
+
 async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
         "💬 *Contact Support*\n\n"
@@ -490,7 +625,7 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # shared main menu text + keyboard
     message = (
         "🚀 *Solana100xcall — Premium Trading Signals* 🚀\n\n"
-        "🚀 Trade smarter! Our AI scans 25,000+ tokens daily from LetsBonk, Pumpfun, Moonshot & top launchpads. 🤖 You get 30+ sniper-grade signals every day with instant buy options — 24/7.\n\n"
+        "🚀 Trade smarter! Our AI scans 25,000+ tokens daily from LetsBonk, Pumpfun, Moonshot & top launchpads. 🤖 You get 30+ sniper-grade signals every day with instant buy options, 24/7.\n\n"
         "🎁 *Bonus for all plans:* 100 Top Killer Smart Money Wallets ready to import\n"
         "📦 Fully compatible with *BullX, Axiom, Padre, Gmgn* and all major DEX tools\n\n"
         "👇 Choose a plan to upgrade your trading edge"
@@ -607,7 +742,6 @@ def main():
     application.add_handler(CommandHandler("subscribe", subscribe_command))
     application.add_handler(CommandHandler("join", join_command))
 
-
     # ✅ Broadcast system for admin
     application.add_handler(CommandHandler("broadcast", broadcast))  # Trigger
     application.add_handler(MessageHandler(filters.ALL & filters.User(ADMIN_ID), handle_broadcast))  # Admin reply
@@ -619,6 +753,8 @@ def main():
 
     logging.info("Bot is running...")
     application.run_polling()
-
+    
+    # ✅ Paste this line right here:
+    logging.info(f"[storage] BASE_DIR={BASE_DIR} LOGS_DIR={LOGS_DIR} BACKUPS_DIR={BACKUPS_DIR}")
 if __name__ == "__main__":
     main()
