@@ -26,8 +26,8 @@ load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
 ADMIN_ID = 7906225936
-BANNER_URL = "https://i.imgur.com/vLKgiKG.png"  # Confirmed correct
-BANNER_FILE_ID = os.getenv("BANNER_FILE_ID", "")  # optional but bulletproof
+BANNER_URL = "https://imgur.com/a/cltw5k3"  # use album URL directly
+
 
 # -------- Broadcast logging helpers (disk-aware for Render) --------
 # If DATA_DIR is set (e.g., /var/data on Render), use it. Otherwise default to current folder.
@@ -102,18 +102,14 @@ def get_all_user_ids():
     return list({int(uid.strip()) for uid in user_ids if uid and uid.strip().isdigit()})
 
 async def _send_banner(bot, chat_id: int) -> bool:
+    """Always try to send whatever is in BANNER_URL (album links included)."""
     try:
-        if BANNER_FILE_ID:
-            await bot.send_photo(chat_id=chat_id, photo=BANNER_FILE_ID)
-            return True
-        # URL must be a direct image, not an album page
-        if isinstance(BANNER_URL, str) and BANNER_URL.lower().endswith((".jpg", ".jpeg", ".png", ".webp")):
-            await bot.send_photo(chat_id=chat_id, photo=BANNER_URL)
-            return True
-    except BadRequest:
-        pass
-    # no valid image sent
-    return False
+        await bot.send_photo(chat_id=chat_id, photo=BANNER_URL)
+        return True
+    except BadRequest as e:
+        logging.warning(f"[banner] send_photo failed: {e}")
+        return False
+
 
 
 # -------- Handlers --------
@@ -136,15 +132,12 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
     )
 
-    # Try to show banner photo
-    banner_sent = await _send_banner(context.bot, user.id)
+    # 🚩 send the banner exactly like the working bot (album URL is fine)
+    await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
 
-    # --- refreshed hero message + plan buttons ---
-    # If we didn't send a banner image, include the big title line at the top.
-    lines = []
-    if not banner_sent:
-        lines.append("🚀 *Solana100xcall Premium Trading Signals*")
-    lines.append(
+    # --- hero message + plan buttons (sent once) ---
+    message = (
+        "🚀 *Solana100xcall Premium Trading Signals*\n\n"
         "⚡ 24/7 automated alerts to 3 VIP channels\n"
         "📡 Smart money detection on new launches and momentum moves\n"
         "🎯 Early entries only, zero noise, just runners\n"
@@ -153,7 +146,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🎁 Bonus: 100 Top Killer Smart Money Wallets (import-ready) • Works seamlessly with *BullX, Axiom, Padre, Gmgn*\n\n"
         "👇 Choose your plan to unlock access"
     )
-    message = "\n\n".join(lines)
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("⚡ Unlock 1 Month Access", callback_data="plan_1month")],
@@ -175,6 +167,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
     context.chat_data["menu_message_id"] = menu_msg.message_id
     context.chat_data["menu_chat_id"] = menu_msg.chat.id
+
 
 
 
