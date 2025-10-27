@@ -26,7 +26,7 @@ load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
 ADMIN_ID = 7906225936
-BANNER_URL = "https://imgur.com/a/cltw5k3"  # use album URL directly
+BANNER_URL = "https://i.imgur.com/vLKgiKG.png"  # use album URL directly
 
 
 # -------- Broadcast logging helpers (disk-aware for Render) --------
@@ -102,13 +102,13 @@ def get_all_user_ids():
     return list({int(uid.strip()) for uid in user_ids if uid and uid.strip().isdigit()})
 
 async def _send_banner(bot, chat_id: int) -> bool:
-    """Always try to send whatever is in BANNER_URL (album links included)."""
     try:
         await bot.send_photo(chat_id=chat_id, photo=BANNER_URL)
         return True
     except BadRequest as e:
         logging.warning(f"[banner] send_photo failed: {e}")
         return False
+
 
 
 
@@ -133,7 +133,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     # 🚩 send the banner exactly like the working bot (album URL is fine)
-    await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
+    await _send_banner(context.bot, user.id)
+
 
     # --- hero message + plan buttons (sent once) ---
     message = (
