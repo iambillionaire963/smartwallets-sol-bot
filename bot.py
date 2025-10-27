@@ -102,13 +102,13 @@ def get_all_user_ids():
     user_ids = sheet.col_values(2)[1:]  # ✅ Column B (index 2), skip header
     return list({int(uid.strip()) for uid in user_ids if uid and uid.strip().isdigit()})
 
-async def _send_banner(bot, chat_id: int) -> bool:
+async def send_banner(bot, chat_id: int):
     try:
         await bot.send_photo(chat_id=chat_id, photo=BANNER_URL)
-        return True
-    except BadRequest as e:
-        logging.warning(f"[banner] send_photo failed: {e}")
-        return False
+    except Exception as e:
+        logging.warning(f"[banner] fallback to link message: {e}")
+        await bot.send_message(chat_id=chat_id, text=f"🖼️ {BANNER_URL}")
+
 
 
 
@@ -134,7 +134,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     # 🚩 send the banner exactly like the working bot (album URL is fine)
-    await _send_banner(context.bot, user.id)
+    await send_banner(context.bot, user.id)
+
 
 
     # --- hero message + plan buttons (sent once) ---
