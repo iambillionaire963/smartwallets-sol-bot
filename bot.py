@@ -26,7 +26,8 @@ load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
 ADMIN_ID = 7906225936
-BANNER_URL = "https://i.imgur.com/vLKgiKG.png"  # use album URL directly
+BANNER_URL = "https://imgur.com/a/cltw5k3"  # the working one
+
 
 
 # -------- Broadcast logging helpers (disk-aware for Render) --------
