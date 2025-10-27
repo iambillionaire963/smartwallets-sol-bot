@@ -26,7 +26,7 @@ load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
 ADMIN_ID = 7906225936
-BANNER_URL = "https://imgur.com/a/cltw5k3"  # the working one
+BANNER_URL = "https://ibb.co/KpDfxQY9"  # the working one
 
 
 
@@ -332,7 +332,7 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
         "⚡️ <b>1 Month VIP Access</b>\n"
-        "<s>0.333 SOL</s> → <b>0.233 SOL (30% OFF)</b>\n\n"
+        "<s>0.333 SOL</s> → <b>0.23 SOL (30% OFF)</b>\n\n"
         "📡 24/7 automated alerts from Solana’s top wallets\n"
         "🎯 Early entries only, zero noise, pure precision\n"
         "📲 Includes instant CA, LP, volume, holders, and buy links\n"
@@ -342,7 +342,7 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🪙 Pay 0.233 SOL Now", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("🪙 Pay 0.23 SOL Now", url=MEMBERSHIP_LINK)],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
 
@@ -357,7 +357,7 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
         "👑 <b>Lifetime VIP Access</b>\n"
-        "<s>0.444 SOL</s> → <b>0.311 SOL (30% OFF)</b>\n\n"
+        "<s>0.444 SOL</s> → <b>0.31 SOL (30% OFF)</b>\n\n"
         "🚀 One payment for unlimited access forever\n"
         "🤖 Full AI-powered alert system with 24/7 automation\n"
         "📡 Tracks Solana’s top wallets and delivers sniper-grade entries instantly\n"
@@ -368,7 +368,7 @@ async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🪙 Pay 0.311 SOL Now", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("🪙 Pay 0.31 SOL Now", url=MEMBERSHIP_LINK)],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
 
