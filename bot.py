@@ -26,7 +26,7 @@ load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
 ADMIN_ID = 7906225936
-BANNER_URL = "https://imgur.com/a/cltw5k3"  # Confirmed correct
+BANNER_URL = "https://i.imgur.com/vLKgiKG.png"  # Confirmed correct
 BANNER_FILE_ID = os.getenv("BANNER_FILE_ID", "")  # optional but bulletproof
 
 # -------- Broadcast logging helpers (disk-aware for Render) --------
@@ -336,18 +336,18 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
-        "⚡ <b>1 Month VIP Access</b>\n"
-        "<b>0.333 SOL</b>\n\n"
+        "⚡️ <b>1 Month VIP Access</b>\n"
+        "<s>0.333 SOL</s> → <b>0.233 SOL (30% OFF)</b>\n\n"
         "📡 24/7 automated alerts from Solana’s top wallets\n"
         "🎯 Early entries only, zero noise, pure precision\n"
         "📲 Includes instant CA, LP, volume, holders, and buy links\n"
         "📈 Dozens of high quality signals daily\n\n"
         "🎁 <b>Bonus:</b> 100 Top Killer Smart Money Wallets (import-ready) • Works seamlessly with <b>BullX, Axiom, Padre, Gmgn</b>\n\n"
-        "💳 Tap below to activate your access instantly"
+        "💳 Tap below to activate your discounted access instantly"
     )
 
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🪙 Pay with SOL, BNB or ETH", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("🪙 Pay 0.233 SOL Now", url=MEMBERSHIP_LINK)],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
 
@@ -358,21 +358,22 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
         disable_web_page_preview=True
     )
 
+
 async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
         "👑 <b>Lifetime VIP Access</b>\n"
-        "<b>0.444 SOL</b>\n\n"
+        "<s>0.444 SOL</s> → <b>0.311 SOL (30% OFF)</b>\n\n"
         "🚀 One payment for unlimited access forever\n"
         "🤖 Full AI-powered alert system with 24/7 automation\n"
         "📡 Tracks Solana’s top wallets and delivers sniper-grade entries instantly\n"
         "📲 Auto CA, LP, volume, holders, and buy links with zero delay\n"
         "📈 Dozens of high quality signals daily\n\n"
         "🎁 <b>Bonus:</b> 100 Top Killer Smart Money Wallets (import-ready) • Works seamlessly with <b>BullX, Axiom, Padre, Gmgn</b>\n\n"
-        "💳 Tap below to unlock <b>Lifetime Access</b> now"
+        "💳 Tap below to unlock <b>Lifetime Access</b> at 30% OFF"
     )
 
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🪙 Pay with SOL, BNB or ETH", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("🪙 Pay 0.311 SOL Now", url=MEMBERSHIP_LINK)],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
 
@@ -382,6 +383,7 @@ async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
         parse_mode=constants.ParseMode.HTML,
         disable_web_page_preview=True
     )
+
     
 
 async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
