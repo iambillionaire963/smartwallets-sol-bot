@@ -126,22 +126,23 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "📡 Smart money detection on new launches and momentum moves\n"
         "🎯 Early entries only, zero noise, just runners\n"
         "📲 One-tap buy, CA, LP, volume, holders\n"
-        "📈 dozens of high quality signals daily\n\n"
+        "📈 Dozens of high quality signals daily\n\n"
         "🎁 Bonus: 100 Top Killer Smart Money Wallets (import-ready) • Works seamlessly with *BullX, Axiom, Padre, Gmgn*\n\n"
         "👇 Choose your plan to unlock access"
     )
 
 
-    keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("⚡ 1 Month VIP Alpha Access", callback_data="plan_1month")],
-        [InlineKeyboardButton("👑 Lifetime VIP Alpha Access:", callback_data="plan_lifetime")],
+        keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("⚡ Unlock 1 Month Access", callback_data="plan_1month")],
+        [InlineKeyboardButton("👑 Unlock Lifetime Access", callback_data="plan_lifetime")],
         [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
-        [InlineKeyboardButton("🥇 Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
+        [InlineKeyboardButton("🥇 Real Results (Phanes Verified)", url="https://t.me/Solana100xCallBoard")],
         [
             InlineKeyboardButton("🤖 Help Bot", url="https://t.me/MyPremiumHelpBot"),
             InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
         ]
     ])
+
 
     menu_msg = await context.bot.send_message(
         chat_id=user.id,
@@ -255,11 +256,10 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🎯 Early entries only, zero noise, pure precision\n"
         "📲 One-tap buy with CA, LP, volume, holders\n"
         "📈 Dozens of high quality signals daily\n\n"
-        "🎁 *VIP Includes:*\n"
-        "• 3 private channels with nonstop sniper-grade alerts\n"
-        "• Works seamlessly with *BullX, Axiom, Padre, Gmgn*\n\n"
+        "🎁 *Bonus:* 100 Top Killer Smart Money Wallets (import-ready) • Works seamlessly with *BullX, Axiom, Padre, Gmgn*\n\n"
         "💰 Join the traders who always move before the crowd"
     )
+
 
     if update.callback_query:
         await update.callback_query.answer()
