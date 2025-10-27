@@ -100,6 +100,20 @@ def get_all_user_ids():
     user_ids = sheet.col_values(2)[1:]  # ✅ Column B (index 2), skip header
     return list({int(uid.strip()) for uid in user_ids if uid and uid.strip().isdigit()})
 
+async def _send_banner(bot, chat_id: int):
+    try:
+        if BANNER_FILE_ID:
+            await bot.send_photo(chat_id=chat_id, photo=BANNER_FILE_ID)
+            return
+        # URL must be a direct image, not an album page
+        if isinstance(BANNER_URL, str) and BANNER_URL.lower().endswith((".jpg", ".jpeg", ".png", ".webp")):
+            await bot.send_photo(chat_id=chat_id, photo=BANNER_URL)
+            return
+        # fallback so we never crash if URL is not a direct image
+        await bot.send_message(chat_id=chat_id, text="🚀 Solana100xcall Premium Trading Signals", disable_web_page_preview=True)
+    except BadRequest:
+        await bot.send_message(chat_id=chat_id, text="🚀 Solana100xcall Premium Trading Signals", disable_web_page_preview=True)
+
 # -------- Handlers --------
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -117,7 +131,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "You can send a private message to this member by replying to this message."
     ))
 
-        await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
+        await _send_banner(context.bot, user.id)
+        BANNER_FILE_ID = os.getenv("BANNER_FILE_ID", "")  # optional but bulletproof
 
     # --- refreshed hero message + plan buttons ---
     message = (
