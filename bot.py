@@ -117,9 +117,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "You can send a private message to this member by replying to this message."
     ))
 
-    await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
+        await context.bot.send_photo(chat_id=user.id, photo=BANNER_URL)
 
-            # --- refreshed hero message + plan buttons ---
+    # --- refreshed hero message + plan buttons ---
     message = (
         "🚀 *Solana100xcall Premium Trading Signals*\n\n"
         "⚡ 24/7 automated alerts to 3 VIP channels\n"
@@ -131,8 +131,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "👇 Choose your plan to unlock access"
     )
 
-
-        keyboard = InlineKeyboardMarkup([
+    keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("⚡ Unlock 1 Month Access", callback_data="plan_1month")],
         [InlineKeyboardButton("👑 Unlock Lifetime Access", callback_data="plan_lifetime")],
         [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
@@ -142,6 +141,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
         ]
     ])
+
 
 
     menu_msg = await context.bot.send_message(
