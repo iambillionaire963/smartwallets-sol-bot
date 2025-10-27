@@ -101,19 +101,20 @@ def get_all_user_ids():
     user_ids = sheet.col_values(2)[1:]  # ✅ Column B (index 2), skip header
     return list({int(uid.strip()) for uid in user_ids if uid and uid.strip().isdigit()})
 
-async def _send_banner(bot, chat_id: int):
+async def _send_banner(bot, chat_id: int) -> bool:
     try:
         if BANNER_FILE_ID:
             await bot.send_photo(chat_id=chat_id, photo=BANNER_FILE_ID)
-            return
+            return True
         # URL must be a direct image, not an album page
         if isinstance(BANNER_URL, str) and BANNER_URL.lower().endswith((".jpg", ".jpeg", ".png", ".webp")):
             await bot.send_photo(chat_id=chat_id, photo=BANNER_URL)
-            return
-        # fallback so we never crash if URL is not a direct image
-        await bot.send_message(chat_id=chat_id, text="🚀 Solana100xcall Premium Trading Signals", disable_web_page_preview=True)
+            return True
     except BadRequest:
-        await bot.send_message(chat_id=chat_id, text="🚀 Solana100xcall Premium Trading Signals", disable_web_page_preview=True)
+        pass
+    # no valid image sent
+    return False
+
 
 # -------- Handlers --------
 
@@ -135,12 +136,15 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
     )
 
-    # banner (file_id preferred; falls back to text if URL isn't a direct image)
-    await _send_banner(context.bot, user.id)
+    # Try to show banner photo
+    banner_sent = await _send_banner(context.bot, user.id)
 
     # --- refreshed hero message + plan buttons ---
-    message = (
-        "🚀 *Solana100xcall Premium Trading Signals*\n\n"
+    # If we didn't send a banner image, include the big title line at the top.
+    lines = []
+    if not banner_sent:
+        lines.append("🚀 *Solana100xcall Premium Trading Signals*")
+    lines.append(
         "⚡ 24/7 automated alerts to 3 VIP channels\n"
         "📡 Smart money detection on new launches and momentum moves\n"
         "🎯 Early entries only, zero noise, just runners\n"
@@ -149,6 +153,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🎁 Bonus: 100 Top Killer Smart Money Wallets (import-ready) • Works seamlessly with *BullX, Axiom, Padre, Gmgn*\n\n"
         "👇 Choose your plan to unlock access"
     )
+    message = "\n\n".join(lines)
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("⚡ Unlock 1 Month Access", callback_data="plan_1month")],
@@ -170,6 +175,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
     context.chat_data["menu_message_id"] = menu_msg.message_id
     context.chat_data["menu_chat_id"] = menu_msg.chat.id
+
 
 
 async def show_howsignals(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -331,7 +337,7 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
         "⚡ <b>1 Month VIP Access</b>\n"
-        "<b>0.25 SOL</b>\n\n"
+        "<b>0.333 SOL</b>\n\n"
         "📡 24/7 automated alerts from Solana’s top wallets\n"
         "🎯 Early entries only, zero noise, pure precision\n"
         "📲 Includes instant CA, LP, volume, holders, and buy links\n"
