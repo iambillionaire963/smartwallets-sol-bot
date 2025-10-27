@@ -27,6 +27,7 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
 ADMIN_ID = 7906225936
 BANNER_URL = "https://imgur.com/a/cltw5k3"  # Confirmed correct
+BANNER_FILE_ID = os.getenv("BANNER_FILE_ID", "")  # optional but bulletproof
 
 # -------- Broadcast logging helpers (disk-aware for Render) --------
 # If DATA_DIR is set (e.g., /var/data on Render), use it. Otherwise default to current folder.
@@ -126,13 +127,16 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     payload = context.args[0] if context.args else None
     logging.info(f"[START] User {user.id} (@{user.username}) joined with payload: {payload}")
 
-    await context.bot.send_message(chat_id=ADMIN_ID, text=(
-        f"{user.first_name}🎐 (@{user.username}) (#u{user.id}) has just launched this bot for the first time.\n\n"
-        "You can send a private message to this member by replying to this message."
-    ))
+    await context.bot.send_message(
+        chat_id=ADMIN_ID,
+        text=(
+            f"{user.first_name}🎐 (@{user.username}) (#u{user.id}) has just launched this bot for the first time.\n\n"
+            "You can send a private message to this member by replying to this message."
+        )
+    )
 
-        await _send_banner(context.bot, user.id)
-        BANNER_FILE_ID = os.getenv("BANNER_FILE_ID", "")  # optional but bulletproof
+    # banner (file_id preferred; falls back to text if URL isn't a direct image)
+    await _send_banner(context.bot, user.id)
 
     # --- refreshed hero message + plan buttons ---
     message = (
@@ -157,8 +161,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         ]
     ])
 
-
-
     menu_msg = await context.bot.send_message(
         chat_id=user.id,
         text=message,
@@ -168,6 +170,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
     context.chat_data["menu_message_id"] = menu_msg.message_id
     context.chat_data["menu_chat_id"] = menu_msg.chat.id
+
 
 async def show_howsignals(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
@@ -604,7 +607,7 @@ async def confirm_broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
     log_file.close()
     _append_suppression(new_suppressed_rows)
 
-           # 6) Final summary
+    # 6) Final summary
     summary = (
         "✅ Broadcast complete\n"
         f"• delivered: {counts['delivered']}\n"
