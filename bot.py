@@ -333,7 +333,7 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
         "⚡️ <b>1 Month VIP Access</b>\n"
-        "<s>0.333 SOL</s> → <b>0.23 SOL (30% OFF)</b>\n\n"
+        "<s>0.333 SOL</s> → <b>0.27 SOL (20% OFF)</b>\n\n"
         "📡 24/7 automated alerts from Solana’s top wallets\n"
         "🎯 Early entries only, zero noise, pure precision\n"
         "📲 Includes instant CA, LP, volume, holders, and buy links\n"
@@ -343,7 +343,7 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🪙 Pay 0.23 SOL Now", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("🪙 Pay With SOL/BNB/ETH Chain", url=MEMBERSHIP_LINK)],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
 
@@ -358,7 +358,7 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
         "👑 <b>Lifetime VIP Access</b>\n"
-        "<s>0.444 SOL</s> → <b>0.31 SOL (30% OFF)</b>\n\n"
+        "<s>0.444 SOL</s> → <b>0.36 SOL (20% OFF)</b>\n\n"
         "🚀 One payment for unlimited access forever\n"
         "🤖 Full AI-powered alert system with 24/7 automation\n"
         "📡 Tracks Solana’s top wallets and delivers sniper-grade entries instantly\n"
@@ -369,7 +369,7 @@ async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🪙 Pay 0.31 SOL Now", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("🪙 Pay With SOL/BNB/ETH Chain", url=MEMBERSHIP_LINK)],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
 
