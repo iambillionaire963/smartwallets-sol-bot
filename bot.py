@@ -140,15 +140,18 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     # --- hero message + plan buttons (sent once) ---
     message = (
-        "🚀 *Solana100xcall Premium Trading Signals*\n\n"
-        "⚡ 24/7 automated alerts to 3 VIP channels\n"
-        "📡 Smart money detection on new launches and momentum moves\n"
-        "🎯 Early entries only, zero noise, just runners\n"
-        "📲 One-tap buy, CA, LP, volume, holders\n"
-        "📈 Dozens of high quality signals daily\n\n"
-        "🎁 Bonus: 100 Top Killer Smart Money Wallets (import-ready) • Works seamlessly with *BullX, Axiom, Padre, Gmgn*\n\n"
-        "👇 Choose your plan to unlock access"
-    )
+    "🚀 *Solana100xcall Premium Trading Signals*\n\n"
+    "⚡ 24/7 automated alerts to 3 VIP channels\n"
+    "📡 Smart money detection on new launches and momentum moves\n"
+    "🎯 Early entries only, zero noise, just runners\n"
+    "📲 One-tap buy, CA, LP, volume, holders\n"
+    "📈 Dozens of high quality signals daily\n\n"
+    "🎁 Bonus: Access to exclusive *Top Solana Smart Money Wallets* —\n"
+    "💼 300 wallets for 1-Month Members\n"
+    "👑 1,000 wallets for Lifetime Members\n\n"
+    "Works seamlessly with *BullX, Axiom, Padre, Gmgn*\n\n"
+    "👇 Choose your plan to unlock access"
+)
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("⚡ Unlock 1 Month Access", callback_data="plan_1month")],
@@ -276,7 +279,9 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🎯 Early entries only, zero noise, pure precision\n"
         "📲 One-tap buy with CA, LP, volume, holders\n"
         "📈 Dozens of high quality signals daily\n\n"
-        "🎁 *Bonus:* 100 Top Killer Smart Money Wallets (import-ready) • Works seamlessly with *BullX, Axiom, Padre, Gmgn*\n\n"
+        "🎁 *VIP Includes:*\n"
+        "• 3 private channels with nonstop sniper-grade alerts\n"
+        "• Works seamlessly with *BullX, Axiom, Padre, Gmgn*\n\n"
         "💰 Join the traders who always move before the crowd"
     )
 
@@ -332,15 +337,15 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
-        "⚡️ <b>1 Month VIP Access</b>\n"
-        "<s>0.333 SOL</s> → <b>0.27 SOL (20% OFF)</b>\n\n"
-        "📡 24/7 automated alerts from Solana’s top wallets\n"
-        "🎯 Early entries only, zero noise, pure precision\n"
-        "📲 Includes instant CA, LP, volume, holders, and buy links\n"
-        "📈 Dozens of high quality signals daily\n\n"
-        "🎁 <b>Bonus:</b> 100 Top Killer Smart Money Wallets (import-ready) • Works seamlessly with <b>BullX, Axiom, Padre, Gmgn</b>\n\n"
-        "💳 Tap below to activate your discounted access instantly"
-    )
+    "⚡️ <b>1 Month VIP Access</b>\n"
+    "<b>$49 USD</b>\n\n"
+    "📡 24/7 automated alerts from Solana’s top wallets\n"
+    "🎯 Early entries only, zero noise, pure precision\n"
+    "📲 Includes instant CA, LP, volume, holders, and buy links\n"
+    "📈 Dozens of high quality signals daily\n\n"
+    "🎁 <b>Bonus:</b> Access to <b>300 Top Solana Smart Money Wallets</b> (import-ready) • Works seamlessly with <b>BullX, Axiom, Padre, Gmgn</b>\n\n"
+    "💳 Tap below to activate your monthly access instantly"
+)
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🪙 Pay With SOL/BNB/ETH Chain", url=MEMBERSHIP_LINK)],
@@ -357,16 +362,16 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
-        "👑 <b>Lifetime VIP Access</b>\n"
-        "<s>0.444 SOL</s> → <b>0.36 SOL (20% OFF)</b>\n\n"
-        "🚀 One payment for unlimited access forever\n"
-        "🤖 Full AI-powered alert system with 24/7 automation\n"
-        "📡 Tracks Solana’s top wallets and delivers sniper-grade entries instantly\n"
-        "📲 Auto CA, LP, volume, holders, and buy links with zero delay\n"
-        "📈 Dozens of high quality signals daily\n\n"
-        "🎁 <b>Bonus:</b> 100 Top Killer Smart Money Wallets (import-ready) • Works seamlessly with <b>BullX, Axiom, Padre, Gmgn</b>\n\n"
-        "💳 Tap below to unlock <b>Lifetime Access</b> at 30% OFF"
-    )
+    "👑 <b>Lifetime VIP Access</b>\n"
+    "<b>$69 USD</b>\n\n"
+    "🚀 One payment for unlimited access forever\n"
+    "🤖 Full AI-powered alert system with 24/7 automation\n"
+    "📡 Tracks Solana’s top wallets and delivers sniper-grade entries instantly\n"
+    "📲 Auto CA, LP, volume, holders, and buy links with zero delay\n"
+    "📈 Dozens of high quality signals daily\n\n"
+    "🎁 <b>Bonus:</b> Access to <b>1,000 Top Solana Smart Money Wallets</b> (import-ready) • Works seamlessly with <b>BullX, Axiom, Padre, Gmgn</b>\n\n"
+    "💳 Tap below to unlock <b>Lifetime Access</b> now"
+)
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🪙 Pay With SOL/BNB/ETH Chain", url=MEMBERSHIP_LINK)],
@@ -390,15 +395,18 @@ async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ])
 
     text = (
-        "🚀 *Join the Premium Signal Group*\n\n"
-        "⚡ 24/7 automated alerts powered by AI and smart money tracking\n"
-        "📡 Detects new launches, wallet inflows, and momentum plays in real time\n"
-        "🎯 Early entries only, zero noise, pure precision\n"
-        "📲 Each alert includes CA, LP, volume, holders, and buy links\n"
-        "📈 Dozens of high quality signals daily\n\n"
-        "🎁 *Bonus:* 100 Top Killer Smart Money Wallets (import-ready) • Works seamlessly with *BullX, Axiom, Padre, Gmgn*\n\n"
-        "💰 Don’t chase the pumps, position early and ride them first"
-    )
+    "🚀 *Join the Premium Signal Group*\n\n"
+    "⚡ 24/7 automated alerts powered by AI and smart money tracking\n"
+    "📡 Detects new launches, wallet inflows, and momentum plays in real time\n"
+    "🎯 Early entries only, zero noise, pure precision\n"
+    "📲 Each alert includes CA, LP, volume, holders, and buy links\n"
+    "📈 Dozens of high quality signals daily\n\n"
+    "🎁 *Bonus:* Access to exclusive *Top Solana Smart Money Wallets* —\n"
+    "💼 300 wallets for 1-Month Members\n"
+    "👑 1,000 wallets for Lifetime Members\n\n"
+    "Works seamlessly with *BullX, Axiom, Padre, Gmgn*\n\n"
+    "💰 Don’t chase the pumps — position early and ride them first"
+)
 
 
     if update.callback_query:
@@ -670,15 +678,19 @@ async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
-        "🚀 *Solana100xcall Premium Trading Signals*\n\n"
-        "⚡ 24/7 automated alerts to private VIP channels\n"
-        "📡 Detects early smart money entries and momentum surges in real time\n"
-        "🎯 Early entries only, zero noise, pure precision\n"
-        "📲 Each alert includes CA, LP, volume, holders, and instant buy links\n"
-        "📈 Dozens of high quality signals daily\n\n"
-        "🎁 Bonus: *100 Top Killer Smart Money Wallets* (import-ready) • Works seamlessly with *BullX, Axiom, Padre, Gmgn*\n\n"
-        "👇 Choose your plan to unlock access"
-    )
+    "🚀 *Solana100xcall Premium Trading Signals*\n\n"
+    "⚡ 24/7 automated alerts to 3 VIP channels\n"
+    "📡 Smart money detection on new launches and momentum moves\n"
+    "🎯 Early entries only, zero noise, just runners\n"
+    "📲 One-tap buy, CA, LP, volume, holders\n"
+    "📈 Dozens of high quality signals daily\n\n"
+    "🎁 Bonus: Access to exclusive *Top Solana Smart Money Wallets* —\n"
+    "💼 300 wallets for 1-Month Members\n"
+    "👑 1,000 wallets for Lifetime Members\n\n"
+    "Works seamlessly with *BullX, Axiom, Padre, Gmgn*\n\n"
+    "👇 Choose your plan to unlock access"
+)
+
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("⚡ Unlock 1 Month Access", callback_data="plan_1month")],
