@@ -140,18 +140,25 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     # --- hero message + plan buttons (sent once) ---
     message = (
-    "🚀 *Solana100xcall Premium Trading Signals*\n\n"
-    "⚡ 24/7 automated alerts to 3 VIP channels\n"
-    "📡 Smart money detection on new launches and momentum moves\n"
-    "🎯 Early entries only, zero noise, just runners\n"
-    "📲 One-tap buy, CA, LP, volume, holders\n"
-    "📈 Dozens of high quality signals daily\n\n"
-    "🎁 Bonus: Access to exclusive *Top Solana Smart Money Wallets* —\n"
-    "💼 300 wallets for 1-Month Members\n"
-    "👑 1,000 wallets for Lifetime Members\n\n"
-    "Works seamlessly with *BullX, Axiom, Padre, Gmgn*\n\n"
-    "👇 Choose your plan to unlock access"
-)
+        "🚀 Solana100xcall Premium Trading Signals\n\n"
+        "Everything you need to trade Solana efficiently.\n\n"
+        "Alerts:\n"
+        "🟢 24/7 automated signals\n"
+        "🟢 Smart-money detection on new launches and momentum moves\n"
+        "🟢 Full token details\n"
+        "🟢 Quick-buy buttons on major bots/DEXes\n"
+        "🟢 Dozens of high-quality signals daily\n\n"
+        "Membership Includes:\n"
+        "✅ 3 VIP alert channels (Sniper signals, Momentum signals, Surge signals)\n"
+        "✅ VIP trader chatroom\n"
+        "✅ VIP milestone-tracker channel\n"
+        "✅ Trading strategy\n"
+        "✅ Help bot for quick answers\n\n"
+        "🎁 Bonuses:\n"
+        "⭐️ 300 Top Solana wallets for Monthly members\n"
+        "💎 1,000 Top Solana wallets for Lifetime members\n"
+        "(Works seamlessly with BullX, Axiom, Padre, Gmgn)"
+    )
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("⚡ Unlock 1 Month Access", callback_data="plan_1month")],
@@ -224,14 +231,21 @@ async def show_howsignals(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
         "🆘 *Need Help?*\n\n"
-        "This bot delivers real-time Solana memecoin alerts powered by smart money tracking and automation\n\n"
-        "⚙️ Tracks thousands of elite wallets 24/7\n"
-        "📡 Detects fresh launches, momentum plays, and liquidity surges\n"
-        "🤖 AI-driven filtering for pure precision, zero noise\n\n"
-        "You get:\n"
-        "✅ Instant alerts with CA, LP, volume, holders\n"
-        "✅ 3 VIP channels for alpha, early plays, and research\n"
-        "✅ Works seamlessly with *BullX, Axiom, Padre, Gmgn*\n\n"
+        "This bot delivers real-time Solana trading alerts powered by AI and smart-money tracking.\n\n"
+        "*Alerts:*\n"
+        "🟢 24/7 automated signals\n"
+        "🟢 Smart-money detection on new launches and momentum moves\n"
+        "🟢 Full token details + instant buy buttons\n\n"
+        "*Membership Includes:*\n"
+        "✅ 3 VIP alert channels (Sniper, Momentum, Surge)\n"
+        "✅ VIP trader chatroom\n"
+        "✅ VIP milestone-tracker channel\n"
+        "✅ Full trading strategy\n"
+        "✅ Help bot for quick answers\n\n"
+        "🎁 *Bonuses:*\n"
+        "⭐️ 300 top Solana wallets for 1 Month members\n"
+        "💎 1,000 top Solana wallets for Lifetime members\n"
+        "(Works seamlessly with BullX, Axiom, Padre, GMGN)\n\n"
         "💬 Support: [@The100xMooncaller](https://t.me/The100xMooncaller)"
     )
     keyboard = InlineKeyboardMarkup([[InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]])
@@ -274,15 +288,25 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     text = (
         "🚀 *Unlock VIP Access — Premium Signals*\n\n"
-        "⚡ 24/7 automated alerts across Solana’s top launchpads\n"
-        "📡 Detects early smart money entries and new momentum plays\n"
-        "🎯 Early entries only, zero noise, pure precision\n"
-        "📲 One-tap buy with CA, LP, volume, holders\n"
-        "📈 Dozens of high quality signals daily\n\n"
-        "🎁 *VIP Includes:*\n"
-        "• 3 private channels with nonstop sniper-grade alerts\n"
-        "• Works seamlessly with *BullX, Axiom, Padre, Gmgn*\n\n"
-        "💰 Join the traders who always move before the crowd"
+        "Choose how you want to join:\n"
+        "💼 *1 Month VIP* — $49 USD\n"
+        "👑 *Lifetime VIP* — $69 USD (one-time)\n\n"
+        "*Alerts:*\n"
+        "⚡ 24/7 automated signals from top Solana wallets\n"
+        "📡 Smart-money detection on new launches and momentum moves\n"
+        "📲 Full token details with quick-buy buttons\n"
+        "📈 Dozens of high-quality signals daily\n\n"
+        "*VIP Includes:*\n"
+        "✅ 3 VIP alert channels (Sniper, Momentum, Surge)\n"
+        "✅ VIP trader chatroom\n"
+        "✅ VIP milestone-tracker channel\n"
+        "✅ Full trading strategy\n"
+        "✅ Help bot for quick answers\n\n"
+        "🎁 *Bonuses:*\n"
+        "⭐️ 300 top Solana wallets for 1 Month members\n"
+        "💎 1,000 top Solana wallets for Lifetime members\n"
+        "(Import-ready for BullX, Axiom, Padre, GMGN)\n\n"
+        "💰 Tap below to choose your plan and start receiving signals today."
     )
 
 
@@ -339,11 +363,18 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
     "⚡️ <b>1 Month VIP Access</b>\n"
     "<b>$49 USD</b>\n\n"
-    "📡 24/7 automated alerts from Solana’s top wallets\n"
-    "🎯 Early entries only, zero noise, pure precision\n"
-    "📲 Includes instant CA, LP, volume, holders, and buy links\n"
-    "📈 Dozens of high quality signals daily\n\n"
-    "🎁 <b>Bonus:</b> Access to <b>300 Top Solana Smart Money Wallets</b> (import-ready) • Works seamlessly with <b>BullX, Axiom, Padre, Gmgn</b>\n\n"
+    "<b>Unlock:</b>\n"
+    "✅ VIP Sniper Signals Channel\n"
+    "✅ VIP Momentum Signals Channel\n"
+    "✅ VIP Surge Signals Channel\n"
+    "✅ VIP Trader Chatroom\n"
+    "✅ VIP Milestone-Tracker Channel\n"
+    "✅ Full Trading Strategy\n"
+    "✅ Help Bot\n\n"
+    "🔹 24/7 automated alerts\n"
+    "🔹 Token details + instant buy buttons\n"
+    "🔹 Smart-money early entries — precision only, no noise\n\n"
+    "🎁 <b>Bonus:</b> 300 top Solana smart-money wallets (import-ready) • Works seamlessly with <b>BullX, Axiom, Padre, GMGN</b>.\n\n"
     "💳 Tap below to activate your monthly access instantly"
 )
 
@@ -364,13 +395,20 @@ async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
     "👑 <b>Lifetime VIP Access</b>\n"
     "<b>$69 USD</b>\n\n"
-    "🚀 One payment for unlimited access forever\n"
-    "🤖 Full AI-powered alert system with 24/7 automation\n"
-    "📡 Tracks Solana’s top wallets and delivers sniper-grade entries instantly\n"
-    "📲 Auto CA, LP, volume, holders, and buy links with zero delay\n"
-    "📈 Dozens of high quality signals daily\n\n"
-    "🎁 <b>Bonus:</b> Access to <b>1,000 Top Solana Smart Money Wallets</b> (import-ready) • Works seamlessly with <b>BullX, Axiom, Padre, Gmgn</b>\n\n"
-    "💳 Tap below to unlock <b>Lifetime Access</b> now"
+    "One payment. Unlimited access forever.\n\n"
+    "<b>Unlock:</b>\n"
+    "✅ VIP Sniper Signals Channel\n"
+    "✅ VIP Momentum Signals Channel\n"
+    "✅ VIP Surge Signals Channel\n"
+    "✅ VIP Trader Chatroom\n"
+    "✅ VIP Milestone-tracker Channel\n"
+    "✅ Full Trading Strategy\n"
+    "✅ Help Bot\n\n"
+    "🔹 Token details + quick-buy buttons\n"
+    "🔹 24/7 automated alerts\n"
+    "🔹 Smart-money early entries — no noise\n\n"
+    "🎁 <b>Bonus:</b> 1,000 top Solana smart-money wallets (import-ready) ▪️ Works seamlessly with <b>BullX, Axiom, Padre, GMGN</b>.\n\n"
+    "💳 Tap below to activate your lifetime access instantly"
 )
 
     keyboard = InlineKeyboardMarkup([
@@ -395,18 +433,23 @@ async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ])
 
     text = (
-    "🚀 *Join the Premium Signal Group*\n\n"
-    "⚡ 24/7 automated alerts powered by AI and smart money tracking\n"
-    "📡 Detects new launches, wallet inflows, and momentum plays in real time\n"
-    "🎯 Early entries only, zero noise, pure precision\n"
-    "📲 Each alert includes CA, LP, volume, holders, and buy links\n"
-    "📈 Dozens of high quality signals daily\n\n"
-    "🎁 *Bonus:* Access to exclusive *Top Solana Smart Money Wallets* —\n"
-    "💼 300 wallets for 1-Month Members\n"
-    "👑 1,000 wallets for Lifetime Members\n\n"
-    "Works seamlessly with *BullX, Axiom, Padre, Gmgn*\n\n"
-    "💰 Don’t chase the pumps — position early and ride them first"
-)
+        "🚀 *Join the Premium Signal Group*\n\n"
+        "⚡ 24/7 automated alerts powered by AI and smart-money tracking\n"
+        "📡 Detects new launches, wallet inflows, and momentum plays in real time\n"
+        "📲 Each alert includes CA, LP, volume, holders, and buy links\n"
+        "📈 Dozens of high quality signals daily\n\n"
+        "*What you unlock as a member:*\n"
+        "✅ 3 VIP alert channels (Sniper, Momentum, Surge)\n"
+        "✅ VIP trader chatroom\n"
+        "✅ VIP milestone-tracker channel\n"
+        "✅ Full trading strategy\n"
+        "✅ Help bot for quick answers\n\n"
+        "🎁 *Bonuses: Top Solana Smart-Money Wallets*\n"
+        "💼 300 wallets for 1 Month members\n"
+        "👑 1,000 wallets for Lifetime members\n"
+        "(Import-ready for BullX, Axiom, Padre, GMGN)\n\n"
+        "💰 Don’t chase the pumps — position early and ride them first."
+    )
 
 
     if update.callback_query:
@@ -678,17 +721,24 @@ async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
-    "🚀 *Solana100xcall Premium Trading Signals*\n\n"
-    "⚡ 24/7 automated alerts to 3 VIP channels\n"
-    "📡 Smart money detection on new launches and momentum moves\n"
-    "🎯 Early entries only, zero noise, just runners\n"
-    "📲 One-tap buy, CA, LP, volume, holders\n"
-    "📈 Dozens of high quality signals daily\n\n"
-    "🎁 Bonus: Access to exclusive *Top Solana Smart Money Wallets* —\n"
-    "💼 300 wallets for 1-Month Members\n"
-    "👑 1,000 wallets for Lifetime Members\n\n"
-    "Works seamlessly with *BullX, Axiom, Padre, Gmgn*\n\n"
-    "👇 Choose your plan to unlock access"
+    "🚀 Solana100xcall Premium Trading Signals\n\n"
+    "Everything you need to trade Solana efficiently.\n\n"
+    "Alerts:\n"
+    "🟢 24/7 automated signals\n"
+    "🟢 Smart-money detection on new launches and momentum moves\n"
+    "🟢 Full token details\n"
+    "🟢 Quick-buy buttons on major bots/DEXes\n"
+    "🟢 Dozens of high-quality signals daily\n\n"
+    "Membership Includes:\n"
+    "✅ 3 VIP alert channels (Sniper signals, Momentum signals, Surge signals)\n"
+    "✅ VIP trader chatroom\n"
+    "✅ VIP milestone-tracker channel\n"
+    "✅ Trading strategy\n"
+    "✅ Help bot for quick answers\n\n"
+    "🎁 Bonuses:\n"
+    "⭐️ 300 Top Solana wallets for Monthly members\n"
+    "💎 1,000 Top Solana wallets for Lifetime members\n"
+    "(Works seamlessly with BullX, Axiom, Padre, Gmgn)"
 )
 
 
