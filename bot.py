@@ -230,23 +230,23 @@ async def show_howsignals(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
-        "🆘 *Help & How This Bot Works*\n\n"
-        "This bot connects your Telegram to the *Solana100xcall* membership system.\n\n"
-        "*What this bot is for:*\n"
-        "• Showing you the VIP plans and bonuses\n"
-        "• Sending you to the membership bot to pay\n"
-        "• Guiding you to the correct VIP channels once you are subscribed\n\n"
-        "*How the alerts work (short version):*\n"
-        "• System tracks elite Solana wallets all day\n"
-        "• Picks launches, momentum moves and liquidity spikes\n"
-        "• Sends alerts with CA, LP, volume, holders and quick buy links\n\n"
-        "*Where to ask questions:*\n"
-        "🤖 Use *@MyPremiumHelpBot* for:\n"
-        "   • How alerts work\n"
-        "   • How to import the wallet lists\n"
-        "   • How to fix common issues or errors\n\n"
-        "If you have payment or access problems only, tap *Contact Support* in the main menu.\n"
-    )
+    "🆘 *Help & How This Bot Works*\n\n"
+    "This bot connects you to the *Solana100xcall* system.\n\n"
+    "*What this bot does:*\n"
+    "🔹 Shows VIP plans and bonuses\n"
+    "🔹 Sends you to the membership bot to subscribe\n"
+    "🔹 Gives you access to the correct VIP channels once you're active\n\n"
+    "*How alerts work (quick overview):*\n"
+    "⚡ Tracks elite Solana wallets 24/7\n"
+    "📡 Detects launches, momentum moves, liquidity spikes\n"
+    "📲 Each alert includes CA, LP, volume, holders and quick-buy links\n\n"
+    "*Where to ask questions:*\n"
+    "🤖 Use *@MyPremiumHelpBot* for:\n"
+    "   • How alerts work\n"
+    "   • How to import the wallet lists\n"
+    "   • How to troubleshoot errors\n\n"
+    "💳 If you have *payment or access* issues only, tap *Contact Support* in the main menu.\n"
+)
 
     keyboard = InlineKeyboardMarkup(
         [[InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]]
@@ -293,21 +293,21 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ])
 
     text = (
-        "💳 *Subscribe to VIP Access*\n\n"
-        "*Plans:*\n"
-        "💼 1 Month VIP – $49 USD\n"
-        "👑 Lifetime VIP – $69 USD (one time)\n\n"
-        "*What any VIP plan gives you:*\n"
-        "• 3 VIP alert channels (Sniper, Momentum, Surge)\n"
-        "• Trader chat and milestone channel\n"
-        "• Full framework for using the alerts\n\n"
-        "🎁 *Wallet bonuses:*\n"
-        "⭐ 300 top Solana wallets for 1 Month members\n"
-        "💎 1,000 top Solana wallets for Lifetime members\n"
-        "(Import ready for BullX, Axiom, Padre, GMGN)\n\n"
-        "Payments are handled inside the membership bot with SOL, BNB or ETH.\n"
-        "Tap *Get VIP Signals* to open it or *Join Free Channel* if you want to watch first."
-    )
+    "💳 *Subscribe to VIP Access*\n\n"
+    "*Choose your plan:*\n"
+    "💼 *1 Month VIP* — $49 USD\n"
+    "👑 *Lifetime VIP* — $69 USD (one-time)\n\n"
+    "*What you unlock:*\n"
+    "⚡ 3 VIP alert channels (Sniper, Momentum, Surge)\n"
+    "💬 VIP trader chat + milestone channel\n"
+    "📘 Full trading framework to follow the signals\n\n"
+    "🎁 *Wallet Bonuses:*\n"
+    "⭐ 300 top Solana wallets for 1-Month members\n"
+    "💎 1,000 top Solana wallets for Lifetime members\n"
+    "(Import-ready for BullX, Axiom, Padre, GMGN)\n\n"
+    "🪙 Payments are handled inside the membership bot (SOL / BNB / ETH).\n"
+    "Tap *Get VIP Signals* to start, or join the free channel if you want to watch first."
+)
 
     if update.callback_query:
         await update.callback_query.answer()
@@ -448,20 +448,21 @@ async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ])
 
     text = (
-        "🚀 *Join the Premium Signal Group*\n\n"
-        "You have two ways to start:\n"
-        "📲 *Free channel* – see public calls and get a feel for the flow.\n"
-        "💳 *VIP membership* – unlock every high quality alert in real time.\n\n"
-        "*What VIP gives you:*\n"
-        "• 3 VIP alert channels (Sniper, Momentum, Surge)\n"
-        "• Private trader chatroom\n"
-        "• Milestone tracker and guidance\n\n"
-        "🎁 *Wallet bonuses:*\n"
-        "💼 300 top Solana wallets for 1 Month members\n"
-        "👑 1,000 top Solana wallets for Lifetime members\n\n"
-        "If you are ready to plug in fully, tap *Get VIP Signals*.\n"
-        "If you still want to see more first, tap *Join Free Channel* and watch the flow."
-    )
+    "💳 *Subscribe to VIP Access*\n\n"
+    "*Plans available:*\n"
+    "💼 *1 Month VIP* — $49 USD\n"
+    "👑 *Lifetime VIP* — $69 USD (one-time)\n\n"
+    "*What you unlock instantly:*\n"
+    "📡 3 VIP alert channels (Sniper, Momentum, Surge)\n"
+    "💬 VIP trader chatroom\n"
+    "📈 Milestone-tracker + full trading framework\n\n"
+    "🎁 *Wallet Bonuses:*\n"
+    "⭐ 300 top Solana wallets for 1-Month members\n"
+    "💎 1,000 top Solana wallets for Lifetime members\n"
+    "(Import-ready for BullX, Axiom, Padre, GMGN)\n\n"
+    "Payments are handled securely in the membership bot using SOL, BNB, or ETH.\n"
+    "Tap *Get VIP Signals* to open it, or check the *Free Channel* first if you prefer."
+)
 
     if update.callback_query:
         await update.callback_query.answer()
