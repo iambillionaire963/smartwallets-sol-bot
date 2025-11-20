@@ -230,24 +230,29 @@ async def show_howsignals(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
-        "🆘 *Need Help?*\n\n"
+        "🆘 *Help & How This Bot Works*\n\n"
         "This bot delivers real-time Solana trading alerts powered by AI and smart-money tracking.\n\n"
-        "*Alerts:*\n"
-        "🟢 24/7 automated signals\n"
-        "🟢 Smart-money detection on new launches and momentum moves\n"
-        "🟢 Full token details + instant buy buttons\n\n"
-        "*Membership Includes:*\n"
+        "*What the system does:*\n"
+        "🟢 Tracks top Solana wallets 24/7\n"
+        "🟢 Detects new launches, momentum moves, and unusual volume\n"
+        "🟢 Sends alerts with CA, LP, volume, holders, and quick-buy buttons\n\n"
+        "*VIP access unlocks:*\n"
         "✅ 3 VIP alert channels (Sniper, Momentum, Surge)\n"
-        "✅ VIP trader chatroom\n"
-        "✅ VIP milestone-tracker channel\n"
-        "✅ Full trading strategy\n"
-        "✅ Help bot for quick answers\n\n"
-        "🎁 *Bonuses:*\n"
-        "⭐️ 300 top Solana wallets for 1 Month members\n"
-        "💎 1,000 top Solana wallets for Lifetime members\n"
-        "(Works seamlessly with BullX, Axiom, Padre, GMGN)\n\n"
-        "💬 Support: [@The100xMooncaller](https://t.me/The100xMooncaller)"
+        "✅ Private trader chat and milestone-tracker channel\n"
+        "✅ Full trading framework\n"
+        "✅ Help bot for usage and setup questions\n\n"
+        "🎁 *Wallet Bonuses:*\n"
+        "💼 300 top Solana wallets for 1 Month members\n"
+        "👑 1,000 top Solana wallets for Lifetime members\n"
+        "(Import-ready for BullX, Axiom, Padre, GMGN)\n\n"
+        "*Before you contact me directly, please read:*\n"
+        "• I handle payment/billing issues, subscription access, and serious collaborations.\n"
+        "• I do *not* answer questions about win rate, backtests, or \"is this a scam?\" messages.\n"
+        "• For technical or usage questions, please use the help bot: @MyPremiumHelpBot.\n\n"
+        "💬 If you still need personal assistance after reading this, you can message: "
+        "[@The100xMooncaller](https://t.me/The100xMooncaller)"
     )
+
     keyboard = InlineKeyboardMarkup([[InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]])
 
     if update.callback_query:
@@ -269,8 +274,10 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
             )
     else:
         if update.message:
-            try: await update.message.delete()
-            except Exception: pass
+            try:
+                await update.message.delete()
+            except Exception:
+                pass
         await context.bot.send_message(
             chat_id=update.effective_chat.id,
             text=message,
@@ -278,6 +285,7 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
             parse_mode=constants.ParseMode.MARKDOWN,
             disable_web_page_preview=True
         )
+
 
 async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
@@ -287,42 +295,40 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ])
 
     text = (
-        "🚀 *Unlock VIP Access — Premium Signals*\n\n"
-        "Choose how you want to join:\n"
+        "🚀 *Unlock VIP Access — Choose Your Plan*\n\n"
         "💼 *1 Month VIP* — $49 USD\n"
-        "👑 *Lifetime VIP* — $69 USD (one-time)\n\n"
-        "*Alerts:*\n"
-        "⚡ 24/7 automated signals from top Solana wallets\n"
-        "📡 Smart-money detection on new launches and momentum moves\n"
-        "📲 Full token details with quick-buy buttons\n"
-        "📈 Dozens of high-quality signals daily\n\n"
-        "*VIP Includes:*\n"
+        "Ideal if you want to experience the full system for 30 days.\n\n"
+        "👑 *Lifetime VIP* — $69 USD (one-time)\n"
+        "Pay once and keep all current and future VIP channels unlocked forever.\n\n"
+        "*What you get as a member:*\n"
         "✅ 3 VIP alert channels (Sniper, Momentum, Surge)\n"
-        "✅ VIP trader chatroom\n"
-        "✅ VIP milestone-tracker channel\n"
-        "✅ Full trading strategy\n"
+        "✅ VIP trader chatroom and milestone-tracker channel\n"
+        "✅ Full trading framework\n"
         "✅ Help bot for quick answers\n\n"
-        "🎁 *Bonuses:*\n"
-        "⭐️ 300 top Solana wallets for 1 Month members\n"
-        "💎 1,000 top Solana wallets for Lifetime members\n"
+        "🎁 *Solana Smart-Money Wallet Bonus:*\n"
+        "💼 300 top Solana wallets for 1 Month members\n"
+        "👑 1,000 top Solana wallets for Lifetime members\n"
         "(Import-ready for BullX, Axiom, Padre, GMGN)\n\n"
         "💰 Tap below to choose your plan and start receiving signals today."
     )
-
 
     if update.callback_query:
         await update.callback_query.answer()
         try:
             await update.callback_query.edit_message_text(
-                text=text, reply_markup=keyboard,
-                parse_mode=constants.ParseMode.MARKDOWN, disable_web_page_preview=True
+                text=text,
+                reply_markup=keyboard,
+                parse_mode=constants.ParseMode.MARKDOWN,
+                disable_web_page_preview=True
             )
             context.chat_data["menu_message_id"] = update.callback_query.message.message_id
             context.chat_data["menu_chat_id"] = update.callback_query.message.chat.id
         except Exception:
             menu_msg = await context.bot.send_message(
-                chat_id=update.callback_query.message.chat.id, text=text,
-                reply_markup=keyboard, parse_mode=constants.ParseMode.MARKDOWN,
+                chat_id=update.callback_query.message.chat.id,
+                text=text,
+                reply_markup=keyboard,
+                parse_mode=constants.ParseMode.MARKDOWN,
                 disable_web_page_preview=True
             )
             context.chat_data["menu_message_id"] = menu_msg.message_id
@@ -337,27 +343,38 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         chat_id = update.effective_chat.id
         menu_id = context.chat_data.get("menu_message_id")
         menu_chat = context.chat_data.get("menu_chat_id", chat_id)
+
         if menu_id:
             try:
                 await context.bot.edit_message_text(
-                    chat_id=menu_chat, message_id=menu_id, text=text,
-                    reply_markup=keyboard, parse_mode=constants.ParseMode.MARKDOWN,
+                    chat_id=menu_chat,
+                    message_id=menu_id,
+                    text=text,
+                    reply_markup=keyboard,
+                    parse_mode=constants.ParseMode.MARKDOWN,
                     disable_web_page_preview=True
                 )
             except Exception:
                 menu_msg = await context.bot.send_message(
-                    chat_id=chat_id, text=text, reply_markup=keyboard,
-                    parse_mode=constants.ParseMode.MARKDOWN, disable_web_page_preview=True
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=keyboard,
+                    parse_mode=constants.ParseMode.MARKDOWN,
+                    disable_web_page_preview=True
                 )
                 context.chat_data["menu_message_id"] = menu_msg.message_id
                 context.chat_data["menu_chat_id"] = menu_msg.chat.id
         else:
             menu_msg = await context.bot.send_message(
-                chat_id=chat_id, text=text, reply_markup=keyboard,
-                parse_mode=constants.ParseMode.MARKDOWN, disable_web_page_preview=True
+                chat_id=chat_id,
+                text=text,
+                reply_markup=keyboard,
+                parse_mode=constants.ParseMode.MARKDOWN,
+                disable_web_page_preview=True
             )
             context.chat_data["menu_message_id"] = menu_msg.message_id
             context.chat_data["menu_chat_id"] = menu_msg.chat.id
+
 
 async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
@@ -434,37 +451,41 @@ async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     text = (
         "🚀 *Join the Premium Signal Group*\n\n"
-        "⚡ 24/7 automated alerts powered by AI and smart-money tracking\n"
-        "📡 Detects new launches, wallet inflows, and momentum plays in real time\n"
-        "📲 Each alert includes CA, LP, volume, holders, and buy links\n"
-        "📈 Dozens of high quality signals daily\n\n"
-        "*What you unlock as a member:*\n"
+        "You are a few taps away from getting:\n"
+        "⚡ 24/7 automated Solana alerts powered by smart-money tracking\n"
+        "📡 Early entries on new launches, momentum shifts, and liquidity waves\n"
+        "📲 Each alert includes CA, LP, volume, holders, and quick-buy buttons\n"
+        "📈 Dozens of high-quality signals every day\n\n"
+        "*Inside the VIP area you unlock:*\n"
         "✅ 3 VIP alert channels (Sniper, Momentum, Surge)\n"
         "✅ VIP trader chatroom\n"
         "✅ VIP milestone-tracker channel\n"
-        "✅ Full trading strategy\n"
+        "✅ A simple trading framework you can follow\n"
         "✅ Help bot for quick answers\n\n"
-        "🎁 *Bonuses: Top Solana Smart-Money Wallets*\n"
-        "💼 300 wallets for 1 Month members\n"
-        "👑 1,000 wallets for Lifetime members\n"
+        "🎁 *Smart-Money Wallet Bonuses:*\n"
+        "💼 300 curated Solana wallets for 1 Month members\n"
+        "👑 1,000 curated Solana wallets for Lifetime members\n"
         "(Import-ready for BullX, Axiom, Padre, GMGN)\n\n"
-        "💰 Don’t chase the pumps — position early and ride them first."
+        "💰 Use the buttons below to choose your plan or keep following the free channel."
     )
-
 
     if update.callback_query:
         await update.callback_query.answer()
         try:
             await update.callback_query.edit_message_text(
-                text=text, reply_markup=keyboard,
-                parse_mode=constants.ParseMode.MARKDOWN, disable_web_page_preview=True
+                text=text,
+                reply_markup=keyboard,
+                parse_mode=constants.ParseMode.MARKDOWN,
+                disable_web_page_preview=True
             )
             context.chat_data["menu_message_id"] = update.callback_query.message.message_id
             context.chat_data["menu_chat_id"] = update.callback_query.message.chat.id
         except Exception:
             menu_msg = await context.bot.send_message(
-                chat_id=update.callback_query.message.chat.id, text=text,
-                reply_markup=keyboard, parse_mode=constants.ParseMode.MARKDOWN,
+                chat_id=update.callback_query.message.chat.id,
+                text=text,
+                reply_markup=keyboard,
+                parse_mode=constants.ParseMode.MARKDOWN,
                 disable_web_page_preview=True
             )
             context.chat_data["menu_message_id"] = menu_msg.message_id
@@ -479,27 +500,38 @@ async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         chat_id = update.effective_chat.id
         menu_id = context.chat_data.get("menu_message_id")
         menu_chat = context.chat_data.get("menu_chat_id", chat_id)
+
         if menu_id:
             try:
                 await context.bot.edit_message_text(
-                    chat_id=menu_chat, message_id=menu_id, text=text,
-                    reply_markup=keyboard, parse_mode=constants.ParseMode.MARKDOWN,
+                    chat_id=menu_chat,
+                    message_id=menu_id,
+                    text=text,
+                    reply_markup=keyboard,
+                    parse_mode=constants.ParseMode.MARKDOWN,
                     disable_web_page_preview=True
                 )
             except Exception:
                 menu_msg = await context.bot.send_message(
-                    chat_id=chat_id, text=text, reply_markup=keyboard,
-                    parse_mode=constants.ParseMode.MARKDOWN, disable_web_page_preview=True
+                    chat_id=chat_id,
+                    text=text,
+                    reply_markup=keyboard,
+                    parse_mode=constants.ParseMode.MARKDOWN,
+                    disable_web_page_preview=True
                 )
                 context.chat_data["menu_message_id"] = menu_msg.message_id
                 context.chat_data["menu_chat_id"] = menu_msg.chat.id
         else:
             menu_msg = await context.bot.send_message(
-                chat_id=chat_id, text=text, reply_markup=keyboard,
-                parse_mode=constants.ParseMode.MARKDOWN, disable_web_page_preview=True
+                chat_id=chat_id,
+                text=text,
+                reply_markup=keyboard,
+                parse_mode=constants.ParseMode.MARKDOWN,
+                disable_web_page_preview=True
             )
             context.chat_data["menu_message_id"] = menu_msg.message_id
             context.chat_data["menu_chat_id"] = menu_msg.chat.id
+
 
 # Step 1: Ask for the broadcast content
 async def broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -706,13 +738,22 @@ async def cancel_broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
-        "💬 *Contact Support*\n\n"
-        "Need help with your VIP access, signals, or smart wallet bonus?\n"
-        "Our support specialist will assist you directly:\n\n"
-        "📩 [@The100xMooncaller](https://t.me/The100xMooncaller)\n\n"
-        "Replies usually arrive within minutes"
+        "💬 *Contact Support (Read This First)*\n\n"
+        "Please contact me directly only for:\n"
+        "✅ Payment or billing issues\n"
+        "✅ Subscription / access problems\n"
+        "✅ Serious collaborations or partnerships\n\n"
+        "I will *not* reply to questions about win rate, backtests, or "
+        "\"is this a scam?\" type messages.\n\n"
+        "For technical or usage questions, please use the help bot: @MyPremiumHelpBot.\n\n"
+        "If your question fits the list above, you can message me here:\n"
+        "📩 [@The100xMooncaller](https://t.me/The100xMooncaller)"
     )
-    keyboard = InlineKeyboardMarkup([[InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]])
+
+    keyboard = InlineKeyboardMarkup(
+        [[InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]]
+    )
+
     await update.callback_query.edit_message_text(
         text=message,
         reply_markup=keyboard,
