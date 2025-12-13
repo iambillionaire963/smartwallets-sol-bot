@@ -141,37 +141,36 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # --- hero message + plan buttons (sent once) ---
     message = (
         "🚀 Solana100xcall Premium Trading Signals\n\n"
-"Everything you need to trade Solana with precision.\n\n"
-"Membership Includes:\n"
-"✅ 3 VIP alert channels (Sniper Signals, Momentum Signals, Surge Signals)\n"
-"✅ VIP trader chatroom\n"
-"✅ VIP milestone-tracker channel\n"
-"✅ Help bot for quick answers\n\n"
-"Alerts:\n"
-"🟢 Automated smart-money signals 24/7\n"
-"🟢 Early detections on new launches\n"
-"🟢 Full token info (CA, LP, volume etc)\n"
-"🟢 Quick-buy buttons on major bots/Dexes\n"
-"🟢 High-quality, filtered alerts daily\n\n"
-"🎁 Bonuses:\n"
-"⭐️ 300 top Solana wallets (Monthly)\n"
-"🔥 500 top Solana wallets (3-Month)\n"
-"💎 1,000 top Solana wallets (Lifetime)\n"
-"Import-ready wallets compatible with Axiom, Padre, Gmgn and major Dexes"
+        "Everything you need to trade Solana with precision.\n\n"
+        "Membership Includes:\n"
+        "✅ 3 VIP alert channels (Sniper Signals, Momentum Signals, Surge Signals)\n"
+        "✅ VIP trader chatroom\n"
+        "✅ VIP milestone-tracker channel\n"
+        "✅ Help bot for quick answers\n\n"
+        "Alerts:\n"
+        "🟢 Automated smart-money signals 24/7\n"
+        "🟢 Early detections on new launches\n"
+        "🟢 Full token info (CA, LP, volume etc)\n"
+        "🟢 Quick-buy buttons on major bots/Dexes\n"
+        "🟢 High-quality, filtered alerts daily\n\n"
+        "🎁 Bonuses:\n"
+        "⭐️ 300 top Solana wallets (Monthly)\n"
+        "🔥 500 top Solana wallets (3-Month)\n"
+        "💎 1,000 top Solana wallets (Lifetime)\n"
+        "Import-ready wallets compatible with Axiom, Padre, Gmgn and major Dexes"
     )
 
-keyboard = InlineKeyboardMarkup([
-    [InlineKeyboardButton("⚡ 1 Month VIP Alpha Access", callback_data="plan_1month")],
-    [InlineKeyboardButton("🔥 3 Month VIP Alpha Access", callback_data="plan_3month")],
-    [InlineKeyboardButton("👑 Lifetime VIP Alpha Access (20% OFF)", callback_data="plan_lifetime")],
-    [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
-    [InlineKeyboardButton("🥇 Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
-    [
-        InlineKeyboardButton("🤖 Help Bot", url="https://t.me/MyPremiumHelpBot"),
-        InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
-    ]
-])
-
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("⚡ 1 Month VIP Alpha Access", callback_data="plan_1month")],
+        [InlineKeyboardButton("🔥 3 Month VIP Alpha Access", callback_data="plan_3month")],
+        [InlineKeyboardButton("👑 Lifetime VIP Alpha Access • $71 (20% OFF)", callback_data="plan_lifetime")],
+        [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
+        [InlineKeyboardButton("🥇 Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
+        [
+            InlineKeyboardButton("🤖 Help Bot", url="https://t.me/MyPremiumHelpBot"),
+            InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
+        ]
+    ])
 
     menu_msg = await context.bot.send_message(
         chat_id=user.id,
@@ -180,6 +179,7 @@ keyboard = InlineKeyboardMarkup([
         reply_markup=keyboard,
         disable_web_page_preview=True
     )
+
     context.chat_data["menu_message_id"] = menu_msg.message_id
     context.chat_data["menu_chat_id"] = menu_msg.chat.id
 
