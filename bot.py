@@ -160,17 +160,18 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 "Import-ready wallets compatible with Axiom, Padre, Gmgn and major Dexes"
     )
 
-    keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("⚡ 1 Month VIP Alpha Access", callback_data="plan_1month")],
-        [InlineKeyboardButton("🔥 3 Month VIP Alpha Access", callback_data="plan_3month")],
-        [InlineKeyboardButton("👑 Lifetime VIP Alpha Access", callback_data="plan_lifetime")],
-        [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
-        [InlineKeyboardButton("🥇 Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
-        [
-            InlineKeyboardButton("🤖 Help Bot", url="https://t.me/MyPremiumHelpBot"),
-            InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
-        ]
-    ])
+keyboard = InlineKeyboardMarkup([
+    [InlineKeyboardButton("⚡ 1 Month VIP Alpha Access", callback_data="plan_1month")],
+    [InlineKeyboardButton("🔥 3 Month VIP Alpha Access", callback_data="plan_3month")],
+    [InlineKeyboardButton("👑 Lifetime VIP Alpha Access (20% OFF)", callback_data="plan_lifetime")],
+    [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
+    [InlineKeyboardButton("🥇 Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
+    [
+        InlineKeyboardButton("🤖 Help Bot", url="https://t.me/MyPremiumHelpBot"),
+        InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
+    ]
+])
+
 
     menu_msg = await context.bot.send_message(
         chat_id=user.id,
@@ -299,17 +300,18 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     "*Choose your plan:*\n"
     "💼 *1 Month VIP* — $49 USD\n"
     "🔥 *3 Month VIP* — $69.3 USD\n"
-    "👑 *Lifetime VIP* — $88.8 USD (one-time)\n\n"
+    "👑 *Lifetime VIP* — $71 USD *(20% OFF, was $88.8)*\n\n"
     "*What you unlock:*\n"
     "⚡ 3 VIP alert channels (Sniper Signals, Momentum Signals, Surge Signals)\n"
     "💬 VIP trader chat + milestone channel\n"
     "📘 Full trading framework to follow the signals\n\n"
     "🎁 *Wallet Bonuses:*\n"
     "⭐️ 300 top Solana wallets (Monthly)\n"
-"🔥 500 top Solana wallets (3-Month)\n"
-"💎 1,000 top Solana wallets (Lifetime)\n"
-"Import-ready wallets compatible with Axiom, Padre, Gmgn and major Dexes"
-    )
+    "🔥 500 top Solana wallets (3-Month)\n"
+    "💎 1,000 top Solana wallets (Lifetime)\n"
+    "Import-ready wallets compatible with Axiom, Padre, Gmgn and major Dexes"
+)
+
 
     if update.callback_query:
         await update.callback_query.answer()
@@ -444,24 +446,24 @@ async def show_3month(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
     "👑 <b>Lifetime VIP Access</b>\n"
-"<b>$88.8 USD</b>\n\n"
-"One payment. Unlimited access forever.\n\n"
-"<b>Unlock:</b>\n"
-"✅ VIP Sniper Signals Channel\n"
-"✅ VIP Momentum Signals Channel\n"
-"✅ VIP Surge Signals Channel\n"
-"✅ VIP Trader Chatroom\n"
-"✅ VIP Milestone-Tracker Channel\n"
-"✅ Help Bot\n\n"
-"🔹 Automated smart-money alerts 24/7\n"
-"🔹 Early detections on new launches\n"
-"🔹 Full token breakdown + instant buy links\n"
-"🔹 High-quality, filtered signals only\n\n"
-"🎁 <b>Bonus:</b> 1,000 top Solana smart-money wallets\n"
-"(import-ready) Compatible with Axiom, Padre, Gmgn and major Dexes\n\n"
-"💳 Tap below to activate your lifetime access instantly"
-
+    "<s>$88.8 USD</s> <b>$71 USD</b> <b>(20% OFF)</b>\n\n"
+    "One payment. Unlimited access forever.\n\n"
+    "<b>Unlock:</b>\n"
+    "✅ VIP Sniper Signals Channel\n"
+    "✅ VIP Momentum Signals Channel\n"
+    "✅ VIP Surge Signals Channel\n"
+    "✅ VIP Trader Chatroom\n"
+    "✅ VIP Milestone-Tracker Channel\n"
+    "✅ Help Bot\n\n"
+    "🔹 Automated smart-money alerts 24/7\n"
+    "🔹 Early detections on new launches\n"
+    "🔹 Full token breakdown + instant buy links\n"
+    "🔹 High-quality, filtered signals only\n\n"
+    "🎁 <b>Bonus:</b> 1,000 top Solana smart-money wallets\n"
+    "(import-ready) Compatible with Axiom, Padre, Gmgn and major Dexes\n\n"
+    "💳 Tap below to activate your lifetime access instantly"
 )
+
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🪙 Pay With SOL/BNB/ETH Chain", url=MEMBERSHIP_LINK)],
@@ -488,7 +490,7 @@ async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     "💳 *Subscribe to VIP Access*\n\n"
     "*Plans available:*\n"
     "💼 *1 Month VIP* — $49 USD\n"
-    "👑 *Lifetime VIP* — $69 USD (one-time)\n\n"
+    "👑 *Lifetime VIP* — $71 USD *(20% OFF, was $88.8)*\n\n"
     "*What you unlock instantly:*\n"
     "📡 3 VIP alert channels (Sniper, Momentum, Surge)\n"
     "💬 VIP trader chatroom\n"
@@ -500,6 +502,7 @@ async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     "Payments are handled securely in the membership bot using SOL, BNB, or ETH.\n"
     "Tap *Get VIP Signals* to open it, or check the *Free Channel* first if you prefer."
 )
+
 
     if update.callback_query:
         await update.callback_query.answer()
@@ -821,16 +824,17 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("⚡ Unlock 1 Month Access", callback_data="plan_1month")],
-        [InlineKeyboardButton("🔥 Unlock 3 Month Access", callback_data="plan_3month")],
-        [InlineKeyboardButton("👑 Unlock Lifetime Access", callback_data="plan_lifetime")],
-        [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
-        [InlineKeyboardButton("🥇 Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
-        [
-            InlineKeyboardButton("🤖 Help Bot", url="https://t.me/MyPremiumHelpBot"),
-            InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
-        ]
-    ])
+    [InlineKeyboardButton("⚡ Unlock 1 Month Access", callback_data="plan_1month")],
+    [InlineKeyboardButton("🔥 Unlock 3 Month Access", callback_data="plan_3month")],
+    [InlineKeyboardButton("👑 Unlock Lifetime Access • $71 (20% OFF)", callback_data="plan_lifetime")],
+    [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
+    [InlineKeyboardButton("🥇 Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
+    [
+        InlineKeyboardButton("🤖 Help Bot", url="https://t.me/MyPremiumHelpBot"),
+        InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
+    ]
+])
+
 
 
     if update.callback_query:
