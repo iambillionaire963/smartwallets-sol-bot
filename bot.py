@@ -163,7 +163,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("⚡ 1 Month VIP Alpha Access", callback_data="plan_1month")],
         [InlineKeyboardButton("🔥 3 Month VIP Alpha Access", callback_data="plan_3month")],
-        [InlineKeyboardButton("👑 Lifetime VIP Alpha Access • $71 (20% OFF)", callback_data="plan_lifetime")],
+        [InlineKeyboardButton("👑 Lifetime VIP Alpha Access (20% OFF)", callback_data="plan_lifetime")],
         [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
         [InlineKeyboardButton("🥇 Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
         [
@@ -300,7 +300,7 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     "*Choose your plan:*\n"
     "💼 *1 Month VIP* — $49 USD\n"
     "🔥 *3 Month VIP* — $69.3 USD\n"
-    "👑 *Lifetime VIP* — $71 USD *(20% OFF, was $88.8)*\n\n"
+    "👑 *Lifetime VIP* — $71 USD *(20% OFF applied)*\n\n"
     "*What you unlock:*\n"
     "⚡ 3 VIP alert channels (Sniper Signals, Momentum Signals, Surge Signals)\n"
     "💬 VIP trader chat + milestone channel\n"
@@ -490,7 +490,7 @@ async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     "💳 *Subscribe to VIP Access*\n\n"
     "*Plans available:*\n"
     "💼 *1 Month VIP* — $49 USD\n"
-    "👑 *Lifetime VIP* — $71 USD *(20% OFF, was $88.8)*\n\n"
+    "👑 *Lifetime VIP* — $71 USD *(20% OFF applied)*\n\n"
     "*What you unlock instantly:*\n"
     "📡 3 VIP alert channels (Sniper, Momentum, Surge)\n"
     "💬 VIP trader chatroom\n"
@@ -826,7 +826,7 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
     [InlineKeyboardButton("⚡ Unlock 1 Month Access", callback_data="plan_1month")],
     [InlineKeyboardButton("🔥 Unlock 3 Month Access", callback_data="plan_3month")],
-    [InlineKeyboardButton("👑 Unlock Lifetime Access • $71 (20% OFF)", callback_data="plan_lifetime")],
+    [InlineKeyboardButton("👑 Unlock Lifetime Access (20% OFF)", callback_data="plan_lifetime")],
     [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
     [InlineKeyboardButton("🥇 Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
     [
