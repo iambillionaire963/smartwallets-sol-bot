@@ -164,6 +164,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("⚡ 1 Month VIP Alpha Access", callback_data="plan_1month")],
         [InlineKeyboardButton("🔥 3 Month VIP Alpha Access", callback_data="plan_3month")],
         [InlineKeyboardButton("👑 Lifetime VIP Alpha Access (20% OFF)", callback_data="plan_lifetime")],
+            [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana-sniper-gallery.onrender.com/")],
         [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
         [InlineKeyboardButton("🥇 Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
         [
@@ -292,6 +293,7 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🚀 Get VIP Signals", url=MEMBERSHIP_LINK)],
         [InlineKeyboardButton("📲 Join Free Channel", url="https://t.me/Solana100xcall")],
+            [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana-sniper-gallery.onrender.com/")],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
 
@@ -483,6 +485,7 @@ async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🚀 Get VIP Signals", url=MEMBERSHIP_LINK)],
         [InlineKeyboardButton("📲 Join Free Channel", url="https://t.me/Solana100xcall")],
+            [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana-sniper-gallery.onrender.com/")],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
 
@@ -827,6 +830,7 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     [InlineKeyboardButton("⚡ Unlock 1 Month Access", callback_data="plan_1month")],
     [InlineKeyboardButton("🔥 Unlock 3 Month Access", callback_data="plan_3month")],
     [InlineKeyboardButton("👑 Unlock Lifetime Access (20% OFF)", callback_data="plan_lifetime")],
+        [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana-sniper-gallery.onrender.com/")],
     [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
     [InlineKeyboardButton("🥇 Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
     [
