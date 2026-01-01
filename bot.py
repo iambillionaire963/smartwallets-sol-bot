@@ -164,17 +164,18 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("⚡ 1 Month VIP Alpha Access", callback_data="plan_1month")],
-        [InlineKeyboardButton("🔥 3 Month VIP Alpha Access", callback_data="plan_3month")],
-        [InlineKeyboardButton("👑 Lifetime VIP Alpha Access (20% OFF)", callback_data="plan_lifetime")],
-            [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana-sniper-gallery.onrender.com/")],
-        [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
-        [InlineKeyboardButton("🥇 Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
-        [
-            InlineKeyboardButton("🤖 Help Bot", url="https://t.me/MyPremiumHelpBot"),
-            InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
-        ]
-    ])
+    [InlineKeyboardButton("⚡ 1 Week VIP Access", callback_data="plan_1week")],
+    [InlineKeyboardButton("🔥 1 Month VIP Access", callback_data="plan_1month")],
+    [InlineKeyboardButton("💎 3 Month VIP Access", callback_data="plan_3month")],
+    [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana-sniper-gallery.onrender.com/")],
+    [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
+    [InlineKeyboardButton("🥇 Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
+    [
+        InlineKeyboardButton("🤖 Help Bot", url="https://t.me/MyPremiumHelpBot"),
+        InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
+    ]
+])
+
 
     menu_msg = await context.bot.send_message(
         chat_id=user.id,
@@ -388,26 +389,26 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 
-async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def show_1week(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
-    "⚡️ <b>1 Month VIP Access</b>\n"
-"<b>$49 USD</b>\n\n"
-"<b>Unlock:</b>\n"
-"✅ VIP Sniper Signals Channel\n"
-"✅ VIP Momentum Signals Channel\n"
-"✅ VIP Surge Signals Channel\n"
-"✅ VIP Trader Chatroom\n"
-"✅ VIP Milestone-Tracker Channel\n"
-"✅ Help Bot\n\n"
-"🔹 Automated smart-money alerts 24/7\n"
-"🔹 Early detections on new launches\n"
-"🔹 Full token breakdown + instant buy links\n"
-"🔹 High-quality, filtered signals only\n\n"
-"🎁 <b>Bonus:</b> 300 top Solana smart-money wallets\n"
-"(Import-ready) compatible with Axiom, Padre, Gmgn and major Dexes\n\n"
-"💳 Tap below to activate your monthly access instantly"
-
+    "⚡ <b>1 Week VIP Access</b>\n\n"
+    "<b>~700 sniper alerts</b>\n\n"
+    "<b>Unlock:</b>\n"
+    "✅ Real-time VIP Sniper Alerts\n"
+    "✅ VIP milestone-tracker channel\n"
+    "✅ VIP trader chatroom\n\n"
+    "Alerts:\n"
+    "🟢 Live, high-frequency sniper flow\n"
+    "🟢 Early-stage Solana memecoin entries\n"
+    "🟢 Alerts are consumed while access is active\n\n"
+    "🎯 Best for:\n"
+    "• Testing the live alert flow\n"
+    "• Understanding alert frequency & style\n\n"
+    "🎁 <b>Bonus:</b> 300 top Solana wallets\n"
+    "Import-ready for Axiom, Padre, GMGN\n\n"
+    "💳 Tap below to activate your 1-week access"
 )
+
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🪙 Pay With SOL/BNB/ETH Chain", url=MEMBERSHIP_LINK)],
@@ -420,26 +421,26 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
         parse_mode=constants.ParseMode.HTML,
         disable_web_page_preview=True
     )
-async def show_3month(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
-    "🔥 <b>3 Month VIP Access</b>\n"
-    "<b>$69.3 USD</b>\n\n"
-    "Stronger commitment. Deeper time in VIP.\n\n"
+    "🔥 <b>1 Month VIP Access</b>\n\n"
+    "<b>~3,000 sniper alerts</b>\n\n"
     "<b>Unlock:</b>\n"
-    "✅ VIP Sniper Signals Channel\n"
-    "✅ VIP Momentum Signals Channel\n"
-    "✅ VIP Surge Signals Channel\n"
-    "✅ VIP Trader Chatroom\n"
-    "✅ VIP Milestone-Tracker Channel\n"
-    "✅ Help Bot\n\n"
-    "🔹 Automated smart-money alerts 24/7\n"
-    "🔹 Early detections on new launches\n"
-    "🔹 Full token breakdown + instant buy links\n"
-    "🔹 High-quality, filtered signals only\n\n"
-    "🎁 <b>Bonus:</b> 500 top Solana smart-money wallets\n"
-    "(import-ready) Works with Axiom, Padre, Gmgn and major Dexes\n\n"
-    "💳 Tap below to activate your 3-month access instantly"
-    )
+    "✅ Real-time VIP Sniper Alerts\n"
+    "✅ VIP milestone-tracker channel\n"
+    "✅ VIP trader chatroom\n\n"
+    "Alerts:\n"
+    "🟢 Continuous high-frequency sniper flow\n"
+    "🟢 Early-stage Solana memecoin entries\n"
+    "🟢 Alerts consumed while access is active\n\n"
+    "🎯 Best for:\n"
+    "• Active traders\n"
+    "• Consistent participation in the alert flow\n\n"
+    "🎁 <b>Bonus:</b> 500 top Solana wallets\n"
+    "Import-ready for Axiom, Padre, GMGN\n\n"
+    "💳 Tap below to activate your 1-month access"
+)
+
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🪙 Pay with SOL, BNB or ETH", url=MEMBERSHIP_LINK)],
@@ -453,26 +454,26 @@ async def show_3month(update: Update, context: ContextTypes.DEFAULT_TYPE):
         disable_web_page_preview=True
     )
 
-async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def show_3month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
-    "👑 <b>Lifetime VIP Access</b>\n"
-    "<s>$88.8 USD</s> <b>$71 USD</b> <b>(20% OFF)</b>\n\n"
-    "One payment. Unlimited access forever.\n\n"
+    "💎 <b>3 Month VIP Access</b>\n\n"
+    "<b>~9,000 sniper alerts</b>\n\n"
     "<b>Unlock:</b>\n"
-    "✅ VIP Sniper Signals Channel\n"
-    "✅ VIP Momentum Signals Channel\n"
-    "✅ VIP Surge Signals Channel\n"
-    "✅ VIP Trader Chatroom\n"
-    "✅ VIP Milestone-Tracker Channel\n"
-    "✅ Help Bot\n\n"
-    "🔹 Automated smart-money alerts 24/7\n"
-    "🔹 Early detections on new launches\n"
-    "🔹 Full token breakdown + instant buy links\n"
-    "🔹 High-quality, filtered signals only\n\n"
-    "🎁 <b>Bonus:</b> 1,000 top Solana smart-money wallets\n"
-    "(import-ready) Compatible with Axiom, Padre, Gmgn and major Dexes\n\n"
-    "💳 Tap below to activate your lifetime access instantly"
+    "✅ Real-time VIP Sniper Alerts\n"
+    "✅ VIP milestone-tracker channel\n"
+    "✅ VIP trader chatroom\n\n"
+    "Alerts:\n"
+    "🟢 Long-term, uninterrupted sniper flow\n"
+    "🟢 Early-stage Solana memecoin entries\n"
+    "🟢 Designed for continuous participation\n\n"
+    "🎯 Best for:\n"
+    "• Consistent traders\n"
+    "• Serious participation in the alert flow\n\n"
+    "🎁 <b>Bonus:</b> 1,000 top Solana wallets\n"
+    "Import-ready for Axiom, Padre, GMGN\n\n"
+    "💳 Tap below to activate your 3-month access"
 )
+
 
 
     keyboard = InlineKeyboardMarkup([
@@ -840,10 +841,10 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
     keyboard = InlineKeyboardMarkup([
-    [InlineKeyboardButton("⚡ Unlock 1 Month Access", callback_data="plan_1month")],
-    [InlineKeyboardButton("🔥 Unlock 3 Month Access", callback_data="plan_3month")],
-    [InlineKeyboardButton("👑 Unlock Lifetime Access (20% OFF)", callback_data="plan_lifetime")],
-        [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana-sniper-gallery.onrender.com/")],
+    [InlineKeyboardButton("⚡ 1 Week VIP Access", callback_data="plan_1week")],
+    [InlineKeyboardButton("🔥 1 Month VIP Access", callback_data="plan_1month")],
+    [InlineKeyboardButton("💎 3 Month VIP Access", callback_data="plan_3month")],
+    [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana-sniper-gallery.onrender.com/")],
     [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
     [InlineKeyboardButton("🥇 Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
     [
@@ -909,14 +910,22 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if query.data == "show_howsignals":
         await show_howsignals(update, context)
+
     elif query.data == "show_support":
         await support(update, context)
+
     elif query.data == "go_home":
         await show_main_menu(update, context)
+
+    elif query.data == "plan_1week":
+        await show_1week(update, context)
+
     elif query.data == "plan_1month":
         await show_1month(update, context)
-    elif query.data == "plan_lifetime":
-        await show_lifetime(update, context)
+
+    elif query.data == "plan_3month":
+        await show_3month(update, context)
+
 
 # -------- Main --------
 
