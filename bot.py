@@ -140,25 +140,26 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     # --- hero message + plan buttons (sent once) ---
     message = (
-        "🚀 Solana100xcall Premium Trading Signals\n\n"
-        "Everything you need to trade Solana with precision.\n\n"
-        "Membership Includes:\n"
-        "✅ 3 VIP alert channels (Sniper Signals, Momentum Signals, Surge Signals)\n"
-        "✅ VIP trader chatroom\n"
-        "✅ VIP milestone-tracker channel\n"
-        "✅ Help bot for quick answers\n\n"
-        "Alerts:\n"
-        "🟢 Automated smart-money signals 24/7\n"
-        "🟢 Early detections on new launches\n"
-        "🟢 Full token info (CA, LP, volume etc)\n"
-        "🟢 Quick-buy buttons on major bots/Dexes\n"
-        "🟢 High-quality, filtered alerts daily\n\n"
-        "🎁 Bonuses:\n"
-        "⭐️ 300 top Solana wallets (Monthly)\n"
-        "🔥 500 top Solana wallets (3-Month)\n"
-        "💎 1,000 top Solana wallets (Lifetime)\n"
-        "Import-ready wallets compatible with Axiom, Padre, Gmgn and major Dexes"
-    )
+    "🚀 Solana100xCall — Sniper Alpha Flow\n\n"
+    "Real-time Solana Sniper Alerts.\n"
+    "High-frequency. Early-stage. No noise.\n\n"
+    "This is not a signals *channel*.\n"
+    "You are accessing a live alert flow that runs 24/7.\n\n"
+    "📡 What to expect:\n"
+    "• Early-stage Solana memecoin sniper alerts\n"
+    "• High-frequency flow (~100 alerts/day on average)\n"
+    "• Alerts are consumed while access is active\n"
+    "• Missed alerts are not replayed\n\n"
+    "You are paying for access to live alpha flow — not just time.\n\n"
+    "⚡ What VIP Access Includes:\n"
+    "🔐 Real-time VIP Sniper Alerts\n"
+    "🔐 VIP Milestone Tracker\n"
+    "🔐 VIP Trader Chatroom\n\n"
+    "🎁 Smart-Money Wallet Bonus:\n"
+    "🎁 300 • 500 • 1000 import-ready wallets\n"
+    "Compatible with Axiom, Padre, GMGN and major Solana DEX tools."
+)
+
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("⚡ 1 Month VIP Alpha Access", callback_data="plan_1month")],
@@ -298,21 +299,30 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ])
 
     text = (
-    "💳 *Subscribe to VIP Access*\n\n"
-    "*Choose your plan:*\n"
-    "💼 *1 Month VIP* — $49 USD\n"
-    "🔥 *3 Month VIP* — $69.3 USD\n"
-    "👑 *Lifetime VIP* — $71 USD *(20% OFF applied)*\n\n"
-    "*What you unlock:*\n"
-    "⚡ 3 VIP alert channels (Sniper Signals, Momentum Signals, Surge Signals)\n"
-    "💬 VIP trader chat + milestone channel\n"
-    "📘 Full trading framework to follow the signals\n\n"
-    "🎁 *Wallet Bonuses:*\n"
-    "⭐️ 300 top Solana wallets (Monthly)\n"
-    "🔥 500 top Solana wallets (3-Month)\n"
-    "💎 1,000 top Solana wallets (Lifetime)\n"
-    "Import-ready wallets compatible with Axiom, Padre, Gmgn and major Dexes"
+    "💳 *Subscribe to Sniper Alpha Access*\n\n"
+    "You are not buying a static membership.\n"
+    "You are accessing a live, high-frequency sniper alert flow.\n\n"
+    "📡 *Alert Flow Characteristics:*\n"
+    "• Early-stage Solana memecoin sniper alerts\n"
+    "• High-frequency (≈100 alerts/day on average)\n"
+    "• Alerts are delivered continuously while access is active\n"
+    "• Missed alerts are not replayed\n\n"
+    "📈 *Estimated alert volume by access period:*\n"
+    "🟢 1 Day → ~100 alerts\n"
+    "🟢 3 Days → ~300 alerts\n"
+    "🔵 1 Week → ~700 alerts\n"
+    "🔵 2 Weeks → ~1,400 alerts\n"
+    "🔴 1 Month → ~3,000 alerts\n\n"
+    "Longer access = lower cost per alert.\n\n"
+    "⚡ *VIP Access Includes:*\n"
+    "🔐 Real-time VIP Sniper Alerts\n"
+    "🔐 VIP Milestone Tracker\n"
+    "🔐 VIP Trader Chatroom\n\n"
+    "🎁 *Smart-Money Wallet Bonus:*\n"
+    "🎁 300 • 500 • 1000 import-ready wallets\n"
+    "Compatible with Axiom, Padre, GMGN and major Solana DEX tools."
 )
+
 
 
     if update.callback_query:
@@ -490,21 +500,27 @@ async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ])
 
     text = (
-    "💳 *Subscribe to VIP Access*\n\n"
-    "*Plans available:*\n"
-    "💼 *1 Month VIP* — $49 USD\n"
-    "👑 *Lifetime VIP* — $71 USD *(20% OFF applied)*\n\n"
-    "*What you unlock instantly:*\n"
-    "📡 3 VIP alert channels (Sniper, Momentum, Surge)\n"
-    "💬 VIP trader chatroom\n"
-    "📈 Milestone-tracker + full trading framework\n\n"
-    "🎁 *Wallet Bonuses:*\n"
-    "⭐ 300 top Solana wallets for 1-Month members\n"
-    "💎 1,000 top Solana wallets for Lifetime members\n"
-    "(Import-ready for BullX, Axiom, Padre, GMGN)\n\n"
-    "Payments are handled securely in the membership bot using SOL, BNB, or ETH.\n"
-    "Tap *Get VIP Signals* to open it, or check the *Free Channel* first if you prefer."
+    "💳 *Access Solana100xCall Sniper Alpha*\n\n"
+    "This product delivers a live, high-frequency sniper alert flow.\n"
+    "Alerts are consumed in real time while access is active.\n\n"
+    "📡 *What to expect:*\n"
+    "• Early-stage Solana memecoin sniper alerts\n"
+    "• ≈100 alerts/day on average (market dependent)\n"
+    "• No replay — flow is live\n\n"
+    "📈 *Estimated alert volume:*\n"
+    "• 1 Day → ~100 alerts\n"
+    "• 3 Days → ~300 alerts\n"
+    "• 1 Week → ~700 alerts\n"
+    "• 2 Weeks → ~1,400 alerts\n"
+    "• 1 Month → ~3,000 alerts\n\n"
+    "⚡ *VIP Access Includes:*\n"
+    "🔐 Real-time Sniper Alerts\n"
+    "🔐 Milestone Tracker\n"
+    "🔐 VIP Trader Chatroom\n\n"
+    "🎁 Smart-money wallets included.\n"
+    "Tap *Get VIP Signals* to activate access."
 )
+
 
 
     if update.callback_query:
