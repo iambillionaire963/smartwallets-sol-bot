@@ -143,22 +143,23 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     "🚀 Solana100xCall — Sniper Alpha Flow\n\n"
     "Real-time Solana Sniper Alerts.\n"
     "High-frequency. Early-stage. No noise.\n\n"
-    "This is not a signals *channel*.\n"
+    "This is not a signals channel.\n"
     "You are accessing a live alert flow that runs 24/7.\n\n"
     "📡 What to expect:\n"
-    "• Early-stage Solana memecoin sniper alerts\n"
-    "• High-frequency flow (~100 alerts/day on average)\n"
-    "• Alerts are consumed while access is active\n"
-    "• Missed alerts are not replayed\n\n"
+    "🟢 Early-stage Solana memecoin sniper alerts\n"
+    "🟢 High-frequency flow (~100 alerts/day on average)\n"
+    "🟢 Alerts are consumed while access is active\n"
+    "🟢 Missed alerts are not replayed\n\n"
     "You are paying for access to live alpha flow — not just time.\n\n"
     "⚡ What VIP Access Includes:\n"
-    "🔐 Real-time VIP Sniper Alerts\n"
-    "🔐 VIP Milestone Tracker\n"
-    "🔐 VIP Trader Chatroom\n\n"
+    "✅ Real-time VIP Sniper Alerts\n"
+    "✅ VIP Milestone Tracker\n"
+    "✅ VIP Trader Chatroom\n\n"
     "🎁 Smart-Money Wallet Bonus:\n"
     "🎁 300 • 500 • 1000 import-ready wallets\n"
     "Compatible with Axiom, Padre, GMGN and major Solana DEX tools."
 )
+
 
 
     keyboard = InlineKeyboardMarkup([
@@ -299,29 +300,27 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ])
 
     text = (
-    "💳 *Subscribe to Sniper Alpha Access*\n\n"
-    "You are not buying a static membership.\n"
-    "You are accessing a live, high-frequency sniper alert flow.\n\n"
-    "📡 *Alert Flow Characteristics:*\n"
-    "• Early-stage Solana memecoin sniper alerts\n"
-    "• High-frequency (≈100 alerts/day on average)\n"
-    "• Alerts are delivered continuously while access is active\n"
-    "• Missed alerts are not replayed\n\n"
-    "📈 *Estimated alert volume by access period:*\n"
+    "💳 *Access Solana100xCall Sniper Alpha*\n\n"
+    "You are accessing a live, high-frequency sniper alert flow.\n"
+    "Alerts are consumed in real time while access is active.\n\n"
+    "📡 *What to expect:*\n"
+    "🟢 Early-stage Solana memecoin sniper alerts\n"
+    "🟢 ~100 alerts/day on average (market dependent)\n"
+    "🟢 Alerts are live — no replay\n\n"
+    "📈 *Estimated alert volume:*\n"
     "🟢 1 Day → ~100 alerts\n"
     "🟢 3 Days → ~300 alerts\n"
-    "🔵 1 Week → ~700 alerts\n"
-    "🔵 2 Weeks → ~1,400 alerts\n"
-    "🔴 1 Month → ~3,000 alerts\n\n"
-    "Longer access = lower cost per alert.\n\n"
+    "🟢 1 Week → ~700 alerts\n"
+    "🟢 2 Weeks → ~1,400 alerts\n"
+    "🟢 1 Month → ~3,000 alerts\n\n"
     "⚡ *VIP Access Includes:*\n"
-    "🔐 Real-time VIP Sniper Alerts\n"
-    "🔐 VIP Milestone Tracker\n"
-    "🔐 VIP Trader Chatroom\n\n"
-    "🎁 *Smart-Money Wallet Bonus:*\n"
-    "🎁 300 • 500 • 1000 import-ready wallets\n"
-    "Compatible with Axiom, Padre, GMGN and major Solana DEX tools."
+    "✅ Real-time Sniper Alerts\n"
+    "✅ Milestone Tracker\n"
+    "✅ VIP Trader Chatroom\n\n"
+    "🎁 Smart-money wallets included.\n"
+    "Tap *Get VIP Signals* to activate access."
 )
+
 
 
 
@@ -821,25 +820,26 @@ async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
-        "🚀 Solana100xcall Premium Trading Signals\n\n"
-"Everything you need to trade Solana with precision.\n\n"
-"Membership Includes:\n"
-"✅ 3 VIP alert channels (Sniper Signals, Momentum Signals, Surge Signals)\n"
-"✅ VIP trader chatroom\n"
-"✅ VIP milestone-tracker channel\n"
-"✅ Help bot for quick answers\n\n"
-"Alerts:\n"
-"🟢 Automated smart-money signals 24/7\n"
-"🟢 Early detections on new launches\n"
-"🟢 Full token info (CA, LP, volume etc)\n"
-"🟢 Quick-buy buttons on major bots/Dexes\n"
-"🟢 High-quality, filtered alerts daily\n\n"
-"🎁 Bonuses:\n"
-"⭐️ 300 top Solana wallets (Monthly)\n"
-"🔥 500 top Solana wallets (3-Month)\n"
-"💎 1,000 top Solana wallets (Lifetime)\n"
-"Import-ready wallets compatible with Axiom, Padre, Gmgn and major Dexes"
-    )
+    "🚀 Solana100xCall — Sniper Alpha Flow\n\n"
+    "Real-time Solana Sniper Alerts.\n"
+    "High-frequency. Early-stage. No noise.\n\n"
+    "This is not a signals channel.\n"
+    "You are accessing a live alert flow that runs 24/7.\n\n"
+    "📡 What to expect:\n"
+    "🟢 Early-stage Solana memecoin sniper alerts\n"
+    "🟢 High-frequency flow (~100 alerts/day on average)\n"
+    "🟢 Alerts are consumed while access is active\n"
+    "🟢 Missed alerts are not replayed\n\n"
+    "You are paying for access to live alpha flow — not just time.\n\n"
+    "⚡ What VIP Access Includes:\n"
+    "✅ Real-time VIP Sniper Alerts\n"
+    "✅ VIP Milestone Tracker\n"
+    "✅ VIP Trader Chatroom\n\n"
+    "🎁 Smart-Money Wallet Bonus:\n"
+    "🎁 300 • 500 • 1000 import-ready wallets\n"
+    "Compatible with Axiom, Padre, GMGN and major Solana DEX tools."
+)
+
 
 
     keyboard = InlineKeyboardMarkup([
