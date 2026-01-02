@@ -161,9 +161,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 )
 
     keyboard = InlineKeyboardMarkup([
-    [InlineKeyboardButton("⚡ 1 Month VIP Alpha Access", callback_data="plan_1month")],
-    [InlineKeyboardButton("🔥 3 Month VIP Alpha Access", callback_data="plan_3month")],
-    [InlineKeyboardButton("👑 Lifetime VIP Alpha Access (20% OFF)", callback_data="plan_lifetime")],
+    [InlineKeyboardButton("⚡ 1 Week VIP Access", callback_data="plan_1week")],
+    [InlineKeyboardButton("🔥 1 Month VIP Access", callback_data="plan_1month")],
+    [InlineKeyboardButton("💎 3 Month VIP Access", callback_data="plan_3month")],
     [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana-sniper-gallery.onrender.com/")],
     [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
     [InlineKeyboardButton("🥇 Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
@@ -838,7 +838,6 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
         InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
     ]
 ])
-
 
 
     if update.callback_query:
