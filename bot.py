@@ -140,33 +140,30 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     # --- hero message + plan buttons (sent once) ---
     message = (
-    "🚀 Solana100xcall Premium Trading Signals\n\n"
-    "Everything you need to trade Solana with precision.\n\n"
-    "Membership Includes:\n"
-    "✅ VIP Sniper Alerts\n"
+    "🚀 Solana100xCall VIP Premium Memecoin Alerts\n\n"
+    "Everything you need to trade Solana memecoins with precision.\n\n"
+    "VIP Access Includes:\n"
+    "✅ 3 VIP alert channels (Sniper Signals, Momentum Signals, Surge Signals)\n"
     "✅ VIP trader chatroom\n"
-    "✅ VIP milestone-tracker channel\n"
+    "✅ VIP milestone tracker channel\n"
     "✅ Help bot for quick answers\n\n"
     "Alerts:\n"
-    "🟢 Automated smart-money sniper alerts 24/7\n"
+    "🟢 Automated smart money signals 24/7\n"
     "🟢 Early detections on new launches\n"
     "🟢 Full token info (CA, LP, volume etc)\n"
-    "🟢 Quick-buy buttons on major bots/Dexes\n"
-    "🟢 High-quality, filtered alerts daily\n\n"
+    "🟢 Quick buy buttons on major bots and DEX tools\n"
+    "🟢 High quality filtered alerts daily\n\n"
     "🎁 Bonuses:\n"
-    "⭐️ 300 top Solana wallets\n"
-    "🔥 500 top Solana wallets\n"
-    "💎 1,000 top Solana wallets\n"
-    "Import-ready wallets compatible with Axiom, Padre, Gmgn and major Dexes"
+    "⭐️ 300 top Solana wallets (1 Week)\n"
+    "🔥 500 top Solana wallets (1 Month)\n"
+    "💎 1,000 top Solana wallets (3 Months)\n"
+    "Import ready wallets compatible with Axiom, Padre, Gmgn and major DEX platforms"
 )
 
-
-
-
     keyboard = InlineKeyboardMarkup([
-    [InlineKeyboardButton("⚡ 1 Week VIP Access", callback_data="plan_1week")],
-    [InlineKeyboardButton("🔥 1 Month VIP Access", callback_data="plan_1month")],
-    [InlineKeyboardButton("💎 3 Month VIP Access", callback_data="plan_3month")],
+    [InlineKeyboardButton("⚡ 1 Month VIP Alpha Access", callback_data="plan_1month")],
+    [InlineKeyboardButton("🔥 3 Month VIP Alpha Access", callback_data="plan_3month")],
+    [InlineKeyboardButton("👑 Lifetime VIP Alpha Access (20% OFF)", callback_data="plan_lifetime")],
     [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana-sniper-gallery.onrender.com/")],
     [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
     [InlineKeyboardButton("🥇 Real Results (Phanes Verified)", url="https://t.me/Solana100xcallBoard")],
@@ -304,24 +301,21 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
     "💳 Subscribe to VIP Access\n\n"
     "Plans available:\n"
-    "🟢 1 Day → ~100 alerts\n"
-    "🟢 3 Days → ~300 alerts\n"
-    "🟢 1 Week → ~700 alerts\n"
-    "🟢 2 Weeks → ~1,400 alerts\n"
-    "🟢 1 Month → ~3,000 alerts\n\n"
+    "⚡ 1 Week VIP Access\n"
+    "🔥 1 Month VIP Access\n"
+    "💎 3 Month VIP Access\n\n"
     "What VIP Access Includes:\n"
-    "✅ Real-time VIP Sniper Alerts\n"
-    "✅ VIP milestone-tracker channel\n"
+    "✅ Sniper Signals\n"
+    "✅ Momentum Signals\n"
+    "✅ Surge Signals\n"
+    "✅ VIP milestone tracker channel\n"
     "✅ VIP trader chatroom\n\n"
     "🎁 Bonuses:\n"
-    "⭐️ 300 top Solana wallets\n"
-    "🔥 500 top Solana wallets\n"
-    "💎 1,000 top Solana wallets\n"
-    "Import-ready wallets compatible with Axiom, Padre, Gmgn and major Dexes"
+    "⭐️ 300 top Solana wallets (1 Week)\n"
+    "🔥 500 top Solana wallets (1 Month)\n"
+    "💎 1,000 top Solana wallets (3 Months)\n"
+    "Import ready wallets compatible with Axiom, Padre, Gmgn and major DEX platforms"
 )
-
-
-
 
 
     if update.callback_query:
@@ -392,21 +386,19 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def show_1week(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
     "⚡ <b>1 Week VIP Access</b>\n\n"
-    "<b>~700 sniper alerts</b>\n\n"
     "<b>Unlock:</b>\n"
-    "✅ Real-time VIP Sniper Alerts\n"
-    "✅ VIP milestone-tracker channel\n"
+    "✅ VIP Sniper Signals\n"
+    "✅ VIP Momentum Signals\n"
+    "✅ VIP Surge Signals\n"
+    "✅ VIP milestone tracker channel\n"
     "✅ VIP trader chatroom\n\n"
     "Alerts:\n"
-    "🟢 Live, high-frequency sniper flow\n"
-    "🟢 Early-stage Solana memecoin entries\n"
-    "🟢 Alerts are consumed while access is active\n\n"
-    "🎯 Best for:\n"
-    "🔹 Testing the live alert flow\n"
-    "🔹 Understanding alert frequency & style\n\n"
+    "🟢 Automated smart money signals 24/7\n"
+    "🟢 Early detections on new launches\n"
+    "🟢 Full token info with quick buy links\n\n"
     "🎁 <b>Bonus:</b> 300 top Solana wallets\n"
-    "Import-ready for Axiom, Padre, GMGN\n\n"
-    "💳 Tap below to activate your 1-week access"
+    "Import ready for Axiom, Padre, GMGN\n\n"
+    "💳 Tap below to activate your 1 week access"
 )
 
 
@@ -424,23 +416,20 @@ async def show_1week(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
     "🔥 <b>1 Month VIP Access</b>\n\n"
-    "<b>~3,000 sniper alerts</b>\n\n"
     "<b>Unlock:</b>\n"
-    "✅ Real-time VIP Sniper Alerts\n"
-    "✅ VIP milestone-tracker channel\n"
+    "✅ VIP Sniper Signals\n"
+    "✅ VIP Momentum Signals\n"
+    "✅ VIP Surge Signals\n"
+    "✅ VIP milestone tracker channel\n"
     "✅ VIP trader chatroom\n\n"
     "Alerts:\n"
-    "🟢 Continuous high-frequency sniper flow\n"
-    "🟢 Early-stage Solana memecoin entries\n"
-    "🟢 Alerts consumed while access is active\n\n"
-    "🎯 Best for:\n"
-    "🔹 Active traders\n"
-    "🔹 Consistent participation in the alert flow\n\n"
+    "🟢 Automated smart money signals 24/7\n"
+    "🟢 Early detections on new launches\n"
+    "🟢 Full token info with quick buy links\n\n"
     "🎁 <b>Bonus:</b> 500 top Solana wallets\n"
-    "Import-ready for Axiom, Padre, GMGN\n\n"
-    "💳 Tap below to activate your 1-month access"
+    "Import ready for Axiom, Padre, GMGN\n\n"
+    "💳 Tap below to activate your 1 month access"
 )
-
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🪙 Pay with SOL, BNB or ETH", url=MEMBERSHIP_LINK)],
@@ -457,21 +446,19 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def show_3month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
     "💎 <b>3 Month VIP Access</b>\n\n"
-    "<b>~9,000 sniper alerts</b>\n\n"
     "<b>Unlock:</b>\n"
-    "✅ Real-time VIP Sniper Alerts\n"
-    "✅ VIP milestone-tracker channel\n"
+    "✅ VIP Sniper Signals\n"
+    "✅ VIP Momentum Signals\n"
+    "✅ VIP Surge Signals\n"
+    "✅ VIP milestone tracker channel\n"
     "✅ VIP trader chatroom\n\n"
     "Alerts:\n"
-    "🟢 Long-term, uninterrupted sniper flow\n"
-    "🟢 Early-stage Solana memecoin entries\n"
-    "🟢 Designed for continuous participation\n\n"
-    "🎯 Best for:\n"
-    "🔹 Consistent traders\n"
-    "🔹 Serious participation in the alert flow\n\n"
+    "🟢 Automated smart money signals 24/7\n"
+    "🟢 Early detections on new launches\n"
+    "🟢 Full token info with quick buy links\n\n"
     "🎁 <b>Bonus:</b> 1,000 top Solana wallets\n"
-    "Import-ready for Axiom, Padre, GMGN\n\n"
-    "💳 Tap below to activate your 3-month access"
+    "Import ready for Axiom, Padre, GMGN\n\n"
+    "💳 Tap below to activate your 3 month access"
 )
 
 
@@ -500,21 +487,21 @@ async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     text = (
     "💳 Get VIP Access\n\n"
-    "Choose your access period:\n"
-    "🟢 1 Day → ~100 alerts\n"
-    "🟢 3 Days → ~300 alerts\n"
-    "🟢 1 Week → ~700 alerts\n"
-    "🟢 2 Weeks → ~1,400 alerts\n"
-    "🟢 1 Month → ~3,000 alerts\n\n"
+    "Choose your plan:\n"
+    "⚡ 1 Week VIP Access\n"
+    "🔥 1 Month VIP Access\n"
+    "💎 3 Month VIP Access\n\n"
     "What VIP Access Includes:\n"
-    "✅ Real-time VIP Sniper Alerts\n"
-    "✅ VIP milestone-tracker channel\n"
+    "✅ Sniper Signals\n"
+    "✅ Momentum Signals\n"
+    "✅ Surge Signals\n"
+    "✅ VIP milestone tracker channel\n"
     "✅ VIP trader chatroom\n\n"
     "🎁 Bonuses:\n"
-    "⭐️ 300 top Solana wallets\n"
-    "🔥 500 top Solana wallets\n"
-    "💎 1,000 top Solana wallets\n"
-    "Import-ready wallets compatible with Axiom, Padre, Gmgn and major Dexes"
+    "⭐️ 300 top Solana wallets (1 Week)\n"
+    "🔥 500 top Solana wallets (1 Month)\n"
+    "💎 1,000 top Solana wallets (3 Months)\n"
+    "Import ready wallets compatible with Axiom, Padre, Gmgn and major DEX platforms"
 )
 
 
@@ -817,26 +804,25 @@ async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
-    "🚀 Solana100xcall Premium Trading Signals\n\n"
-    "Everything you need to trade Solana with precision.\n\n"
-    "Membership Includes:\n"
-    "✅ VIP Sniper Alerts\n"
+    "🚀 Solana100xCall VIP Premium Memecoin Alerts\n\n"
+    "Everything you need to trade Solana memecoins with precision.\n\n"
+    "VIP Access Includes:\n"
+    "✅ 3 VIP alert channels (Sniper Signals, Momentum Signals, Surge Signals)\n"
     "✅ VIP trader chatroom\n"
-    "✅ VIP milestone-tracker channel\n"
+    "✅ VIP milestone tracker channel\n"
     "✅ Help bot for quick answers\n\n"
     "Alerts:\n"
-    "🟢 Automated smart-money sniper alerts 24/7\n"
+    "🟢 Automated smart money signals 24/7\n"
     "🟢 Early detections on new launches\n"
     "🟢 Full token info (CA, LP, volume etc)\n"
-    "🟢 Quick-buy buttons on major bots/Dexes\n"
-    "🟢 High-quality, filtered alerts daily\n\n"
+    "🟢 Quick buy buttons on major bots and DEX tools\n"
+    "🟢 High quality filtered alerts daily\n\n"
     "🎁 Bonuses:\n"
-    "⭐️ 300 top Solana wallets\n"
-    "🔥 500 top Solana wallets\n"
-    "💎 1,000 top Solana wallets\n"
-    "Import-ready wallets compatible with Axiom, Padre, Gmgn and major Dexes"
+    "⭐️ 300 top Solana wallets (1 Week)\n"
+    "🔥 500 top Solana wallets (1 Month)\n"
+    "💎 1,000 top Solana wallets (3 Months)\n"
+    "Import ready wallets compatible with Axiom, Padre, Gmgn and major DEX platforms"
 )
-
 
 
 
