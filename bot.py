@@ -182,6 +182,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def show_memberships(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.callback_query.answer()
     text = (
     "💎 *Solana100xCall VIP Memberships*\n\n"
     "All plans unlock the same private VIP system.\n"
@@ -206,7 +207,7 @@ async def show_memberships(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ])
 
     await update.callback_query.edit_message_text(
-    text=mmessage,
+    text=text,
     reply_markup=keyboard,
     parse_mode=constants.ParseMode.MARKDOWN,
     disable_web_page_preview=True
@@ -480,13 +481,11 @@ async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🥷 VIP Sniper Signals (early entries)\n"
         "⚡ VIP Momentum Signals (trend continuation)\n"
         "🏆 VIP Milestone Tracker (3×, 6×, 9×+ moves)\n"
-        "🚀 Surge Signals (bVolume & Traction)\n"
+        "🚀 Surge Signals (volume & traction)\n"
         "💬 VIP Active Trader Chatroom\n\n"
         "🔔 Signals are live, fast, and execution-focused.\n"
-        "📊 Each signal includes CA, LP, volume & instant buy buttons to major trading bots.\n\n"
-        "🎁 <b>Bonus:</b> 1,000 top Solana wallets\n"
-        "(import-ready) to Axiom · Padre · GMGN \n\n"
-        "♾️ No renewals. No limits.\n"
+        "📊 Each signal includes CA, LP, volume & instant buy buttons.\n\n"
+        "♾️ No renewals\n"
         "💳 Tap below to activate lifetime access"
     )
 
@@ -494,13 +493,13 @@ async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("🪙 Pay with SOL / BNB / ETH", url=MEMBERSHIP_LINK)],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
-    
-await update.callback_query.edit_message_text(
-    text=text,
-    reply_markup=keyboard,
-    parse_mode=constants.ParseMode.HTML,
-    disable_web_page_preview=True
-)
+
+    await update.callback_query.edit_message_text(
+        text=text,
+        reply_markup=keyboard,
+        parse_mode=constants.ParseMode.HTML,
+        disable_web_page_preview=True
+    )
 
     
 
@@ -820,16 +819,17 @@ async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
     "📩 [@The100xMooncaller](https://t.me/The100xMooncaller)"
 )
 
-    keyboard = InlineKeyboardMarkup(
-        [[InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]]
-    )
+
+
+    keyboard = InlineKeyboardMarkup([[InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]])
 
     await update.callback_query.edit_message_text(
-        text=message,
+        text=mmessage,
         reply_markup=keyboard,
         parse_mode=constants.ParseMode.MARKDOWN,
         disable_web_page_preview=True
     )
+
 async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
     "🚀 Solana100xCall VIP Memecoin Signals\n\n"
