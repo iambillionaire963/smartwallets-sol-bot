@@ -206,11 +206,12 @@ async def show_memberships(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ])
 
     await update.callback_query.edit_message_text(
-        text=text,
-        reply_markup=keyboard,
-        parse_mode=constants.ParseMode.MARKDOWN,
-        disable_web_page_preview=True
-    )
+    text=mmessage,
+    reply_markup=keyboard,
+    parse_mode=constants.ParseMode.MARKDOWN,
+    disable_web_page_preview=True
+)
+
 
 async def show_howsignals(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
@@ -493,6 +494,13 @@ async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("🪙 Pay with SOL / BNB / ETH", url=MEMBERSHIP_LINK)],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
+    
+await update.callback_query.edit_message_text(
+    text=text,
+    reply_markup=keyboard,
+    parse_mode=constants.ParseMode.HTML,
+    disable_web_page_preview=True
+)
 
     
 
