@@ -906,23 +906,26 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
-    if query.data == "show_howsignals":
-        await show_howsignals(update, context)
-
-    elif query.data == "show_support":
-        await support(update, context)
-
-    elif query.data == "go_home":
+    if query.data == "go_home":
         await show_main_menu(update, context)
 
-    elif query.data == "plan_1week":
-        await show_1week(update, context)
+    elif query.data == "view_memberships":
+        await show_memberships(update, context)
 
     elif query.data == "plan_1month":
         await show_1month(update, context)
 
     elif query.data == "plan_3month":
         await show_3month(update, context)
+
+    elif query.data == "plan_lifetime":
+        await show_lifetime(update, context)
+
+    elif query.data == "show_support":
+        await support(update, context)
+
+    elif query.data == "show_howsignals":
+        await show_howsignals(update, context)
 
 
 # -------- Main --------
