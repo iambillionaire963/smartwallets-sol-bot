@@ -221,42 +221,27 @@ async def show_howsignals(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "📡 Detects early smart money entries, fresh launches, and momentum surges in real time\n\n"
         "Each alert includes:\n"
         "• 💰 Token with CA, LP, volume, holders\n"
-        "• ⚡ One-tap buy via Trojan, Bloom, Gmgn bot\n"
-        "• 🎯 Only verified trades, filtered for precision, zero noise\n\n"
+        "• ⚡ One-tap buy via Trojan, Bloom, GMGN bot\n"
+        "• 🎯 Only verified trades, filtered for precision\n\n"
         "🤖 Fully automated, always live, always early\n"
         "📈 Dozens of high quality signals daily\n\n"
-        "💬 Need help? [@The100xMooncaller](https://t.me/The100xMooncaller)"
+        "💬 Need help?\n"
+        "👉 @The100xMooncaller"
     )
-    keyboard = InlineKeyboardMarkup([[InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]])
 
-    if update.callback_query:
-        await update.callback_query.answer()
-        try:
-            await update.callback_query.edit_message_text(
-                text=message,
-                reply_markup=keyboard,
-                parse_mode=constants.ParseMode.MARKDOWN,
-                disable_web_page_preview=True
-            )
-        except Exception:
-            await context.bot.send_message(
-                chat_id=update.callback_query.message.chat.id,
-                text=message,
-                reply_markup=keyboard,
-                parse_mode=constants.ParseMode.MARKDOWN,
-                disable_web_page_preview=True
-            )
-    else:
-        if update.message:
-            try: await update.message.delete()
-            except Exception: pass
-        await context.bot.send_message(
-            chat_id=update.effective_chat.id,
-            text=message,
-            reply_markup=keyboard,
-            parse_mode=constants.ParseMode.MARKDOWN,
-            disable_web_page_preview=True
-        )
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
+    ])
+
+    await update.callback_query.answer()
+
+    await update.callback_query.edit_message_text(
+        text=message,
+        reply_markup=keyboard,
+        parse_mode=constants.ParseMode.MARKDOWN,
+        disable_web_page_preview=True
+    )
+
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
@@ -800,35 +785,37 @@ async def cancel_broadcast(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.callback_query.edit_message_text("🚫 Broadcast cancelled.")
 
 async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    mmessage = (
-    "💬 *Contact Support*\n\n"
-    "Please read before messaging.\n\n"
-    "*I personally handle only:*\n"
-    "💳 Payment or billing issues\n"
-    "🔐 Access problems to VIP channels\n"
-    "🤝 Serious business or partnership inquiries\n\n"
-    "*I do NOT reply to:*\n"
-    "⛔ Win-rate, guarantees, or performance requests\n"
-    "⛔ Scam accusations or low-effort questions\n"
-    "⛔ System analysis or reverse-engineering attempts\n\n"
-    "For general questions (alerts, wallets, how things work),\n"
-    "use the help bot:\n"
-    "🤖 @MyPremiumHelpBot\n\n"
-    "If your request fits the allowed topics above,\n"
-    "contact me directly here:\n"
-    "📩 [@The100xMooncaller](https://t.me/The100xMooncaller)"
-)
+    message = (
+        "💬 *Contact Support*\n\n"
+        "Please read before messaging\n\n"
+        "*I personally handle only:*\n"
+        "💳 Payment or billing issues\n"
+        "🔐 Access problems to VIP channels\n"
+        "🤝 Serious business or partnership inquiries\n\n"
+        "*I do NOT reply to:*\n"
+        "⛔ Win-rate or guarantees\n"
+        "⛔ Scam accusations or low-effort messages\n"
+        "⛔ System analysis or reverse-engineering\n\n"
+        "For general questions\n"
+        "use the help bot\n"
+        "🤖 @MyPremiumHelpBot\n\n"
+        "📩 Direct support\n"
+        "👉 @The100xMooncaller"
+    )
 
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
+    ])
 
-
-    keyboard = InlineKeyboardMarkup([[InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]])
+    await update.callback_query.answer()
 
     await update.callback_query.edit_message_text(
-        text=mmessage,
+        text=message,
         reply_markup=keyboard,
         parse_mode=constants.ParseMode.MARKDOWN,
         disable_web_page_preview=True
     )
+
 
 async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
