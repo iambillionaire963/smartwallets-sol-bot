@@ -187,6 +187,10 @@ async def show_memberships(update: Update, context: ContextTypes.DEFAULT_TYPE):
     "💎 *Solana100xCall VIP Memberships*\n\n"
     "All plans unlock the same private VIP system.\n"
     "The only difference is how long you stay inside.\n\n"
+    "🔥 *20% OFF — Limited Time:*\n"
+    "🔥 1 Month: ~$55~ → $44\n"
+    "💎 3 Month: ~$79~ → $63\n"
+    "👑 Lifetime: ~$99~ → $79\n\n"
     "*🚀 VIP Access includes:*\n"
     "🥷 VIP Sniper Signals (early entries)\n"
     "⚡ VIP Momentum Signals (trend follow)\n"
@@ -200,9 +204,9 @@ async def show_memberships(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🔥 1 Month VIP — $55", callback_data="plan_1month")],
-        [InlineKeyboardButton("💎 3 Month VIP — $79", callback_data="plan_3month")],
-        [InlineKeyboardButton("👑 Lifetime VIP — $99", callback_data="plan_lifetime")],
+        [InlineKeyboardButton("🔥 1 Month VIP (20% OFF)", callback_data="plan_1month")],
+        [InlineKeyboardButton("💎 3 Month VIP (20% OFF)", callback_data="plan_3month")],
+        [InlineKeyboardButton("👑 Lifetime VIP (20% OFF)", callback_data="plan_lifetime")],
         [InlineKeyboardButton("⬅️ Back", callback_data="go_home")]
     ])
 
@@ -399,7 +403,8 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
-        "🔥 <b>1 Month VIP Access</b>\n\n"
+        "🔥 <b>1 Month VIP Access</b>\n"
+        "<s>$55</s> → <b>$44</b> (20% OFF)\n\n"
         "Full access to the Solana100xCall VIP system.\n\n"
         "<b>🚀 VIP Access includes:</b>\n"
         "🥷 VIP Sniper Signals (early entries)\n"
@@ -430,7 +435,8 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_3month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
-        "💎 <b>3 Month VIP Access</b>\n\n"
+        "💎 <b>3 Month VIP Access</b>\n"
+        "<s>$79</s> → <b>$63</b> (20% OFF)\n\n"
         "Extended access to the Solana100xCall VIP system.\n\n"
         "<b>🚀 VIP Access includes:</b>\n"
         "🥷 VIP Sniper Signals (early entries)\n"
@@ -460,17 +466,20 @@ async def show_3month(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
-        "👑 <b>Lifetime VIP Access</b>\n\n"
+        "👑 <b>Lifetime VIP Access</b>\n"
+        "<s>$99</s> → <b>$79</b> (20% OFF)\n\n"
         "One payment. Permanent access to the Solana100xCall VIP system.\n\n"
         "<b>🚀 VIP Access includes:</b>\n"
         "🥷 VIP Sniper Signals (early entries)\n"
         "⚡ VIP Momentum Signals (trend follow)\n"
         "🏆 VIP Milestone Tracker (3×, 6×, 9×+ moves)\n"
-        "🚀 Surge Signals (volume & traction)\n"
+        "🚀 Surge Signals (Volume & Traction)\n"
         "💬 VIP Active Trader Chatroom\n\n"
         "🔔 Signals are live, fast, and execution-focused.\n"
-        "📊 Each signal includes CA, LP, volume & instant buy buttons.\n\n"
-        "♾️ No renewals\n"
+        "📊 Each signal includes CA, LP, volume & instant buy buttons to major trading bots.\n\n"
+        "🎁 <b>Bonus:</b> 1,000 top Solana wallets\n"
+        "(import-ready) to Axiom · Padre · GMGN \n\n"
+        "♾️ No renewals. No limits.\n"
         "💳 Tap below to activate lifetime access"
     )
 
