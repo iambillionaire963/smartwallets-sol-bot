@@ -26,7 +26,7 @@ load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
 ADMIN_ID = 7906225936
-BANNER_URL = "https://ibb.co/KpDfxQY9"  # the working one
+BANNER_URL = "https://imgur.com/a/527Z7Pv"  # the working one
 
 
 
@@ -161,7 +161,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
     [InlineKeyboardButton("🔥 View Memberships", callback_data="view_memberships")],
     [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
-    [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana-sniper-gallery.onrender.com/")],
+    [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana100xcall.fun/")],
     [
         InlineKeyboardButton("🤖 Help Bot", url="https://t.me/MyPremiumHelpBot"),
         InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
@@ -308,7 +308,7 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🚀 Get VIP Signals", url=MEMBERSHIP_LINK)],
-            [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana-sniper-gallery.onrender.com/")],
+            [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana100xcall.fun/")],
         [InlineKeyboardButton("📲 Join Free Channel", url="https://t.me/Solana100xcall")],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
@@ -500,7 +500,7 @@ async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🚀 Get VIP Signals", url=MEMBERSHIP_LINK)],
-            [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana-sniper-gallery.onrender.com/")],
+            [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana100xcall.fun/")],
         [InlineKeyboardButton("📲 Join Free Channel", url="https://t.me/Solana100xcall")],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
@@ -849,7 +849,7 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
     [InlineKeyboardButton("🔥 View Memberships", callback_data="view_memberships")],
     [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
-    [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana-sniper-gallery.onrender.com/")],
+    [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana100xcall.fun/")],
     [
         InlineKeyboardButton("🤖 Help Bot", url="https://t.me/MyPremiumHelpBot"),
         InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
