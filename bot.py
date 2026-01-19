@@ -26,7 +26,7 @@ load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
 ADMIN_ID = 7906225936
-BANNER_URL = "https://imgur.com/a/527Z7Pv"  # the working one
+BANNER_PATH = Path("assets/banner.png")
 
 
 
@@ -104,10 +104,13 @@ def get_all_user_ids():
 
 async def send_banner(bot, chat_id: int):
     try:
-        await bot.send_photo(chat_id=chat_id, photo=BANNER_URL)
+        if BANNER_PATH.exists():
+            with open(BANNER_PATH, "rb") as f:
+                await bot.send_photo(chat_id=chat_id, photo=f)
+        else:
+            logging.warning(f"[banner] file not found: {BANNER_PATH}")
     except Exception as e:
-        logging.warning(f"[banner] fallback to link message: {e}")
-        await bot.send_message(chat_id=chat_id, text=f"🖼️ {BANNER_URL}")
+        logging.warning(f"[banner] send failed: {e}")
 
 
 
