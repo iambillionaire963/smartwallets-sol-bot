@@ -145,10 +145,10 @@ async def send_banner(bot, chat_id: int):
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
-    try:
-        log_user(user.id, user.first_name, user.username)
-    except Exception as e:
-        logging.warning(f"[Google Sheets] Failed to log user {user.id}: {e}")
+    # Log user in background (non-blocking) - makes /start instant
+    asyncio.create_task(
+        asyncio.to_thread(log_user, user.id, user.first_name, user.username)
+    )
 
     payload = context.args[0] if context.args else None
     logging.info(f"[START] User {user.id} (@{user.username}) joined with payload: {payload}")
@@ -1086,31 +1086,40 @@ async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
-        "🚀 Solana100xCall VIP Memecoin Signals\n\n"
-        "Private VIP system for serious Solana traders.\n\n"
-        "🔓 What you get inside:\n"
-        "🥷 VIP Sniper Signals (early entries)\n"
-        "⚡ VIP Momentum Signals (trend follow)\n"
-        "🌊 VIP Surge Signals (volume & traction)\n"
-        "🏆 VIP Milestone Signals (3x · 6x · 9x+ moves)\n"
-        "💬 Active VIP trader chatroom\n\n"
-        "🔔 Signals are live, fast, and action-based\n"
-        "📡 Running 24/7 on Solana\n"
-        "👥 Hundreds of real traders inside\n\n"
-        "This is NOT a public signals channel.\n"
-        "This is where real traders operate.\n\n"
-        "👇 Tap below to view VIP memberships"
-    )
+    "🚀 Solana100xCall VIP | Real-Time Alpha\n\n"
+    "We monitor 10,000+ smart money wallets 24/7.\n"
+    "Detect elite moves before the crowd.\n\n"
+    "🏆 PROVEN TRACK RECORD:\n"
+    "✅ 100+ verified 10x-100x calls\n"
+    "✅ View gallery: solana100xcall.fun\n\n"
+    "🎯 WHAT YOU GET:\n"
+    "🥷 VIP Sniper Signals (early entries)\n"
+    "⚡ VIP Momentum Signals (trend follow)\n"
+    "🌊 VIP Surge Signals (volume & traction)\n"
+    "🏆 VIP Milestone Tracker (live X updates)\n"
+    "💬 VIP Trader Chat (active community)\n\n"
+    "📊 30-50 quality signals daily\n"
+    "⚡ Instant buy buttons (Trojan, Bloom, Maestro)\n"
+    "🔗 Instant buttons to Dexes (Axiom, Padre, Trojan Web)\n"
+    "🔔 Zero noise, only verified smart money\n\n"
+    "💰 SPECIAL OFFER | 20% OFF:\n"
+    "🔥 1 Month: $44 (was $55)\n"
+    "💎 3 Months: $63 (was $79) | BEST VALUE\n"
+    "👑 Lifetime: $79 (was $99) | LIMITED SPOTS\n\n"
+    "👇 Choose your plan now"
+)
 
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🔥 View Memberships", callback_data="view_memberships")],
-        [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
-        [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana100xcall.fun/")],
-        [
-            InlineKeyboardButton("🤖 Help Bot", url="https://t.me/MyPremiumHelpBot"),
-            InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
-        ]
-    ])
+    [InlineKeyboardButton("🔥 View Memberships", callback_data="view_memberships")],
+    [InlineKeyboardButton("💬 Member Testimonials", callback_data="show_testimonials")],
+    [InlineKeyboardButton("📊 See Live Signals Preview", callback_data="show_signals_preview")],
+    [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
+    [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana100xcall.fun/")],
+    [
+        InlineKeyboardButton("🤖 Help Bot", url="https://t.me/MyPremiumHelpBot"),
+        InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
+    ]
+])
 
     if update.callback_query:
         query = update.callback_query
@@ -1245,12 +1254,12 @@ async def show_testimonials(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "⭐⭐⭐⭐⭐ \"Finally, not exit liquidity\"\n"
         "\"Most signal groups are just pump and dumps. Here you're "
         "actually following REAL smart money. Makes all the difference.\"\n"
-        "— @IamDreamer920 (1-month member)\n\n"
+        "@IamDreamer920 (1-month member)\n\n"
         
         "⭐⭐⭐⭐⭐ \"30-50 signals DAILY is insane\"\n"
         "\"Other groups send 5-10 signals per day. Here you get "
         "30-50 QUALITY alerts. More opportunities = more wins.\"\n"
-        "— @RooneyCryptoPolar (Lifetime member)\n\n"
+        "@RooneyCryptoPolar (Lifetime member)\n\n"
         
         "📊 *By The Numbers:*\n"
         "👥 300+ active VIP members\n"
