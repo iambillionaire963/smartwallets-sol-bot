@@ -1188,18 +1188,18 @@ async def show_memberships(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
         "💎 *VIP Membership Plans*\n\n"
         
-        "🔥 *1 MONTH VIP* | ~~$55~~ → *$44*\n"
+        "🔥 *1 MONTH VIP* | $55 → *$44*\n"
         "• Full VIP access for 30 days\n"
         "• 300 elite wallets bonus\n"
         "• Perfect for testing the system\n\n"
         
-        "💎 *3 MONTHS VIP* | ~~$79~~ → *$63* ⭐ POPULAR\n"
+        "💎 *3 MONTHS VIP* | $79 → *$63* ⭐ POPULAR\n"
         "• Full VIP access for 90 days\n"
         "• 500 elite wallets bonus\n"
         "• Best value for serious traders\n"
         "• Save 52% vs monthly plan\n\n"
         
-        "👑 *LIFETIME VIP* | ~~$99~~ → *$79* 🏆 BEST VALUE\n"
+        "👑 *LIFETIME VIP* | $99 → *$79* 🏆 BEST VALUE\n"
         "• Permanent VIP access\n"
         "• 1,000 elite wallets bonus\n"
         "• Never pay again\n"
