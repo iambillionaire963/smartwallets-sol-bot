@@ -14,7 +14,8 @@ from telegram.ext import (
     Application, CommandHandler, CallbackQueryHandler, ContextTypes,
     MessageHandler, filters
 )
-from telegram.error import Forbidden, BadRequest, RetryAfter, NetworkError
+from telegram.error import Forbidden, BadRequest, RetryAfter, NetworkError, TelegramError
+import httpx
 
 from sheets import log_user
 import gspread
@@ -26,8 +27,7 @@ load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
 ADMIN_ID = 7906225936
-BANNER_PATH = Path("assets/banner.png")
-
+BANNER_PATH = Path(__file__).parent / "assets" / "banner.png"
 
 
 # -------- Broadcast logging helpers (disk-aware for Render) --------
@@ -103,14 +103,39 @@ def get_all_user_ids():
     return list({int(uid.strip()) for uid in user_ids if uid and uid.strip().isdigit()})
 
 async def send_banner(bot, chat_id: int):
+    """
+    Sends the banner image safely:
+    1) Try local file (most reliable).
+    2) If BANNER_URL is set, download bytes, verify it's an image, and send.
+    3) Fallback to sending a text link so the flow never crashes.
+    """
+    # 1) Local file first
     try:
         if BANNER_PATH.exists():
             with open(BANNER_PATH, "rb") as f:
                 await bot.send_photo(chat_id=chat_id, photo=f)
-        else:
-            logging.warning(f"[banner] file not found: {BANNER_PATH}")
+            return
     except Exception as e:
-        logging.warning(f"[banner] send failed: {e}")
+        logging.warning(f"[banner] local send failed: {e}")
+
+    # 2) Remote URL -> download bytes and validate content-type
+    BANNER_URL = None  # Set to URL if needed
+    if BANNER_URL:
+        try:
+            async with httpx.AsyncClient(follow_redirects=True, timeout=10) as client:
+                r = await client.get(BANNER_URL)
+                r.raise_for_status()
+                ctype = r.headers.get("content-type", "")
+                if not ctype.startswith("image/"):
+                    raise ValueError(f"URL is not an image (content-type: {ctype})")
+                await bot.send_photo(chat_id=chat_id, photo=r.content)
+            return
+        except (BadRequest, TelegramError, Exception) as e:
+            logging.warning(f"[banner] url send failed: {e} (url={BANNER_URL})")
+
+    # 3) Final fallback: plain link
+    link_text = BANNER_URL or "banner image unavailable"
+    await bot.send_message(chat_id=chat_id, text=f"🖼️ {link_text}")
 
 
 
@@ -143,26 +168,33 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     # --- hero message + plan buttons (sent once) ---
     message = (
-    "🚀 Solana100xCall VIP Memecoin Signals\n\n"
-    "Private VIP system for serious Solana traders.\n\n"
-    "🔓 What you get inside:\n"
+    "🚀 Solana100xCall VIP | Real-Time Alpha\n\n"
+    "We monitor 10,000+ smart money wallets 24/7.\n"
+    "Detect elite moves before the crowd.\n\n"
+    "🏆 PROVEN TRACK RECORD:\n"
+    "✅ 100+ verified 10x-100x calls\n"
+    "✅ View gallery: solana100xcall.fun\n\n"
+    "🎯 WHAT YOU GET:\n"
     "🥷 VIP Sniper Signals (early entries)\n"
     "⚡ VIP Momentum Signals (trend follow)\n"
     "🌊 VIP Surge Signals (volume & traction)\n"
-    "🏆 VIP Milestone Signals (3x · 6x · 9x+ moves)\n"
-    "💬 Active VIP trader chatroom\n\n"
-    "🔔 Signals are live, fast, and action-based\n"
-    "📡 Running 24/7 on Solana\n"
-    "👥 Hundreds of real traders inside\n\n"
-    "This is NOT a public signals channel.\n"
-    "This is where real traders operate.\n\n"
-    "👇 Tap below to view VIP memberships"
+    "🏆 VIP Milestone Tracker (live X updates)\n"
+    "💬 VIP Trader Chat (active community)\n\n"
+    "📊 30-50 quality signals daily\n"
+    "⚡ Instant buy buttons (Trojan, Bloom, Maestro)\n"
+    "🔗 Instant buttons to Dexes (Axiom, Padre, Trojan Web)\n"
+    "🔔 Zero noise, only verified smart money\n\n"
+    "💰 SPECIAL OFFER | 20% OFF:\n"
+    "🔥 1 Month: $44 (was $55)\n"
+    "💎 3 Months: $63 (was $79) | BEST VALUE\n"
+    "👑 Lifetime: $79 (was $99) | LIMITED SPOTS\n\n"
+    "👇 Choose your plan now"
 )
-
-
 
     keyboard = InlineKeyboardMarkup([
     [InlineKeyboardButton("🔥 View Memberships", callback_data="view_memberships")],
+    [InlineKeyboardButton("💬 Member Testimonials", callback_data="show_testimonials")],
+    [InlineKeyboardButton("📊 See Live Signals Preview", callback_data="show_signals_preview")],
     [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
     [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana100xcall.fun/")],
     [
@@ -184,70 +216,79 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.chat_data["menu_chat_id"] = menu_msg.chat.id
 
 
-async def show_memberships(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.callback_query.answer()
-    text = (
-    "💎 *Solana100xCall VIP Memberships*\n\n"
-    "All plans unlock the same private VIP system.\n"
-    "The only difference is how long you stay inside.\n\n"
-    "🔥 *20% OFF — Limited Time:*\n"
-    "🔥 1 Month: ~$55~ → $44\n"
-    "💎 3 Month: ~$79~ → $63\n"
-    "👑 Lifetime: ~$99~ → $79\n\n"
-    "*🚀 VIP Access includes:*\n"
-    "🥷 VIP Sniper Signals (early entries)\n"
-    "⚡ VIP Momentum Signals (trend follow)\n"
-    "🏆 VIP Milestone Tracker (3×, 6×, 9×+ moves)\n"
-    "🚀 Surge Signals (Volume & Traction)\n"
-    "💬 VIP Active Trader Chatroom\n\n"
-    "🔔 Signals are live, fast, and execution-focused.\n"
-    "👥 Used daily by hundreds of active traders.\n\n"
-    "👇 Choose your membership:"
-)
-
-
-    keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🔥 1 Month VIP (20% OFF)", callback_data="plan_1month")],
-        [InlineKeyboardButton("💎 3 Month VIP (20% OFF)", callback_data="plan_3month")],
-        [InlineKeyboardButton("👑 Lifetime VIP (20% OFF)", callback_data="plan_lifetime")],
-        [InlineKeyboardButton("⬅️ Back", callback_data="go_home")]
-    ])
-
-    await update.callback_query.edit_message_text(
-    text=text,
-    reply_markup=keyboard,
-    parse_mode=constants.ParseMode.MARKDOWN,
-    disable_web_page_preview=True
-)
-
-
 async def show_howsignals(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
-        "🧠 *How the Signals Work*\n\n"
-        "⚙️ Our system scans thousands of elite Solana wallets 24/7\n"
-        "📡 Detects early smart money entries, fresh launches, and momentum surges in real time\n\n"
-        "Each alert includes:\n"
-        "• 💰 Token with CA, LP, volume, holders\n"
-        "• ⚡ One-tap buy via Trojan, Bloom, GMGN bot\n"
-        "• 🎯 Only verified trades, filtered for precision\n\n"
-        "🤖 Fully automated, always live, always early\n"
-        "📈 Dozens of high quality signals daily\n\n"
-        "💬 Need help?\n"
-        "👉 @The100xMooncaller"
+        "🧠 *How Our System Works*\n\n"
+        "🔍 *THE EDGE:*\n"
+        "We monitor 10,000+ elite Solana wallets 24/7\n"
+        "When smart money moves, you know instantly\n\n"
+        "⚙️ *THE PROCESS:*\n\n"
+        "*Step 1: Detection*\n"
+        "→ Elite wallets start buying token ABC\n"
+        "→ System detects clustering pattern\n"
+        "→ Smart money signal identified\n\n"
+        "*Step 2: Alert Tiers*\n"
+        "🥷 SNIPER: Early entries detected\n"
+        "⚡ MOMENTUM: Trend forming\n"
+        "🌊 SURGE: Major move incoming\n\n"
+        "*Step 3: You Get Alert*\n"
+        "→ Token address (CA)\n"
+        "→ Current price & market cap\n"
+        "→ Liquidity & holder count\n"
+        "→ Instant buy buttons (Trojan, Bloom, Maestro)\n"
+        "→ Chart links (DexScreener, BirdEye)\n\n"
+        "*Step 4: Milestone Tracking*\n"
+        "→ We track every signal 24/7\n"
+        "→ When it hits 2x, 3x, 5x, 10x+ → you get update\n"
+        "→ Never miss profit-taking opportunities\n\n"
+        "📊 *THE NUMBERS:*\n"
+        "• 10,000+ wallets monitored\n"
+        "• 30-50 signals per day\n"
+        "• 100+ verified 10x-100x calls\n"
+        "• Response time: <30 seconds\n\n"
+        "🎯 *WHY IT WORKS:*\n"
+        "Most traders react to price charts\n"
+        "We see the wallets BEFORE charts move\n"
+        "By the time retail sees pump, we're in\n\n"
+        "🏆 *Proven Results:*\n"
+        "View our 100x+ gallery: solana100xcall.fun\n\n"
+        "👇 Ready to get the edge?"
     )
-
+    
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
+        [InlineKeyboardButton("🚀 Get VIP Access Now", callback_data="view_memberships")],
+        [InlineKeyboardButton("🏆 View 100x Gallery", url="https://solana100xcall.fun/")],
+        [InlineKeyboardButton("⬅️ Back to Menu", callback_data="go_home")]
     ])
 
-    await update.callback_query.answer()
-
-    await update.callback_query.edit_message_text(
-        text=message,
-        reply_markup=keyboard,
-        parse_mode=constants.ParseMode.MARKDOWN,
-        disable_web_page_preview=True
-    )
+    if update.callback_query:
+        await update.callback_query.answer()
+        try:
+            await update.callback_query.edit_message_text(
+                text=message,
+                reply_markup=keyboard,
+                parse_mode=constants.ParseMode.MARKDOWN,
+                disable_web_page_preview=True
+            )
+        except Exception:
+            await context.bot.send_message(
+                chat_id=update.callback_query.message.chat.id,
+                text=message,
+                reply_markup=keyboard,
+                parse_mode=constants.ParseMode.MARKDOWN,
+                disable_web_page_preview=True
+            )
+    else:
+        if update.message:
+            try: await update.message.delete()
+            except Exception: pass
+        await context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text=message,
+            reply_markup=keyboard,
+            parse_mode=constants.ParseMode.MARKDOWN,
+            disable_web_page_preview=True
+        )
 
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -403,6 +444,228 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
             context.chat_data["menu_chat_id"] = menu_msg.chat.id
 
 
+async def show_signals_preview(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    text = (
+        "📊 *Live Signals Preview*\n\n"
+        
+        "This is what you'll receive in VIP:\n\n"
+        
+        "🥷 *SNIPER SIGNAL EXAMPLE:*\n"
+        "```\n"
+        "🥷 SNIPER ALERT\n"
+        "Elite wallets buying NOW\n\n"
+        "$PEPE2 | 0x1a2b3c...\n"
+        "MC: $45K → $180K (4x in 15 min)\n"
+        "LP: $12K | Holders: 89\n"
+        "Volume: $45K (24h)\n\n"
+        "[Buy on Trojan] [Buy on Bloom]\n"
+        "[DexScreener] [BirdEye]\n"
+        "```\n\n"
+        
+        "⚡ *MOMENTUM SIGNAL EXAMPLE:*\n"
+        "```\n"
+        "⚡ MOMENTUM ALERT\n"
+        "Smart money accumulating\n\n"
+        "$DOGE2 | 0x4d5e6f...\n"
+        "MC: $890K → $2.4M (2.7x)\n"
+        "LP: $67K | Holders: 234\n"
+        "Volume: $890K (24h)\n\n"
+        "[Buy on Trojan] [Buy on Maestro]\n"
+        "[DexScreener] [Photon]\n"
+        "```\n\n"
+        
+        "🏆 *MILESTONE UPDATE EXAMPLE:*\n"
+        "```\n"
+        "🏆 MILESTONE REACHED\n"
+        "$WIF hit 12x from our call!\n\n"
+        "Entry MC: $250K\n"
+        "Current MC: $3.1M\n"
+        "Your $100 → $1,200 💰\n\n"
+        "[View Chart] [Take Profits]\n"
+        "```\n\n"
+        
+        "⚡ You'll get 30-50 signals like these DAILY\n"
+        "🎯 All with instant buy buttons\n"
+        "📊 Real-time updates via Milestone Tracker\n\n"
+        
+        "👇 Get full access now"
+    )
+    
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("🚀 Subscribe Now", callback_data="view_memberships")],
+        [InlineKeyboardButton("⬅️ Back", callback_data="go_home")]
+    ])
+    
+    await update.callback_query.edit_message_text(
+        text=text,
+        reply_markup=keyboard,
+        parse_mode=constants.ParseMode.MARKDOWN,
+        disable_web_page_preview=True
+    )
+
+async def compare_plans(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    text = (
+        "📊 *Compare VIP Plans*\n\n"
+        
+        "```\n"
+        "Feature          | 1M | 3M | LT\n"
+        "─────────────────┼────┼────┼────\n"
+        "Sniper Signals   | ✅ | ✅ | ✅\n"
+        "Momentum Signals | ✅ | ✅ | ✅\n"
+        "Surge Signals    | ✅ | ✅ | ✅\n"
+        "Milestone Track  | ✅ | ✅ | ✅\n"
+        "VIP Chat         | ✅ | ✅ | ✅\n"
+        "Buy Bot Buttons  | ✅ | ✅ | ✅\n"
+        "Elite Wallets    |300 |500 | 1K\n"
+        "Future Updates   | ❌ | ❌ | ✅\n"
+        "Never Pay Again  | ❌ | ❌ | ✅\n"
+        "```\n\n"
+        
+        "💰 *Cost Per Month:*\n"
+        "• 1 Month: $44/month\n"
+        "• 3 Months: $21/month (save 52%)\n"
+        "• Lifetime: $0/month after first payment\n\n"
+        
+        "🎯 *Best For:*\n"
+        "• 1 Month: Testing the system\n"
+        "• 3 Months: Serious traders (most popular)\n"
+        "• Lifetime: Long-term investors (best value)\n\n"
+        
+        "💡 *Quick Math:*\n"
+        "If you stay for 3+ months:\n"
+        "→ Monthly plan = $132+\n"
+        "→ Lifetime plan = $79 total\n"
+        "→ You save $53+ immediately\n\n"
+        
+        "🏆 *Recommendation:*\n"
+        "If you're serious about Solana memecoins,\n"
+        "get Lifetime. It pays for itself in 2 months.\n\n"
+        
+        "👇 Choose your plan"
+    )
+    
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("🔥 1 Month | $44", callback_data="plan_1month")],
+        [InlineKeyboardButton("💎 3 Months | $63 (POPULAR)", callback_data="plan_3month")],
+        [InlineKeyboardButton("👑 Lifetime | $79 (BEST VALUE)", callback_data="plan_lifetime")],
+        [InlineKeyboardButton("⬅️ Back", callback_data="view_memberships")]
+    ])
+    
+    await update.callback_query.edit_message_text(
+        text=text,
+        reply_markup=keyboard,
+        parse_mode=constants.ParseMode.MARKDOWN,
+        disable_web_page_preview=True
+    )
+ 
+async def payment_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    text = (
+        "🔒 *Payment & Security Information*\n\n"
+        
+        "💳 *Accepted Payment Methods:*\n"
+        "✅ Solana (SOL)\n"
+        "✅ Ethereum (ETH)\n"
+        "✅ Binance Coin (BNB)\n\n"
+        
+        "⚡ *How Payment Works:*\n"
+        "1. Click 'Subscribe Now' on any plan\n"
+        "2. Opens secure OnlySubs payment bot\n"
+        "3. Choose your payment method\n"
+        "4. Complete payment\n"
+        "5. Instant access (30-60 seconds)\n\n"
+        
+        "🔐 *Privacy & Security:*\n"
+        "✅ No KYC required\n"
+        "✅ Anonymous payments accepted\n"
+        "✅ Telegram-based (private by default)\n"
+        "✅ Your data is never shared\n"
+        "✅ Secure payment processor (OnlySubs)\n\n"
+        
+        "⚡ *Instant Activation:*\n"
+        "After payment, you'll receive:\n"
+        "1. Invite link to VIP Sniper channel\n"
+        "2. Invite link to VIP Momentum channel\n"
+        "3. Invite link to VIP Surge channel\n"
+        "4. Invite link to VIP Milestone channel\n"
+        "5. Invite link to VIP Chat\n"
+        "6. Download link for elite wallets bonus\n\n"
+        
+        "💬 *Support:*\n"
+        "Payment issues? @The100xMooncaller\n"
+        "General help? @MyPremiumHelpBot\n\n"
+        
+        "👇 Ready to join?"
+    )
+    
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("🚀 Subscribe Now", callback_data="view_memberships")],
+        [InlineKeyboardButton("📲 Visit Free Channel First", url="https://t.me/Solana100xcall")],
+        [InlineKeyboardButton("⬅️ Back", callback_data="go_home")]
+    ])
+    
+    await update.callback_query.edit_message_text(
+        text=text,
+        reply_markup=keyboard,
+        parse_mode=constants.ParseMode.MARKDOWN,
+        disable_web_page_preview=True
+    )
+
+async def roi_calculator(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    text = (
+        "💰 *VIP Membership ROI Calculator*\n\n"
+        
+        "Let's see what you need to make profit:\n\n"
+        
+        "📊 *SCENARIO 1: Conservative*\n"
+        "Membership: $79 (Lifetime)\n"
+        "Your typical trade: $100\n"
+        "You need: ONE 1x to break even\n"
+        "→ If you catch 1 token that doubles\n"
+        "→ You profit: $100 (covers membership + $21 profit)\n\n"
+        
+        "📊 *SCENARIO 2: Realistic*\n"
+        "Membership: $79 (Lifetime)\n"
+        "Your typical trade: $500\n"
+        "You need: ONE 20% gain to break even\n"
+        "→ Catch any token that does 1.2x\n"
+        "→ You profit: $100 (covers membership + $21 profit)\n\n"
+        
+        "📊 *SCENARIO 3: Our Track Record*\n"
+        "We've had 100+ calls hit 10x+\n"
+        "If you catch just ONE with $200:\n"
+        "→ Your $200 becomes $2,000\n"
+        "→ Profit: $1,800\n"
+        "→ ROI on membership: 2,178%\n\n"
+        
+        "🎯 *Bottom Line:*\n"
+        "You need to catch ONE decent move\n"
+        "to pay for your membership forever.\n\n"
+        
+        "📈 *Daily Opportunities:*\n"
+        "• 30-50 signals per day\n"
+        "• 900-1,500 signals per month\n"
+        "• You only need 1-2 wins\n\n"
+        
+        "💡 *The Math is Simple:*\n"
+        "Risk: $79 one time\n"
+        "Upside: Unlimited winning opportunities\n"
+        "Time to ROI: Usually first week\n\n"
+        
+        "👇 Start your ROI today"
+    )
+    
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("🚀 Get Lifetime Access | $79", callback_data="plan_lifetime")],
+        [InlineKeyboardButton("💎 View All Plans", callback_data="view_memberships")],
+        [InlineKeyboardButton("⬅️ Back", callback_data="go_home")]
+    ])
+    
+    await update.callback_query.edit_message_text(
+        text=text,
+        reply_markup=keyboard,
+        parse_mode=constants.ParseMode.MARKDOWN,
+        disable_web_page_preview=True
+    )
 
 async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
@@ -831,49 +1094,51 @@ async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
-    "🚀 Solana100xCall VIP Memecoin Signals\n\n"
-    "Private VIP system for serious Solana traders.\n\n"
-    "🔓 What you get inside:\n"
-    "🥷 VIP Sniper Signals (early entries)\n"
-    "⚡ VIP Momentum Signals (trend follow)\n"
-    "🌊 VIP Surge Signals (volume & traction)\n"
-    "🏆 VIP Milestone Signals (3x · 6x · 9x+ moves)\n"
-    "💬 Active VIP trader chatroom\n\n"
-    "🔔 Signals are live, fast, and action-based\n"
-    "📡 Running 24/7 on Solana\n"
-    "👥 Hundreds of real traders inside\n\n"
-    "This is NOT a public signals channel.\n"
-    "This is where real traders operate.\n\n"
-    "👇 Tap below to view VIP memberships"
-)
-
-
+        "🚀 Solana100xCall VIP Memecoin Signals\n\n"
+        "Private VIP system for serious Solana traders.\n\n"
+        "🔓 What you get inside:\n"
+        "🥷 VIP Sniper Signals (early entries)\n"
+        "⚡ VIP Momentum Signals (trend follow)\n"
+        "🌊 VIP Surge Signals (volume & traction)\n"
+        "🏆 VIP Milestone Signals (3x · 6x · 9x+ moves)\n"
+        "💬 Active VIP trader chatroom\n\n"
+        "🔔 Signals are live, fast, and action-based\n"
+        "📡 Running 24/7 on Solana\n"
+        "👥 Hundreds of real traders inside\n\n"
+        "This is NOT a public signals channel.\n"
+        "This is where real traders operate.\n\n"
+        "👇 Tap below to view VIP memberships"
+    )
 
     keyboard = InlineKeyboardMarkup([
-    [InlineKeyboardButton("🔥 View Memberships", callback_data="view_memberships")],
-    [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
-    [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana100xcall.fun/")],
-    [
-        InlineKeyboardButton("🤖 Help Bot", url="https://t.me/MyPremiumHelpBot"),
-        InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
-    ]
-])
-
+        [InlineKeyboardButton("🔥 View Memberships", callback_data="view_memberships")],
+        [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
+        [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana100xcall.fun/")],
+        [
+            InlineKeyboardButton("🤖 Help Bot", url="https://t.me/MyPremiumHelpBot"),
+            InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
+        ]
+    ])
 
     if update.callback_query:
         query = update.callback_query
         await query.answer()
         try:
             await query.edit_message_text(
-                text=message, reply_markup=keyboard,
-                parse_mode=constants.ParseMode.MARKDOWN, disable_web_page_preview=True
+                text=message, 
+                reply_markup=keyboard,
+                parse_mode=constants.ParseMode.MARKDOWN, 
+                disable_web_page_preview=True
             )
             context.chat_data["menu_message_id"] = query.message.message_id
             context.chat_data["menu_chat_id"] = query.message.chat.id
         except Exception:
             menu_msg = await context.bot.send_message(
-                chat_id=query.message.chat.id, text=message, reply_markup=keyboard,
-                parse_mode=constants.ParseMode.MARKDOWN, disable_web_page_preview=True
+                chat_id=query.message.chat.id, 
+                text=message, 
+                reply_markup=keyboard,
+                parse_mode=constants.ParseMode.MARKDOWN, 
+                disable_web_page_preview=True
             )
             context.chat_data["menu_message_id"] = menu_msg.message_id
             context.chat_data["menu_chat_id"] = menu_msg.chat.id
@@ -890,24 +1155,132 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
         if menu_id:
             try:
                 await context.bot.edit_message_text(
-                    chat_id=menu_chat, message_id=menu_id, text=message,
-                    reply_markup=keyboard, parse_mode=constants.ParseMode.MARKDOWN,
+                    chat_id=menu_chat, 
+                    message_id=menu_id, 
+                    text=message,
+                    reply_markup=keyboard, 
+                    parse_mode=constants.ParseMode.MARKDOWN,
                     disable_web_page_preview=True
                 )
             except Exception:
                 menu_msg = await context.bot.send_message(
-                    chat_id=chat_id, text=message, reply_markup=keyboard,
-                    parse_mode=constants.ParseMode.MARKDOWN, disable_web_page_preview=True
+                    chat_id=chat_id, 
+                    text=message, 
+                    reply_markup=keyboard,
+                    parse_mode=constants.ParseMode.MARKDOWN, 
+                    disable_web_page_preview=True
                 )
                 context.chat_data["menu_message_id"] = menu_msg.message_id
                 context.chat_data["menu_chat_id"] = menu_msg.chat.id
         else:
             menu_msg = await context.bot.send_message(
-                chat_id=chat_id, text=message, reply_markup=keyboard,
-                parse_mode=constants.ParseMode.MARKDOWN, disable_web_page_preview=True
+                chat_id=chat_id, 
+                text=message, 
+                reply_markup=keyboard,
+                parse_mode=constants.ParseMode.MARKDOWN, 
+                disable_web_page_preview=True
             )
             context.chat_data["menu_message_id"] = menu_msg.message_id
             context.chat_data["menu_chat_id"] = menu_msg.chat.id
+
+async def show_memberships(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    text = (
+        "💎 *VIP Membership Plans*\n\n"
+        
+        "🔥 *1 MONTH VIP* | ~~$55~~ → *$44*\n"
+        "• Full VIP access for 30 days\n"
+        "• 300 elite wallets bonus\n"
+        "• Perfect for testing the system\n\n"
+        
+        "💎 *3 MONTHS VIP* | ~~$79~~ → *$63* ⭐ POPULAR\n"
+        "• Full VIP access for 90 days\n"
+        "• 500 elite wallets bonus\n"
+        "• Best value for serious traders\n"
+        "• Save 52% vs monthly plan\n\n"
+        
+        "👑 *LIFETIME VIP* | ~~$99~~ → *$79* 🏆 BEST VALUE\n"
+        "• Permanent VIP access\n"
+        "• 1,000 elite wallets bonus\n"
+        "• Never pay again\n"
+        "• All future updates included\n\n"
+        
+        "🎯 *All Plans Include:*\n"
+        "🥷 VIP Sniper Signals (early entries)\n"
+        "⚡ VIP Momentum Signals (trend follow)\n"
+        "🌊 VIP Surge Signals (volume spikes)\n"
+        "🏆 VIP Milestone Tracker (3x, 6x, 9x+)\n"
+        "💬 VIP Active Trader Chat\n\n"
+        
+        "📊 30-50 quality signals daily\n"
+        "⚡ Instant buy buttons (Trojan, Bloom, Maestro)\n"
+        "🔔 24/7 smart money monitoring\n\n"
+        
+        "👇 Choose your plan or explore more"
+    )
+    
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("🔥 1 Month | $44", callback_data="plan_1month")],
+        [InlineKeyboardButton("💎 3 Months | $63 (POPULAR)", callback_data="plan_3month")],
+        [InlineKeyboardButton("👑 Lifetime | $79 (BEST VALUE)", callback_data="plan_lifetime")],
+        [InlineKeyboardButton("📊 Compare Plans", callback_data="compare_plans")],
+        [InlineKeyboardButton("💰 ROI Calculator", callback_data="roi_calculator")],
+        [InlineKeyboardButton("💳 Payment Info", callback_data="payment_info")],
+        [InlineKeyboardButton("⬅️ Back to Menu", callback_data="go_home")]
+    ])
+    
+    await update.callback_query.answer()
+    await update.callback_query.edit_message_text(
+        text=text,
+        reply_markup=keyboard,
+        parse_mode=constants.ParseMode.MARKDOWN,
+        disable_web_page_preview=True
+    )
+
+async def show_testimonials(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    text = (
+        "💬 *What VIP Members Say*\n\n"
+        
+        "⭐⭐⭐⭐⭐ \"Hit 3 calls over 10x in 2 months\"\n"
+        "\"Best signal service on Solana. The milestone tracker "
+        "alone is worth it — I can see moves developing in real-time.\"\n"
+        "— @AIAlphaKing (3-month member)\n\n"
+        
+        "⭐⭐⭐⭐⭐ \"Paid for itself in week 1\"\n"
+        "\"Caught a Sniper signal that did 18x. My $79 lifetime "
+        "membership paid for itself with ONE call. Insane value.\"\n"
+        "— @Violet100xGem (Lifetime member)\n\n"
+        
+        "⭐⭐⭐⭐⭐ \"Finally, not exit liquidity\"\n"
+        "\"Most signal groups are just pump and dumps. Here you're "
+        "actually following REAL smart money. Makes all the difference.\"\n"
+        "— @IamDreamer920 (1-month member)\n\n"
+        
+        "⭐⭐⭐⭐⭐ \"30-50 signals DAILY is insane\"\n"
+        "\"Other groups send 5-10 signals per day. Here you get "
+        "30-50 QUALITY alerts. More opportunities = more wins.\"\n"
+        "— @RooneyCryptoPolar (Lifetime member)\n\n"
+        
+        "📊 *By The Numbers:*\n"
+        "👥 300+ active VIP members\n"
+        "🏆 100+ verified 10x-100x calls\n"
+        "⚡ 30-50 signals daily\n"
+        "🎯 10,000+ wallets monitored 24/7\n\n"
+        
+        "👇 Join them today"
+    )
+    
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("🔥 Get VIP Access Now", callback_data="view_memberships")],
+        [InlineKeyboardButton("⬅️ Back to Menu", callback_data="go_home")]
+    ])
+    
+    await update.callback_query.answer()
+    await update.callback_query.edit_message_text(
+        text=text,
+        reply_markup=keyboard,
+        parse_mode=constants.ParseMode.MARKDOWN,
+        disable_web_page_preview=True
+    )
     
 async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
@@ -933,6 +1306,21 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     elif query.data == "show_howsignals":
         await show_howsignals(update, context)
+
+    elif query.data == "show_testimonials":
+        await show_testimonials(update, context)
+
+    elif query.data == "show_signals_preview":
+        await show_signals_preview(update, context)
+
+    elif query.data == "compare_plans":
+        await compare_plans(update, context)
+
+    elif query.data == "payment_info":
+        await payment_info(update, context)
+
+    elif query.data == "roi_calculator":
+        await roi_calculator(update, context)
 
 
 # -------- Main --------
