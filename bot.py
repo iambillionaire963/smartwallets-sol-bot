@@ -153,44 +153,48 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     payload = context.args[0] if context.args else None
     logging.info(f"[START] User {user.id} (@{user.username}) joined with payload: {payload}")
 
-    await context.bot.send_message(
-        chat_id=ADMIN_ID,
-        text=(
-            f"{user.first_name}🎐 (@{user.username}) (#u{user.id}) has just launched this bot for the first time.\n\n"
-            "You can send a private message to this member by replying to this message."
-        )
-    )
+    await context.bot.send_message(chat_id=ADMIN_ID, text=(
+        f"{user.first_name}🎐 (@{user.username}) (#u{user.id}) has just launched this bot for the first time.\n\n"
+        "You can send a private message to this member by replying to this message."
+    ))
 
-    # Send banner
     await send_banner(context.bot, user.id)
 
-    # Main menu message (SAME as go_home)
     message = (
-        "🚀 Solana100xCall VIP Memecoin Signals\n\n"
-        "Private VIP system for serious Solana traders.\n\n"
-        "🔓 What you get inside:\n"
-        "🥷 VIP Sniper Signals (early entries)\n"
-        "⚡ VIP Momentum Signals (trend follow)\n"
-        "🌊 VIP Surge Signals (volume & traction)\n"
-        "🏆 VIP Milestone Signals (3x · 6x · 9x+ moves)\n"
-        "💬 Active VIP trader chatroom\n\n"
-        "🔔 Signals are live, fast, and action-based\n"
-        "📡 Running 24/7 on Solana\n"
-        "👥 Hundreds of real traders inside\n\n"
-        "This is NOT a public signals channel.\n"
-        "This is where real traders operate.\n\n"
-        "👇 Tap below to view VIP memberships"
-    )
+    "🚀 Solana100xCall VIP | Real-Time Alpha\n\n"
+    "We monitor 10,000+ smart money wallets 24/7.\n"
+    "Detect elite moves before the crowd.\n\n"
+    "🏆 PROVEN TRACK RECORD:\n"
+    "✅ 100+ verified 10x-100x calls\n"
+    "✅ View gallery: solana100xcall.fun\n\n"
+    "🎯 WHAT YOU GET:\n"
+    "🥷 VIP Sniper Signals (early entries)\n"
+    "⚡ VIP Momentum Signals (trend follow)\n"
+    "🌊 VIP Surge Signals (volume & traction)\n"
+    "🏆 VIP Milestone Tracker (live X updates)\n"
+    "💬 VIP Trader Chat (active community)\n\n"
+    "📊 30-50 quality signals daily\n"
+    "⚡ Instant buy buttons (Trojan, Bloom, Maestro)\n"
+    "🔗 Instant buttons to Dexes (Axiom, Padre, Trojan Web)\n"
+    "🔔 Zero noise, only verified smart money\n\n"
+    "💰 SPECIAL OFFER | 20% OFF:\n"
+    "🔥 1 Month: $44 (was $55)\n"
+    "💎 3 Months: $63 (was $79) | BEST VALUE\n"
+    "👑 Lifetime: $79 (was $99) | LIMITED SPOTS\n\n"
+    "👇 Choose your plan now"
+)
 
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🔥 View Memberships", callback_data="view_memberships")],
-        [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
-        [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana100xcall.fun/")],
-        [
-            InlineKeyboardButton("🤖 Help Bot", url="https://t.me/MyPremiumHelpBot"),
-            InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
-        ]
-    ])
+    [InlineKeyboardButton("🔥 View Memberships", callback_data="view_memberships")],
+    [InlineKeyboardButton("💬 Member Testimonials", callback_data="show_testimonials")],
+    [InlineKeyboardButton("📊 See Live Signals Preview", callback_data="show_signals_preview")],
+    [InlineKeyboardButton("📲 Join FREE Main Channel", url="https://t.me/Solana100xcall")],
+    [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana100xcall.fun/")],
+    [
+        InlineKeyboardButton("🤖 Help Bot", url="https://t.me/MyPremiumHelpBot"),
+        InlineKeyboardButton("💬 Contact Support", callback_data="show_support")
+    ]
+])
 
     menu_msg = await context.bot.send_message(
         chat_id=user.id,
@@ -199,9 +203,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup=keyboard,
         disable_web_page_preview=True
     )
-
     context.chat_data["menu_message_id"] = menu_msg.message_id
-    context.chat_data["menu_chat_id"] = menu_msg.chat.id  # ✅ CORREGIDO
+    context.chat_data["menu_chat_id"] = menu_msg.chat.id
+
 
 
 async def show_howsignals(update: Update, context: ContextTypes.DEFAULT_TYPE):
