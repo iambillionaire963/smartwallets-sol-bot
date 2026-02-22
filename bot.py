@@ -424,42 +424,51 @@ async def show_signals_preview(update: Update, context: ContextTypes.DEFAULT_TYP
         "💵 Price: $0.00002236\n"
         "📊 Vol 5m: $81.63K  ⏰ 1h: $78.45K\n"
         "👥 Holders: 250  📈 Trades: 1909\n"
-        "⏰ Age: 3m\n\n"
+        "⏰ Age: 3m  🔥 LP Burn: 100%\n\n"
+        "💰 Smart-Money Activity:\n"
+        "Multiple elite wallets accumulating\n\n"
         "🌐 Socials: Website · X\n\n"
-        "Buy on:\n"
-        "Trojan Terminal  •  Axiom\n"
-        "Trojan Bot  •  Bloom\n"
-        "GMGN Bot  •  GMGN Web\n"
-        "Dexscreener  •  Padre\n"
+        "Trading Bots:\n"
+        "Trojan Terminal  •  Trojan Bot\n"
+        "Bloom  •  GMGN Bot\n"
+        "+ more instant buy options\n\n"
+        "Contract Scanners:\n"
+        "Axiom  •  Dexscreener\n"
+        "Trojan Web  •  Padre\n"
+        "+ additional tools\n"
         "```\n\n"
         
         "🏆 *MILESTONE UPDATE EXAMPLE:*\n"
         "```\n"
-        "🏆 UPDATE\n"
-        "$UNIVERSE REACHED 12.2x AFTER SIGNAL\n\n"
+        "🏆 MILESTONE REACHED\n"
+        "$UNIVERSE hit 12.2x after our signal!\n\n"
         "CA: 86PEDVIezjU5qY...\n\n"
         "🚀 Entry MC: $11.7k\n"
         "💎 Current MC: $142.5k\n"
         "🏆 ROI: 12.2x\n\n"
-        "Your $100 → $1,220 💰\n\n"
-        "Buy on:\n"
-        "Trojan Terminal  •  Axiom\n"
-        "GMGN  •  Dexscreener\n"
+        "Trading Bots:\n"
+        "Trojan Terminal  •  Trojan Bot\n"
+        "Bloom  •  GMGN Bot\n\n"
+        "Contract Scanners:\n"
+        "Axiom  •  Dexscreener\n"
+        "Trojan Web  •  Padre\n"
         "```\n\n"
         
         "⚡ *What You Get:*\n"
-        "• 30+ signals like these DAILY\n"
-        "• Complete token metrics\n"
-        "• Instant buy buttons\n"
+        "• 30+ premium signals daily\n"
+        "• Complete token metrics (MC, LP, volume, holders)\n"
+        "• Smart money activity indicators\n"
+        "• Instant buy buttons to major trading bots\n"
+        "• Direct links to Solana dexes & scanners\n"
         "• Live milestone tracking\n\n"
         
         "👇 Get full access now"
     )
     
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🚀 Subscribe Now", callback_data="view_memberships")],
-        [InlineKeyboardButton("⬅️ Back", callback_data="go_home")]
-    ])
+    [InlineKeyboardButton("🚀 Subscribe Now", url=MEMBERSHIP_LINK)],
+    [InlineKeyboardButton("⬅️ Back", callback_data="go_home")]
+])
     
     await update.callback_query.edit_message_text(
         text=text,
@@ -562,10 +571,9 @@ async def payment_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
     
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🚀 Subscribe Now", callback_data="view_memberships")],
-        [InlineKeyboardButton("📲 Visit Free Channel First", url="https://t.me/Solana100xcall")],
-        [InlineKeyboardButton("⬅️ Back", callback_data="go_home")]
-    ])
+    [InlineKeyboardButton("🚀 Subscribe Now", url=MEMBERSHIP_LINK)],
+    [InlineKeyboardButton("⬅️ Back", callback_data="go_home")]
+])
     
     await update.callback_query.edit_message_text(
         text=text,
@@ -1143,23 +1151,23 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_memberships(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
-        "💎 *Membership Plans*\n\n"
+        "💎 <b>Membership Plans</b>\n\n"
         
-        "🔥 *1 MONTH* | ~~$55~~ → *$44*\n"
+        "🔥 <b>1 MONTH</b> | <s>$55</s> → <b>$44</b>\n"
         "• Full access for 30 days\n"
         "• 300 elite wallets bonus\n\n"
         
-        "💎 *3 MONTHS* | ~~$79~~ → *$63* ⭐ POPULAR\n"
+        "💎 <b>3 MONTHS</b> | <s>$79</s> → <b>$63</b> ⭐ POPULAR\n"
         "• Full access for 90 days\n"
         "• 500 elite wallets bonus\n"
         "• Save 52% vs monthly\n\n"
         
-        "👑 *LIFETIME* | ~~$99~~ → *$79* 🏆 LIMITED TIME\n"
+        "👑 <b>LIFETIME</b> | <s>$99</s> → <b>$79</b> 🏆 LIMITED TIME\n"
         "• One payment, lifetime access\n"
         "• 1,000 elite wallets bonus\n"
         "• All future updates included\n\n"
         
-        "🎯 *What You Get:*\n"
+        "🎯 <b>What You Get:</b>\n"
         "🥷 Sniper Signals (ultra-early entries)\n"
         "⚡ ALPHA Signals (best opportunities)\n"
         "🏆 Milestone Tracker (live updates)\n"
@@ -1179,6 +1187,14 @@ async def show_memberships(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("💳 Payment Info", callback_data="payment_info")],
         [InlineKeyboardButton("⬅️ Back to Menu", callback_data="go_home")]
     ])
+    
+    await update.callback_query.answer()
+    await update.callback_query.edit_message_text(
+        text=text,
+        reply_markup=keyboard,
+        parse_mode=constants.ParseMode.HTML,  # ← CAMBIADO DE MARKDOWN A HTML
+        disable_web_page_preview=True
+    )
     
     await update.callback_query.answer()
     await update.callback_query.edit_message_text(
@@ -1221,9 +1237,9 @@ async def show_testimonials(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
     
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🔥 Get Access Now", callback_data="view_memberships")],
-        [InlineKeyboardButton("⬅️ Back to Menu", callback_data="go_home")]
-    ])
+    [InlineKeyboardButton("🔥 Get Access Now", url=MEMBERSHIP_LINK)],
+    [InlineKeyboardButton("⬅️ Back to Menu", callback_data="go_home")]
+])
     
     await update.callback_query.answer()
     await update.callback_query.edit_message_text(
