@@ -419,56 +419,54 @@ async def show_signals_preview(update: Update, context: ContextTypes.DEFAULT_TYP
         "```\n"
         "⚡ ALPHA ALERT\n"
         "Smart money moving NOW\n\n"
-        "$TRUTH | 0xjC8EGnA...\n\n"
-        "💎 MC: $22.36K  💧 Liq: $13.81K\n"
-        "💵 Price: $0.00002236\n"
-        "📊 Vol 5m: $81.63K  ⏰ 1h: $78.45K\n"
-        "👥 Holders: 250  📈 Trades: 1909\n"
-        "⏰ Age: 3m  🔥 LP Burn: 100%\n\n"
-        "💰 Smart-Money Activity:\n"
-        "Multiple elite wallets accumulating\n\n"
-        "🌐 Socials: Website · X\n\n"
-        "Trading Bots:\n"
-        "Trojan Terminal  •  Trojan Bot\n"
-        "Bloom  •  GMGN Bot\n"
-        "+ more instant buy options\n\n"
-        "Contract Scanners:\n"
-        "Axiom  •  Dexscreener\n"
-        "Trojan Web  •  Padre\n"
-        "+ additional tools\n"
+        "$CTO | CA: BkQucpTXB2d...\n\n"
+        "💎 MC: $69.21K  💧 Liq: $20.54K\n"
+        "💵 Price: $0.00006921\n"
+        "📊 Vol 5m: $0  ⏰ 1h: $204.62K\n"
+        "👥 Holders: 804  📈 Trades: 6208\n"
+        "⏰ Age: 1m  🔥 LP Burn: 0%\n\n"
+        "💰 Smart-Money InFlow:\n"
+        "33 tracked wallets bought (last 1m)\n"
+        "Total Inflow: 68.44 SOL\n\n"
+        "🌐 Scanners: SolHacker | TTF | Trenchy\n\n"
+        "📱 Telegram Trading Bots:\n"
+        "Trojan Bot  •  Bloom  •  GMGN Bot\n\n"
+        "🌐 Dex/Scanners:\n"
+        "Trojan Terminal  •  Axiom  •  Padre\n"
+        "GMGN Web  •  Dexscreener  •  MobyScreener\n"
+        "Top Wallets\n"
         "```\n\n"
         
         "🏆 *MILESTONE UPDATE EXAMPLE:*\n"
         "```\n"
-        "🏆 MILESTONE REACHED\n"
-        "$UNIVERSE hit 12.2x after our signal!\n\n"
-        "CA: 86PEDVIezjU5qY...\n\n"
-        "🚀 Entry MC: $11.7k\n"
-        "💎 Current MC: $142.5k\n"
-        "🏆 ROI: 12.2x\n\n"
-        "Trading Bots:\n"
-        "Trojan Terminal  •  Trojan Bot\n"
-        "Bloom  •  GMGN Bot\n\n"
-        "Contract Scanners:\n"
-        "Axiom  •  Dexscreener\n"
-        "Trojan Web  •  Padre\n"
+        "🏆 UPDATE\n"
+        "$CTO REACHED 14.3x\n\n"
+        "CA: BkQucpTXB2d...\n\n"
+        "🚀 Entry MC: $69.21K\n"
+        "💎 Current MC: $989K\n"
+        "🏆 ROI: 14.3x\n\n"
+        "📱 Telegram Trading Bots:\n"
+        "Trojan Bot  •  Bloom  •  GMGN Bot\n\n"
+        "🌐 Dex/Scanners:\n"
+        "Trojan Terminal  •  Axiom  •  Dexscreener\n"
+        "Padre  •  Top Wallets\n"
         "```\n\n"
         
         "⚡ *What You Get:*\n"
         "• 30+ premium signals daily\n"
-        "• Complete token metrics (MC, LP, volume, holders)\n"
-        "• Smart money activity indicators\n"
-        "• Instant buy buttons to major trading bots\n"
-        "• Direct links to Solana dexes & scanners\n"
+        "• Complete token metrics\n"
+        "• Smart money inflow data\n"
+        "• Instant Telegram bot buttons\n"
+        "• Direct dex/scanner links\n"
         "• Live milestone tracking\n\n"
         
         "👇 Get full access now"
     )
     
     keyboard = InlineKeyboardMarkup([
-    [InlineKeyboardButton("🚀 Subscribe Now", url=MEMBERSHIP_LINK)],
-    [InlineKeyboardButton("⬅️ Back", callback_data="go_home")]
-])
+        [InlineKeyboardButton("🚀 Subscribe Now", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("⬅️ Back", callback_data="go_home")]
+    ])
     
     await update.callback_query.edit_message_text(
         text=text,
@@ -476,7 +474,7 @@ async def show_signals_preview(update: Update, context: ContextTypes.DEFAULT_TYP
         parse_mode=constants.ParseMode.MARKDOWN,
         disable_web_page_preview=True
     )
-
+    
 async def compare_plans(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
         "📊 *Compare Plans*\n\n"
@@ -1192,7 +1190,7 @@ async def show_memberships(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.callback_query.edit_message_text(
         text=text,
         reply_markup=keyboard,
-        parse_mode=constants.ParseMode.HTML,  # ← CAMBIADO DE MARKDOWN A HTML
+        parse_mode=constants.ParseMode.HTML,  # ← CAMBIADO A HTML
         disable_web_page_preview=True
     )
     
