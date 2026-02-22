@@ -433,7 +433,8 @@ async def show_signals_preview(update: Update, context: ContextTypes.DEFAULT_TYP
         "Trojan Bot  •  Bloom  •  GMGN Bot\n\n"
         "🌐 Dex/Scanners:\n"
         "Trojan Terminal  •  Axiom  •  Padre\n"
-        "GMGN Web  •  Dexscreener  •  MobyScreener\n\n"
+        "GMGN Web  •  Dexscreener  •  MobyScreener\n"
+        "```\n\n"
         
         "🏆 *MILESTONE UPDATE EXAMPLE:*\n"
         "```\n"
@@ -446,7 +447,8 @@ async def show_signals_preview(update: Update, context: ContextTypes.DEFAULT_TYP
         "📱 Telegram Trading Bots:\n"
         "Trojan Bot  •  Bloom  •  GMGN Bot\n\n"
         "🌐 Dex/Scanners:\n"
-        "Trojan Terminal  •  Axiom  •  Dexscreener\n\n"
+        "Trojan Terminal  •  Axiom  •  Dexscreener\n"
+        "```\n\n"
         
         "⚡ *What You Get:*\n"
         "• 30+ premium signals daily\n"
@@ -517,20 +519,6 @@ async def compare_plans(update: Update, context: ContextTypes.DEFAULT_TYPE):
         parse_mode=constants.ParseMode.MARKDOWN,
         disable_web_page_preview=True
     )
-    
-    keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🔥 1 Month | $44", callback_data="plan_1month")],
-        [InlineKeyboardButton("💎 3 Months | $63 (POPULAR)", callback_data="plan_3month")],
-        [InlineKeyboardButton("👑 Lifetime | $79 (BEST VALUE)", callback_data="plan_lifetime")],
-        [InlineKeyboardButton("⬅️ Back", callback_data="view_memberships")]
-    ])
-    
-    await update.callback_query.edit_message_text(
-        text=text,
-        reply_markup=keyboard,
-        parse_mode=constants.ParseMode.MARKDOWN,
-        disable_web_page_preview=True
-    )
  
 async def payment_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
@@ -543,7 +531,7 @@ async def payment_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
         
         "⚡ *How It Works:*\n"
         "1. Choose your plan\n"
-        "2. Complete payment via OnlySubs\n"
+        "2. Complete payment via Payments bot\n"
         "3. Get instant access (30-60 seconds)\n\n"
         
         "🔐 *Privacy:*\n"
@@ -1173,9 +1161,9 @@ async def show_memberships(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
     
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🔥 1 Month | $44", url=MEMBERSHIP_LINK)],
-        [InlineKeyboardButton("💎 3 Months | $63 (POPULAR)", url=MEMBERSHIP_LINK)],
-        [InlineKeyboardButton("👑 Lifetime | $79 (BEST VALUE)", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("🔥 1 Month | $44", callback_data="plan_1month")],
+        [InlineKeyboardButton("💎 3 Months | $63 (POPULAR)", callback_data="plan_3month")],
+        [InlineKeyboardButton("👑 Lifetime | $79 (BEST VALUE)", callback_data="plan_lifetime")],
         [InlineKeyboardButton("📊 Compare Plans", callback_data="compare_plans")],
         [InlineKeyboardButton("💰 ROI Calculator", callback_data="roi_calculator")],
         [InlineKeyboardButton("💳 Payment Info", callback_data="payment_info")],
