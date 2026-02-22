@@ -161,27 +161,21 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await send_banner(context.bot, user.id)
 
     message = (
-    "🚀 Solana100xCall VIP | Real-Time Alpha\n\n"
-    "We monitor 10,000+ smart money wallets 24/7.\n"
-    "Detect elite moves before the crowd.\n\n"
-    "🏆 PROVEN TRACK RECORD:\n"
-    "✅ 100+ verified 10x-100x calls\n"
-    "✅ View gallery: solana100xcall.fun\n\n"
-    "🎯 WHAT YOU GET:\n"
-    "🥷 VIP Sniper Signals (early entries)\n"
-    "⚡ VIP Momentum Signals (trend follow)\n"
-    "🌊 VIP Surge Signals (volume & traction)\n"
-    "🏆 VIP Milestone Tracker (live X updates)\n"
-    "💬 VIP Trader Chat (active community)\n\n"
-    "📊 30-50 quality signals daily\n"
-    "⚡ Instant buy buttons (Trojan, Bloom, Maestro)\n"
-    "🔗 Instant buttons to Dexes (Axiom, Padre, Trojan Web)\n"
-    "🔔 Zero noise, only verified smart money\n\n"
-    "💰 SPECIAL OFFER | 20% OFF:\n"
+    "🚀 Solana100xCall | Premium Signals\n\n"
+    "The real alpha. No fluff.\n\n"
+    "💎 What's Inside:\n"
+    "🥷 Sniper Signals (ultra-early entries)\n"
+    "⚡ ALPHA Signals (best daily opportunities)\n"
+    "🏆 Milestone Tracker (live profit updates)\n"
+    "💬 VIP Trader Chat\n\n"
+    "📊 30+ quality signals daily\n"
+    "🏆 100+ verified 10x-100x calls\n"
+    "👥 300+ active traders\n\n"
+    "💰 20% OFF ALL PLANS:\n"
     "🔥 1 Month: $44 (was $55)\n"
-    "💎 3 Months: $63 (was $79) | BEST VALUE\n"
-    "👑 Lifetime: $79 (was $99) | LIMITED SPOTS\n\n"
-    "👇 Choose your plan now"
+    "💎 3 Months: $63 (was $79)\n"
+    "👑 Lifetime: $79 (was $99) | LIMITED TIME\n\n"
+    "👇 Choose your plan"
 )
 
     keyboard = InlineKeyboardMarkup([
@@ -210,45 +204,33 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_howsignals(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
-        "🧠 *How Our System Works*\n\n"
-        "🔍 *THE EDGE:*\n"
-        "We monitor 10,000+ elite Solana wallets 24/7\n"
-        "When smart money moves, you know instantly\n\n"
-        "⚙️ *THE PROCESS:*\n\n"
-        "*Step 1: Detection*\n"
-        "→ Elite wallets start buying token ABC\n"
-        "→ System detects clustering pattern\n"
-        "→ Smart money signal identified\n\n"
-        "*Step 2: Alert Tiers*\n"
-        "🥷 SNIPER: Early entries detected\n"
-        "⚡ MOMENTUM: Trend forming\n"
-        "🌊 SURGE: Major move incoming\n\n"
-        "*Step 3: You Get Alert*\n"
-        "→ Token address (CA)\n"
-        "→ Current price & market cap\n"
-        "→ Liquidity & holder count\n"
-        "→ Instant buy buttons (Trojan, Bloom, Maestro)\n"
-        "→ Chart links (DexScreener, Axiom, Padre)\n\n"
-        "*Step 4: Milestone Tracking*\n"
-        "→ We track every signal 24/7\n"
-        "→ When it hits 2x, 3x, 5x, 10x+ → you get update\n"
-        "→ Never miss profit-taking opportunities\n\n"
-        "📊 *THE NUMBERS:*\n"
-        "• 10,000+ wallets monitored\n"
-        "• 30-50 signals per day\n"
-        "• 100+ verified 10x-100x calls\n"
-        "• Response time: <30 seconds\n\n"
-        "🎯 *WHY IT WORKS:*\n"
-        "Most traders react to price charts\n"
-        "We see the wallets BEFORE charts move\n"
-        "By the time retail sees pump, we're in\n\n"
-        "🏆 *Proven Results:*\n"
-        "View our 100x+ gallery: solana100xcall.fun\n\n"
-        "👇 Ready to get the edge?"
+        "📊 *How It Works*\n\n"
+        
+        "We send you alerts when opportunities appear.\n\n"
+        
+        "🥷 *Sniper Signals:*\n"
+        "Ultra-early entries before momentum builds\n\n"
+        
+        "⚡ *ALPHA Signals:*\n"
+        "Best daily opportunities with high potential\n\n"
+        
+        "🏆 *Milestone Tracker:*\n"
+        "Live updates when tokens hit 3x, 6x, 9x+\n\n"
+        
+        "📊 *Each Signal Includes:*\n"
+        "• Token info (CA, price, liquidity)\n"
+        "• Instant buy buttons\n"
+        "• Chart links\n\n"
+        
+        "⚡ 30+ quality signals daily\n"
+        "🏆 100+ verified 10x-100x calls\n"
+        "👥 300+ active traders\n\n"
+        
+        "👇 Ready to join?"
     )
     
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🚀 Get VIP Access Now", callback_data="view_memberships")],
+        [InlineKeyboardButton("🚀 Get Access Now", callback_data="view_memberships")],
         [InlineKeyboardButton("🏆 View 100x Gallery", url="https://solana100xcall.fun/")],
         [InlineKeyboardButton("⬅️ Back to Menu", callback_data="go_home")]
     ])
@@ -285,23 +267,19 @@ async def show_howsignals(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
-    "🆘 *Help & How This Bot Works*\n\n"
-"This bot is your gateway to the Solana100xcall VIP system.\n\n"
+    "🆘 *Help*\n\n"
 "*What this bot does:*\n"
-"🔹 Shows all VIP plans, prices, and bonuses\n"
-"🔹 Redirects you to the membership bot to complete your payment\n"
-"🔹 Automatically unlocks your VIP channels once your membership is active\n\n"
-"*How alerts work (quick overview):*\n"
-"⚡ Tracks elite Solana wallets 24/7\n"
-"📡 Detects launches, momentum spikes, smart-money entries, and liquidity shifts\n"
-"📲 Each alert includes CA, LP, volume, holders, price data, and instant buy links\n\n"
-"*Where to ask questions:*\n"
-"🤖 Use *@MyPremiumHelpBot* for:\n"
-"   🔹 Understanding how alerts work\n"
-"   🔹 How to import the wallet lists\n"
-"   🔹 Troubleshooting issues or errors\n\n"
-"💳 For payment or access problems only, tap *Contact Support* in the main menu.\n"
-
+"🔹 Shows membership plans and prices\n"
+"🔹 Processes your payment\n"
+"🔹 Gives instant access to signals\n\n"
+"*What you'll receive:*\n"
+"🥷 Sniper Signals (early entries)\n"
+"⚡ ALPHA Signals (best opportunities)\n"
+"🏆 Milestone Tracker (live updates)\n"
+"💬 Active Trader Chat\n\n"
+"*Need help?*\n"
+"🤖 General questions: @MyPremiumHelpBot\n"
+"💳 Payment issues: Contact Support (main menu)\n"
 )
 
     keyboard = InlineKeyboardMarkup(
@@ -340,34 +318,29 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
 
-
 async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🚀 Get VIP Signals", url=MEMBERSHIP_LINK)],
-            [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana100xcall.fun/")],
+        [InlineKeyboardButton("🚀 Get Access", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana100xcall.fun/")],
         [InlineKeyboardButton("📲 Join Free Channel", url="https://t.me/Solana100xcall")],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
 
     text = (
-    "💳 *Subscribe to VIP Access*\n\n"
-    "Choose your membership:\n"
-    "🔥 1 Month VIP\n"
-    "💎 3 Month VIP\n"
-    "👑 Lifetime VIP\n\n"
-    "*VIP Access includes:*\n"
-    "🥷 VIP Sniper Signals (early entries)\n"
-    "⚡ VIP Momentum Signals (trend follow)\n"
-    "🌊 Surge Signals (volume & traction)\n"
-    "🏆 Milestone Signals (3x · 6x · 9x+ moves)\n"
-    "💬 Active VIP trader chatroom\n\n"
-    "🎁 *Wallet Bonuses:*\n"
-    "🔥 300 top Solana wallets (1 Month)\n"
-    "💎 500 top Solana wallets (3 Months)\n"
-    "👑 1,000 top Solana wallets (Lifetime)\n\n"
-    "🧩 Import-ready wallets\n"
-    "(Axiom · Padre · GMGN · major Solana Dexes)\n\n"
-    "⚡ Access is activated automatically after you made the payment"
+    "💳 *Subscribe*\n\n"
+    "Choose your plan:\n"
+    "🔥 1 Month: $44\n"
+    "💎 3 Months: $63\n"
+    "👑 Lifetime: $79\n\n"
+    "*What's Included:*\n"
+    "🥷 Sniper Signals (early entries)\n"
+    "⚡ ALPHA Signals (best opportunities)\n"
+    "🏆 Milestone Tracker (live updates)\n"
+    "💬 Active Trader Chat\n\n"
+    "🎁 *Bonus:*\n"
+    "Elite wallets (300-1000 depending on plan)\n"
+    "Import-ready for Axiom, Padre, GMGN\n\n"
+    "⚡ Instant access after payment"
 )
 
 
@@ -509,17 +482,15 @@ async def show_signals_preview(update: Update, context: ContextTypes.DEFAULT_TYP
 
 async def compare_plans(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
-        "📊 *Compare VIP Plans*\n\n"
+        "📊 *Compare Plans*\n\n"
         
         "```\n"
         "Feature          | 1M | 3M | LT\n"
         "─────────────────┼────┼────┼────\n"
         "Sniper Signals   | ✅ | ✅ | ✅\n"
-        "Momentum Signals | ✅ | ✅ | ✅\n"
-        "Surge Signals    | ✅ | ✅ | ✅\n"
+        "ALPHA Signals    | ✅ | ✅ | ✅\n"
         "Milestone Track  | ✅ | ✅ | ✅\n"
-        "VIP Chat         | ✅ | ✅ | ✅\n"
-        "Buy Bot Buttons  | ✅ | ✅ | ✅\n"
+        "Trader Chat      | ✅ | ✅ | ✅\n"
         "Elite Wallets    |300 |500 | 1K\n"
         "Future Updates   | ❌ | ❌ | ✅\n"
         "Never Pay Again  | ❌ | ❌ | ✅\n"
@@ -530,22 +501,30 @@ async def compare_plans(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "• 3 Months: $21/month (save 52%)\n"
         "• Lifetime: $0/month after first payment\n\n"
         
-        "🎯 *Best For:*\n"
-        "• 1 Month: Testing the system\n"
-        "• 3 Months: Serious traders (most popular)\n"
-        "• Lifetime: Long-term investors (best value)\n\n"
-        
         "💡 *Quick Math:*\n"
-        "If you stay for 3+ months:\n"
+        "Stay for 3+ months?\n"
         "→ Monthly plan = $132+\n"
         "→ Lifetime plan = $79 total\n"
-        "→ You save $53+ immediately\n\n"
+        "→ Save $53+ immediately\n\n"
         
-        "🏆 *Recommendation:*\n"
-        "If you're serious about Solana memecoins,\n"
-        "get Lifetime. It pays for itself in 2 months.\n\n"
+        "🏆 *Best Choice:*\n"
+        "Lifetime pays for itself in under 2 months.\n\n"
         
         "👇 Choose your plan"
+    )
+    
+    keyboard = InlineKeyboardMarkup([
+        [InlineKeyboardButton("🔥 1 Month | $44", callback_data="plan_1month")],
+        [InlineKeyboardButton("💎 3 Months | $63 (POPULAR)", callback_data="plan_3month")],
+        [InlineKeyboardButton("👑 Lifetime | $79 (BEST VALUE)", callback_data="plan_lifetime")],
+        [InlineKeyboardButton("⬅️ Back", callback_data="view_memberships")]
+    ])
+    
+    await update.callback_query.edit_message_text(
+        text=text,
+        reply_markup=keyboard,
+        parse_mode=constants.ParseMode.MARKDOWN,
+        disable_web_page_preview=True
     )
     
     keyboard = InlineKeyboardMarkup([
@@ -564,35 +543,28 @@ async def compare_plans(update: Update, context: ContextTypes.DEFAULT_TYPE):
  
 async def payment_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
-        "🔒 *Payment & Security Information*\n\n"
+        "💳 *Payment & Access*\n\n"
         
-        "💳 *Accepted Payment Methods:*\n"
+        "💳 *Payment Methods:*\n"
         "✅ Solana (SOL)\n"
         "✅ Ethereum (ETH)\n"
         "✅ Binance Coin (BNB)\n\n"
         
-        "⚡ *How Payment Works:*\n"
-        "1. Click 'Subscribe Now' on any plan\n"
-        "2. Opens secure OnlySubs payment bot\n"
-        "3. Choose your payment method\n"
-        "4. Complete payment\n"
-        "5. Instant access (30-60 seconds)\n\n"
+        "⚡ *How It Works:*\n"
+        "1. Choose your plan\n"
+        "2. Complete payment via OnlySubs\n"
+        "3. Get instant access (30-60 seconds)\n\n"
         
-        "🔐 *Privacy & Security:*\n"
+        "🔐 *Privacy:*\n"
         "✅ No KYC required\n"
         "✅ Anonymous payments accepted\n"
-        "✅ Telegram-based (private by default)\n"
-        "✅ Your data is never shared\n"
-        "✅ Secure payment processor (OnlySubs)\n\n"
+        "✅ Your data is never shared\n\n"
         
-        "⚡ *Instant Activation:*\n"
-        "After payment, you'll receive:\n"
-        "1. Invite link to VIP Sniper channel\n"
-        "2. Invite link to VIP Momentum channel\n"
-        "3. Invite link to VIP Surge channel\n"
-        "4. Invite link to VIP Milestone channel\n"
-        "5. Invite link to VIP Chat\n"
-        "6. Download link for elite wallets bonus\n\n"
+        "⚡ *What You Get:*\n"
+        "After payment, instant access to:\n"
+        "• All signal channels\n"
+        "• VIP trader chat\n"
+        "• Elite wallets bonus\n\n"
         
         "💬 *Support:*\n"
         "Payment issues? @The100xMooncaller\n"
@@ -616,46 +588,43 @@ async def payment_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def roi_calculator(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
-        "💰 *VIP Membership ROI Calculator*\n\n"
+        "💰 *ROI Calculator*\n\n"
         
-        "Let's see what you need to make profit:\n\n"
+        "How fast can you break even?\n\n"
         
         "📊 *SCENARIO 1: Conservative*\n"
-        "Membership: $79 (Lifetime)\n"
+        "Lifetime: $79\n"
         "Your typical trade: $100\n"
-        "You need: ONE 1x to break even\n"
-        "→ If you catch 1 token that doubles\n"
-        "→ You profit: $100 (covers membership + $21 profit)\n\n"
+        "You need: ONE 1x (token doubles)\n"
+        "→ You profit: $100 (membership paid + $21 profit)\n\n"
         
         "📊 *SCENARIO 2: Realistic*\n"
-        "Membership: $79 (Lifetime)\n"
+        "Lifetime: $79\n"
         "Your typical trade: $500\n"
-        "You need: ONE 20% gain to break even\n"
-        "→ Catch any token that does 1.2x\n"
-        "→ You profit: $100 (covers membership + $21 profit)\n\n"
+        "You need: ONE 20% gain\n"
+        "→ You profit: $100 (membership paid + $21 profit)\n\n"
         
         "📊 *SCENARIO 3: Our Track Record*\n"
-        "We've had 100+ calls hit 10x+\n"
-        "If you catch just ONE with $200:\n"
+        "100+ calls hit 10x+\n"
+        "Catch just ONE with $200:\n"
         "→ Your $200 becomes $2,000\n"
         "→ Profit: $1,800\n"
-        "→ ROI on membership: 2,178%\n\n"
+        "→ ROI: 2,178%\n\n"
         
         "🎯 *Bottom Line:*\n"
-        "You need to catch ONE decent move\n"
-        "to pay for your membership forever.\n\n"
+        "You need ONE decent move\n"
+        "to pay for membership forever.\n\n"
         
         "📈 *Daily Opportunities:*\n"
-        "• 30-50 signals per day\n"
-        "• 900-1,500 signals per month\n"
+        "• 30+ quality signals per day\n"
         "• You only need 1-2 wins\n\n"
         
-        "💡 *The Math is Simple:*\n"
-        "Risk: $79 one time\n"
-        "Upside: Unlimited winning opportunities\n"
+        "💡 *Simple Math:*\n"
+        "Risk: $79 (one time)\n"
+        "Upside: Unlimited opportunities\n"
         "Time to ROI: Usually first week\n\n"
         
-        "👇 Start your ROI today"
+        "👇 Get started"
     )
     
     keyboard = InlineKeyboardMarkup([
@@ -673,20 +642,18 @@ async def roi_calculator(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
-        "🔥 <b>1 Month VIP Access</b>\n"
+        "🔥 <b>1 Month Access</b>\n"
         "<s>$55</s> → <b>$44</b> (20% OFF)\n\n"
-        "Full access to the Solana100xCall VIP system.\n\n"
-        "<b>🚀 VIP Access includes:</b>\n"
-        "🥷 VIP Sniper Signals (early entries)\n"
-        "⚡ VIP Momentum Signals (trend follow)\n"
-        "🏆 VIP Milestone Tracker (3×, 6×, 9×+ moves)\n"
-        "🚀 Surge Signals (Volume & Traction)\n"
-        "💬 VIP Active Trader Chatroom\n\n"
-        "🔔 Signals are live, fast, and execution-focused.\n"
-        "📊 Each signal includes CA, LP, volume & instant buy buttons to major trading bots.\n\n"
-        "🎁 <b>Bonus:</b> 300 top Solana wallets\n"
-        "(import-ready) to Axiom · Padre · GMGN \n\n"
-        "💳 Tap below to activate your 1-month access"
+        "<b>What's Included:</b>\n"
+        "🥷 Sniper Signals (ultra-early entries)\n"
+        "⚡ ALPHA Signals (best daily opportunities)\n"
+        "🏆 Milestone Tracker (live profit updates)\n"
+        "💬 Active Trader Chat\n\n"
+        "📊 30+ quality signals daily\n"
+        "⚡ Instant buy buttons included\n\n"
+        "🎁 <b>Bonus:</b> 300 elite wallets\n"
+        "(import-ready for Axiom, Padre, GMGN)\n\n"
+        "💳 Tap below to get started"
     )
 
 
@@ -705,20 +672,19 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_3month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
-        "💎 <b>3 Month VIP Access</b>\n"
+        "💎 <b>3 Months Access</b>\n"
         "<s>$79</s> → <b>$63</b> (20% OFF)\n\n"
-        "Extended access to the Solana100xCall VIP system.\n\n"
-        "<b>🚀 VIP Access includes:</b>\n"
-        "🥷 VIP Sniper Signals (early entries)\n"
-        "⚡ VIP Momentum Signals (trend follow)\n"
-        "🏆 VIP Milestone Tracker (3×, 6×, 9×+ moves)\n"
-        "🚀 Surge Signals (Volume & Traction)\n"
-        "💬 VIP Active Trader Chatroom\n\n"
-        "🔔 Signals are live, fast, and execution-focused.\n"
-        "📊 Each signal includes CA, LP, volume & instant buy buttons to major trading bots.\n\n"
-        "🎁 <b>Bonus:</b> 500 top Solana wallets\n"
-        "(import-ready) to Axiom · Padre · GMGN \n\n"
-        "💳 Tap below to activate your 3-month access"
+        "<b>What's Included:</b>\n"
+        "🥷 Sniper Signals (ultra-early entries)\n"
+        "⚡ ALPHA Signals (best daily opportunities)\n"
+        "🏆 Milestone Tracker (live profit updates)\n"
+        "💬 Active Trader Chat\n\n"
+        "📊 30+ quality signals daily\n"
+        "⚡ Instant buy buttons included\n\n"
+        "🎁 <b>Bonus:</b> 500 elite wallets\n"
+        "(import-ready for Axiom, Padre, GMGN)\n\n"
+        "💡 <b>Best value:</b> Save 52% vs monthly plan\n\n"
+        "💳 Tap below to get started"
     )
 
 
@@ -736,21 +702,21 @@ async def show_3month(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
-        "👑 <b>Lifetime VIP Access</b>\n"
+        "👑 <b>Lifetime Access</b>\n"
         "<s>$99</s> → <b>$79</b> (20% OFF)\n\n"
-        "One payment. Permanent access to the Solana100xCall VIP system.\n\n"
-        "<b>🚀 VIP Access includes:</b>\n"
-        "🥷 VIP Sniper Signals (early entries)\n"
-        "⚡ VIP Momentum Signals (trend follow)\n"
-        "🏆 VIP Milestone Tracker (3×, 6×, 9×+ moves)\n"
-        "🚀 Surge Signals (Volume & Traction)\n"
-        "💬 VIP Active Trader Chatroom\n\n"
-        "🔔 Signals are live, fast, and execution-focused.\n"
-        "📊 Each signal includes CA, LP, volume & instant buy buttons to major trading bots.\n\n"
-        "🎁 <b>Bonus:</b> 1,000 top Solana wallets\n"
-        "(import-ready) to Axiom · Padre · GMGN \n\n"
-        "♾️ No renewals. No limits.\n"
-        "💳 Tap below to activate lifetime access"
+        "⚡ <b>LIMITED TIME OFFER</b>\n"
+        "One payment. Never pay again.\n\n"
+        "<b>What's Included:</b>\n"
+        "🥷 Sniper Signals (ultra-early entries)\n"
+        "⚡ ALPHA Signals (best daily opportunities)\n"
+        "🏆 Milestone Tracker (live profit updates)\n"
+        "💬 Active Trader Chat\n\n"
+        "📊 30+ quality signals daily\n"
+        "⚡ Instant buy buttons included\n\n"
+        "🎁 <b>Bonus:</b> 1,000 elite wallets\n"
+        "(import-ready for Axiom, Padre, GMGN)\n\n"
+        "♾️ All future updates included forever\n\n"
+        "💳 Tap below to lock in lifetime access"
     )
 
     keyboard = InlineKeyboardMarkup([
@@ -769,30 +735,27 @@ async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🚀 Get VIP Signals", url=MEMBERSHIP_LINK)],
-            [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana100xcall.fun/")],
+        [InlineKeyboardButton("🚀 Get Access", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana100xcall.fun/")],
         [InlineKeyboardButton("📲 Join Free Channel", url="https://t.me/Solana100xcall")],
         [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
     ])
 
     text = (
-    "💳 *Get VIP Access*\n\n"
-    "Choose your membership:\n"
-    "🔥 1 Month VIP\n"
-    "💎 3 Month VIP\n"
-    "👑 Lifetime VIP\n\n"
-    "*All memberships include:*\n"
-    "🥷 VIP Sniper Signals (early entries)\n"
-    "⚡ VIP Momentum Signals (trend follow)\n"
-    "🏆 VIP Milestone Tracker (3×, 6×, 9×+ moves)\n"
-    "🚀 Surge Signals (Volume & Traction)\n"
-    "💬 VIP Active Trader Chatroom\n\n"
-    "🟢 Real Solana memecoin signals\n"
-    "🟢 Early entries with full token info\n"
-    "🟢 Instant buy buttons on major bots\n\n"
-    "⚡ Access is activated automatically after payment"
+    "💳 *Get Access*\n\n"
+    "Choose your plan:\n"
+    "🔥 1 Month: $44\n"
+    "💎 3 Months: $63\n"
+    "👑 Lifetime: $79\n\n"
+    "*What's Included:*\n"
+    "🥷 Sniper Signals (early entries)\n"
+    "⚡ ALPHA Signals (best opportunities)\n"
+    "🏆 Milestone Tracker (live updates)\n"
+    "💬 Active Trader Chat\n\n"
+    "📊 30+ quality signals daily\n"
+    "⚡ Instant buy buttons included\n\n"
+    "⚡ Instant access after payment"
 )
-
 
 
     if update.callback_query:
@@ -1098,27 +1061,21 @@ async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
-    "🚀 Solana100xCall VIP | Real-Time Alpha\n\n"
-    "We monitor 10,000+ smart money wallets 24/7.\n"
-    "Detect elite moves before the crowd.\n\n"
-    "🏆 PROVEN TRACK RECORD:\n"
-    "✅ 100+ verified 10x-100x calls\n"
-    "✅ View gallery: solana100xcall.fun\n\n"
-    "🎯 WHAT YOU GET:\n"
-    "🥷 VIP Sniper Signals (early entries)\n"
-    "⚡ VIP Momentum Signals (trend follow)\n"
-    "🌊 VIP Surge Signals (volume & traction)\n"
-    "🏆 VIP Milestone Tracker (live X updates)\n"
-    "💬 VIP Trader Chat (active community)\n\n"
-    "📊 30-50 quality signals daily\n"
-    "⚡ Instant buy buttons (Trojan, Bloom, Maestro)\n"
-    "🔗 Instant buttons to Dexes (Axiom, Padre, Trojan Web)\n"
-    "🔔 Zero noise, only verified smart money\n\n"
-    "💰 SPECIAL OFFER | 20% OFF:\n"
+    "🚀 Solana100xCall | Premium Signals\n\n"
+    "The real alpha. No fluff.\n\n"
+    "💎 What's Inside:\n"
+    "🥷 Sniper Signals (ultra-early entries)\n"
+    "⚡ ALPHA Signals (best daily opportunities)\n"
+    "🏆 Milestone Tracker (live profit updates)\n"
+    "💬 VIP Trader Chat\n\n"
+    "📊 30+ quality signals daily\n"
+    "🏆 100+ verified 10x-100x calls\n"
+    "👥 300+ active traders\n\n"
+    "💰 20% OFF ALL PLANS:\n"
     "🔥 1 Month: $44 (was $55)\n"
-    "💎 3 Months: $63 (was $79) | BEST VALUE\n"
-    "👑 Lifetime: $79 (was $99) | LIMITED SPOTS\n\n"
-    "👇 Choose your plan now"
+    "💎 3 Months: $63 (was $79)\n"
+    "👑 Lifetime: $79 (was $99) | LIMITED TIME\n\n"
+    "👇 Choose your plan"
 )
 
     keyboard = InlineKeyboardMarkup([
@@ -1198,37 +1155,31 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_memberships(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
-        "💎 *VIP Membership Plans*\n\n"
+        "💎 *Membership Plans*\n\n"
         
-        "🔥 *1 MONTH VIP* | $55 → *$44*\n"
-        "• Full VIP access for 30 days\n"
-        "• 300 elite wallets bonus\n"
-        "• Perfect for testing the system\n\n"
+        "🔥 *1 MONTH* | ~~$55~~ → *$44*\n"
+        "• Full access for 30 days\n"
+        "• 300 elite wallets bonus\n\n"
         
-        "💎 *3 MONTHS VIP* | $79 → *$63* ⭐ POPULAR\n"
-        "• Full VIP access for 90 days\n"
+        "💎 *3 MONTHS* | ~~$79~~ → *$63* ⭐ POPULAR\n"
+        "• Full access for 90 days\n"
         "• 500 elite wallets bonus\n"
-        "• Best value for serious traders\n"
-        "• Save 52% vs monthly plan\n\n"
+        "• Save 52% vs monthly\n\n"
         
-        "👑 *LIFETIME VIP* | $99 → *$79* 🏆 BEST VALUE\n"
-        "• Permanent VIP access\n"
+        "👑 *LIFETIME* | ~~$99~~ → *$79* 🏆 LIMITED TIME\n"
+        "• One payment, lifetime access\n"
         "• 1,000 elite wallets bonus\n"
-        "• Never pay again\n"
         "• All future updates included\n\n"
         
-        "🎯 *All Plans Include:*\n"
-        "🥷 VIP Sniper Signals (early entries)\n"
-        "⚡ VIP Momentum Signals (trend follow)\n"
-        "🌊 VIP Surge Signals (volume spikes)\n"
-        "🏆 VIP Milestone Tracker (3x, 6x, 9x+)\n"
-        "💬 VIP Active Trader Chat\n\n"
+        "🎯 *What You Get:*\n"
+        "🥷 Sniper Signals (ultra-early entries)\n"
+        "⚡ ALPHA Signals (best opportunities)\n"
+        "🏆 Milestone Tracker (live updates)\n"
+        "💬 Active Trader Chat\n\n"
         
-        "📊 30-50 quality signals daily\n"
-        "⚡ Instant buy buttons (Trojan, Bloom, Maestro)\n"
-        "🔔 24/7 smart money monitoring\n\n"
+        "📊 30+ signals daily with instant buy buttons\n\n"
         
-        "👇 Choose your plan or explore more"
+        "👇 Choose your plan"
     )
     
     keyboard = InlineKeyboardMarkup([
@@ -1251,7 +1202,7 @@ async def show_memberships(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_testimonials(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
-        "💬 *What VIP Members Say*\n\n"
+        "💬 *What Members Say*\n\n"
         
         "⭐⭐⭐⭐⭐ \"Hit 3 calls over 10x in 2 months\"\n"
         "\"Best signal service on Solana. The milestone tracker "
@@ -1265,25 +1216,24 @@ async def show_testimonials(update: Update, context: ContextTypes.DEFAULT_TYPE):
         
         "⭐⭐⭐⭐⭐ \"Finally, not exit liquidity\"\n"
         "\"Most signal groups are just pump and dumps. Here you're "
-        "actually following REAL smart money. Makes all the difference.\"\n"
-        "@IamDreamer920 (1-month member)\n\n"
+        "getting real alpha. Makes all the difference.\"\n"
+        "— @IamDreamer920 (1-month member)\n\n"
         
-        "⭐⭐⭐⭐⭐ \"30-50 signals DAILY is insane\"\n"
+        "⭐⭐⭐⭐⭐ \"30+ signals DAILY is insane\"\n"
         "\"Other groups send 5-10 signals per day. Here you get "
-        "30-50 QUALITY alerts. More opportunities = more wins.\"\n"
-        "@RooneyCryptoPolar (Lifetime member)\n\n"
+        "30+ QUALITY alerts. More opportunities = more wins.\"\n"
+        "— @RooneyCryptoPolar (Lifetime member)\n\n"
         
-        "📊 *By The Numbers:*\n"
-        "👥 300+ active VIP members\n"
+        "📊 *The Numbers:*\n"
+        "👥 300+ active members\n"
         "🏆 100+ verified 10x-100x calls\n"
-        "⚡ 30-50 signals daily\n"
-        "🎯 10,000+ wallets monitored 24/7\n\n"
+        "⚡ 30+ signals daily\n\n"
         
         "👇 Join them today"
     )
     
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🔥 Get VIP Access Now", callback_data="view_memberships")],
+        [InlineKeyboardButton("🔥 Get Access Now", callback_data="view_memberships")],
         [InlineKeyboardButton("⬅️ Back to Menu", callback_data="go_home")]
     ])
     
