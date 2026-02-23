@@ -161,22 +161,23 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await send_banner(context.bot, user.id)
 
     message = (
-    "🚀 Solana100xCall | Premium Signals\n\n"
-    "The real alpha. No fluff.\n\n"
-    "💎 What's Inside:\n"
-    "🥷 Sniper Signals (ultra-early entries)\n"
-    "⚡ ALPHA Signals (best daily opportunities)\n"
-    "🏆 Milestone Tracker (live profit updates)\n"
-    "💬 VIP Trader Chat\n\n"
-    "📊 30+ quality signals daily\n"
-    "🏆 100+ verified 10x-100x calls\n"
-    "👥 300+ active traders\n\n"
-    "💰 20% OFF ALL PLANS:\n"
-    "🔥 1 Month: $44 (was $55)\n"
-    "💎 3 Months: $63 (was $79)\n"
-    "👑 Lifetime: $79 (was $99) | LIMITED TIME\n\n"
-    "👇 Choose your plan"
-)
+        "🚀 Solana100xCall | Premium Signals\n\n"
+        "The real alpha. No fluff.\n\n"
+        "💎 What's Inside:\n"
+        "🥷 Sniper Signals (ultra-early entries)\n"
+        "⚡ ALPHA Signals (best daily opportunities)\n"
+        "💎 APEX Signals (peak confirmation)\n"
+        "🏆 Milestone Tracker (live profit updates)\n"
+        "💬 VIP Trader Chat\n\n"
+        "📊 30+ quality signals daily\n"
+        "🏆 100+ verified 10x-100x calls\n"
+        "👥 300+ active traders\n\n"
+        "💰 20% OFF ALL PLANS:\n"
+        "🔥 1 Month: $44 (was $55)\n"
+        "💎 3 Months: $63 (was $79)\n"
+        "👑 Lifetime: $79 (was $99) | LIMITED TIME\n\n"
+        "👇 Choose your plan"
+    )
 
     keyboard = InlineKeyboardMarkup([
     [InlineKeyboardButton("🔥 View Memberships", callback_data="view_memberships")],
@@ -213,6 +214,9 @@ async def show_howsignals(update: Update, context: ContextTypes.DEFAULT_TYPE):
         
         "⚡ *ALPHA Signals:*\n"
         "Best daily opportunities with high potential\n\n"
+        
+        "💎 *APEX Signals:*\n"
+        "Peak confirmation with strong validation\n\n"
         
         "🏆 *Milestone Tracker:*\n"
         "Live updates when tokens hit 3x, 6x, 9x+\n\n"
@@ -267,20 +271,21 @@ async def show_howsignals(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
-    "🆘 *Help*\n\n"
-"*What this bot does:*\n"
-"🔹 Shows membership plans and prices\n"
-"🔹 Processes your payment\n"
-"🔹 Gives instant access to signals\n\n"
-"*What you'll receive:*\n"
-"🥷 Sniper Signals (early entries)\n"
-"⚡ ALPHA Signals (best opportunities)\n"
-"🏆 Milestone Tracker (live updates)\n"
-"💬 Active Trader Chat\n\n"
-"*Need help?*\n"
-"🤖 General questions: @MyPremiumHelpBot\n"
-"💳 Payment issues: Contact Support (main menu)\n"
-)
+        "🆘 *Help*\n\n"
+        "*What this bot does:*\n"
+        "🔹 Shows membership plans and prices\n"
+        "🔹 Processes your payment\n"
+        "🔹 Gives instant access to signals\n\n"
+        "*What you'll receive:*\n"
+        "🥷 Sniper Signals (early entries)\n"
+        "⚡ ALPHA Signals (best opportunities)\n"
+        "💎 APEX Signals (peak confirmation)\n"
+        "🏆 Milestone Tracker (live updates)\n"
+        "💬 Active Trader Chat\n\n"
+        "*Need help?*\n"
+        "🤖 General questions: @MyPremiumHelpBot\n"
+        "💳 Payment issues: Contact Support (main menu)\n"
+    )
 
     keyboard = InlineKeyboardMarkup(
         [[InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]]
@@ -335,6 +340,7 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     "*What's Included:*\n"
     "🥷 Sniper Signals (early entries)\n"
     "⚡ ALPHA Signals (best opportunities)\n"
+    "💎 APEX Signals (peak confirmation)\n"
     "🏆 Milestone Tracker (live updates)\n"
     "💬 Active Trader Chat\n\n"
     "🎁 *Bonus:*\n"
@@ -620,19 +626,20 @@ async def roi_calculator(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
-        "🔥 <b>1 Month Access</b>\n"
-        "<s>$55</s> → <b>$44</b> (20% OFF)\n\n"
-        "<b>What's Included:</b>\n"
-        "🥷 Sniper Signals (ultra-early entries)\n"
-        "⚡ ALPHA Signals (best daily opportunities)\n"
-        "🏆 Milestone Tracker (live profit updates)\n"
-        "💬 Active Trader Chat\n\n"
-        "📊 30+ quality signals daily\n"
-        "⚡ Instant buy buttons included\n\n"
-        "🎁 <b>Bonus:</b> 300 elite wallets\n"
-        "(import-ready for Axiom, Padre, GMGN)\n\n"
-        "💳 Tap below to get started"
-    )
+    "🔥 <b>1 Month Access</b>\n"
+    "<s>$55</s> → <b>$44</b> (20% OFF)\n\n"
+    "<b>What's Included:</b>\n"
+    "🥷 Sniper Signals (ultra-early entries)\n"
+    "⚡ ALPHA Signals (best daily opportunities)\n"
+    "💎 APEX Signals (peak confirmation)\n"
+    "🏆 Milestone Tracker (live profit updates)\n"
+    "💬 Active Trader Chat\n\n"
+    "📊 30+ quality signals daily\n"
+    "⚡ Instant buy buttons included\n\n"
+    "🎁 <b>Bonus:</b> 300 elite wallets\n"
+    "(import-ready for Axiom, Padre, GMGN)\n\n"
+    "💳 Tap below to get started"
+)
 
 
     keyboard = InlineKeyboardMarkup([
@@ -650,20 +657,21 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_3month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
-        "💎 <b>3 Months Access</b>\n"
-        "<s>$79</s> → <b>$63</b> (20% OFF)\n\n"
-        "<b>What's Included:</b>\n"
-        "🥷 Sniper Signals (ultra-early entries)\n"
-        "⚡ ALPHA Signals (best daily opportunities)\n"
-        "🏆 Milestone Tracker (live profit updates)\n"
-        "💬 Active Trader Chat\n\n"
-        "📊 30+ quality signals daily\n"
-        "⚡ Instant buy buttons included\n\n"
-        "🎁 <b>Bonus:</b> 500 elite wallets\n"
-        "(import-ready for Axiom, Padre, GMGN)\n\n"
-        "💡 <b>Best value:</b> Save 52% vs monthly plan\n\n"
-        "💳 Tap below to get started"
-    )
+    "💎 <b>3 Months Access</b>\n"
+    "<s>$79</s> → <b>$63</b> (20% OFF)\n\n"
+    "<b>What's Included:</b>\n"
+    "🥷 Sniper Signals (ultra-early entries)\n"
+    "⚡ ALPHA Signals (best daily opportunities)\n"
+    "💎 APEX Signals (peak confirmation)\n"
+    "🏆 Milestone Tracker (live profit updates)\n"
+    "💬 Active Trader Chat\n\n"
+    "📊 30+ quality signals daily\n"
+    "⚡ Instant buy buttons included\n\n"
+    "🎁 <b>Bonus:</b> 500 elite wallets\n"
+    "(import-ready for Axiom, Padre, GMGN)\n\n"
+    "💡 <b>Best value:</b> Save 52% vs monthly plan\n\n"
+    "💳 Tap below to get started"
+)
 
 
     keyboard = InlineKeyboardMarkup([
@@ -680,22 +688,23 @@ async def show_3month(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
-        "👑 <b>Lifetime Access</b>\n"
-        "<s>$99</s> → <b>$79</b> (20% OFF)\n\n"
-        "⚡ <b>LIMITED TIME OFFER</b>\n"
-        "One payment. Never pay again.\n\n"
-        "<b>What's Included:</b>\n"
-        "🥷 Sniper Signals (ultra-early entries)\n"
-        "⚡ ALPHA Signals (best daily opportunities)\n"
-        "🏆 Milestone Tracker (live profit updates)\n"
-        "💬 Active Trader Chat\n\n"
-        "📊 30+ quality signals daily\n"
-        "⚡ Instant buy buttons included\n\n"
-        "🎁 <b>Bonus:</b> 1,000 elite wallets\n"
-        "(import-ready for Axiom, Padre, GMGN)\n\n"
-        "♾️ All future updates included forever\n\n"
-        "💳 Tap below to lock in lifetime access"
-    )
+    "👑 <b>Lifetime Access</b>\n"
+    "<s>$99</s> → <b>$79</b> (20% OFF)\n\n"
+    "⚡ <b>LIMITED TIME OFFER</b>\n"
+    "One payment. Never pay again.\n\n"
+    "<b>What's Included:</b>\n"
+    "🥷 Sniper Signals (ultra-early entries)\n"
+    "⚡ ALPHA Signals (best daily opportunities)\n"
+    "💎 APEX Signals (peak confirmation)\n"
+    "🏆 Milestone Tracker (live profit updates)\n"
+    "💬 Active Trader Chat\n\n"
+    "📊 30+ quality signals daily\n"
+    "⚡ Instant buy buttons included\n\n"
+    "🎁 <b>Bonus:</b> 1,000 elite wallets\n"
+    "(import-ready for Axiom, Padre, GMGN)\n\n"
+    "♾️ All future updates included forever\n\n"
+    "💳 Tap below to lock in lifetime access"
+)
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🪙 Pay with SOL / BNB / ETH", url=MEMBERSHIP_LINK)],
@@ -728,6 +737,7 @@ async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     "*What's Included:*\n"
     "🥷 Sniper Signals (early entries)\n"
     "⚡ ALPHA Signals (best opportunities)\n"
+    "💎 APEX Signals (peak confirmation)\n"
     "🏆 Milestone Tracker (live updates)\n"
     "💬 Active Trader Chat\n\n"
     "📊 30+ quality signals daily\n"
@@ -1039,22 +1049,23 @@ async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
-    "🚀 Solana100xCall | Premium Signals\n\n"
-    "The real alpha. No fluff.\n\n"
-    "💎 What's Inside:\n"
-    "🥷 Sniper Signals (ultra-early entries)\n"
-    "⚡ ALPHA Signals (best daily opportunities)\n"
-    "🏆 Milestone Tracker (live profit updates)\n"
-    "💬 VIP Trader Chat\n\n"
-    "📊 30+ quality signals daily\n"
-    "🏆 100+ verified 10x-100x calls\n"
-    "👥 300+ active traders\n\n"
-    "💰 20% OFF ALL PLANS:\n"
-    "🔥 1 Month: $44 (was $55)\n"
-    "💎 3 Months: $63 (was $79)\n"
-    "👑 Lifetime: $79 (was $99) | LIMITED TIME\n\n"
-    "👇 Choose your plan"
-)
+        "🚀 Solana100xCall | Premium Signals\n\n"
+        "The real alpha. No fluff.\n\n"
+        "💎 What's Inside:\n"
+        "🥷 Sniper Signals (ultra-early entries)\n"
+        "⚡ ALPHA Signals (best daily opportunities)\n"
+        "💎 APEX Signals (peak confirmation)\n"
+        "🏆 Milestone Tracker (live profit updates)\n"
+        "💬 VIP Trader Chat\n\n"
+        "📊 30+ quality signals daily\n"
+        "🏆 100+ verified 10x-100x calls\n"
+        "👥 300+ active traders\n\n"
+        "💰 20% OFF ALL PLANS:\n"
+        "🔥 1 Month: $44 (was $55)\n"
+        "💎 3 Months: $63 (was $79)\n"
+        "👑 Lifetime: $79 (was $99) | LIMITED TIME\n\n"
+        "👇 Choose your plan"
+    )
 
     keyboard = InlineKeyboardMarkup([
     [InlineKeyboardButton("🔥 View Memberships", callback_data="view_memberships")],
@@ -1133,32 +1144,33 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_memberships(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
-        "💎 <b>Membership Plans</b>\n\n"
-        
-        "🔥 <b>1 MONTH</b> | <s>$55</s> → <b>$44</b>\n"
-        "• Full access for 30 days\n"
-        "• 300 elite wallets bonus\n\n"
-        
-        "💎 <b>3 MONTHS</b> | <s>$79</s> → <b>$63</b> ⭐ POPULAR\n"
-        "• Full access for 90 days\n"
-        "• 500 elite wallets bonus\n"
-        "• Save 52% vs monthly\n\n"
-        
-        "👑 <b>LIFETIME</b> | <s>$99</s> → <b>$79</b> 🏆 LIMITED TIME\n"
-        "• One payment, lifetime access\n"
-        "• 1,000 elite wallets bonus\n"
-        "• All future updates included\n\n"
-        
-        "🎯 <b>What You Get:</b>\n"
-        "🥷 Sniper Signals (ultra-early entries)\n"
-        "⚡ ALPHA Signals (best opportunities)\n"
-        "🏆 Milestone Tracker (live updates)\n"
-        "💬 Active Trader Chat\n\n"
-        
-        "📊 30+ signals daily with instant buy buttons\n\n"
-        
-        "👇 Choose your plan"
-    )
+    "💎 <b>Membership Plans</b>\n\n"
+    
+    "🔥 <b>1 MONTH</b> | <s>$55</s> → <b>$44</b>\n"
+    "• Full access for 30 days\n"
+    "• 300 elite wallets bonus\n\n"
+    
+    "💎 <b>3 MONTHS</b> | <s>$79</s> → <b>$63</b> ⭐ POPULAR\n"
+    "• Full access for 90 days\n"
+    "• 500 elite wallets bonus\n"
+    "• Save 52% vs monthly\n\n"
+    
+    "👑 <b>LIFETIME</b> | <s>$99</s> → <b>$79</b> 🏆 LIMITED TIME\n"
+    "• One payment, lifetime access\n"
+    "• 1,000 elite wallets bonus\n"
+    "• All future updates included\n\n"
+    
+    "🎯 <b>What You Get:</b>\n"
+    "🥷 Sniper Signals (ultra-early entries)\n"
+    "⚡ ALPHA Signals (best opportunities)\n"
+    "💎 APEX Signals (peak confirmation)\n"
+    "🏆 Milestone Tracker (live updates)\n"
+    "💬 Active Trader Chat\n\n"
+    
+    "📊 30+ signals daily with instant buy buttons\n\n"
+    
+    "👇 Choose your plan"
+)
     
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🔥 1 Month | $44", callback_data="plan_1month")],
