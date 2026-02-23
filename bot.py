@@ -553,9 +553,9 @@ async def payment_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
     
     keyboard = InlineKeyboardMarkup([
-    [InlineKeyboardButton("🚀 Subscribe Now", url=MEMBERSHIP_LINK)],
-    [InlineKeyboardButton("⬅️ Back", callback_data="go_home")]
-])
+        [InlineKeyboardButton("🚀 Subscribe Now", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("⬅️ Back", callback_data="view_memberships")]  # ← CAMBIO
+    ])
     
     await update.callback_query.edit_message_text(
         text=text,
@@ -637,7 +637,7 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🪙 Pay with SOL / BNB / ETH", url=MEMBERSHIP_LINK)],
-        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
+        [InlineKeyboardButton("⬅️ Back", callback_data="view_memberships")]  # ← CAMBIO
     ])
 
     await update.callback_query.edit_message_text(
@@ -668,7 +668,7 @@ async def show_3month(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🪙 Pay with SOL / BNB / ETH", url=MEMBERSHIP_LINK)],
-        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
+        [InlineKeyboardButton("⬅️ Back", callback_data="view_memberships")]  # ← CAMBIO
     ])
 
     await update.callback_query.edit_message_text(
@@ -699,7 +699,7 @@ async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🪙 Pay with SOL / BNB / ETH", url=MEMBERSHIP_LINK)],
-        [InlineKeyboardButton("⬅️ Return to Menu", callback_data="go_home")]
+        [InlineKeyboardButton("⬅️ Back", callback_data="view_memberships")]  # ← CAMBIO
     ])
 
     await update.callback_query.edit_message_text(
@@ -1211,9 +1211,10 @@ async def show_testimonials(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
     
     keyboard = InlineKeyboardMarkup([
-    [InlineKeyboardButton("🔥 Get Access Now", url=MEMBERSHIP_LINK)],
-    [InlineKeyboardButton("⬅️ Back to Menu", callback_data="go_home")]
-])
+        [InlineKeyboardButton("🚀 Get Lifetime | $79", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton("💎 View All Plans", callback_data="view_memberships")],
+        [InlineKeyboardButton("⬅️ Back", callback_data="view_memberships")]  # ← CAMBIO
+    ])
     
     await update.callback_query.answer()
     await update.callback_query.edit_message_text(
