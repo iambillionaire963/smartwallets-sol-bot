@@ -31,7 +31,7 @@ ADMIN_ID = 7906225936
 BANNER_PATH = Path(__file__).parent / "assets" / "banner.png"
 
 # -------- Flash sale helpers --------
-FLASH_SALE_END = dt(2026, 3, 30, 23, 59, 59, tzinfo=timezone.utc)  # Sunday March 30, 11:59 PM UTC
+FLASH_SALE_END = dt(2026, 3, 30, 23, 59, 59, tzinfo=timezone.utc)  # Monday March 30, 11:59 PM UTC
 
 def is_flash_sale_active() -> bool:
     return dt.now(timezone.utc) < FLASH_SALE_END
@@ -175,7 +175,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     sale_active = is_flash_sale_active()
     sale_banner = "🔥 Extended by popular demand! | 50% OFF LIFETIME\n" if sale_active else ""
-    lifetime_label = f"👑 Lifetime: ${get_lifetime_price()} (was $99)\n⏰ Ends Sunday, March 30 at 11:59 PM\n\n" if sale_active else f"👑 Lifetime: ${get_lifetime_price()}\n\n"
+    lifetime_label = f"👑 Lifetime: ${get_lifetime_price()} (was $99)\n⏰ Ends Monday, March 30 at 11:59 PM\n\n" if sale_active else f"👑 Lifetime: ${get_lifetime_price()}\n\n"
     message = (
         "🚀 Solana100xCall | Premium Signals\n\n"
         "The real alpha. No fluff.\n\n"
@@ -505,7 +505,7 @@ async def compare_plans(update: Update, context: ContextTypes.DEFAULT_TYPE):
     wallets_k = f"{lifetime_wallets // 1000}K" if lifetime_wallets >= 1000 else str(lifetime_wallets)
     sale_header = (
         f"🔥 *Extended by popular demand! Lifetime 50% OFF*\n"
-        "*Ends Sunday, March 30 at 11:59 PM*\n\n"
+        "*Ends Monday, March 30 at 11:59 PM*\n\n"
     ) if sale_active else ""
     math_block = (
         f"💡 *Quick Math:*\n"
@@ -515,7 +515,7 @@ async def compare_plans(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"→ Get {lifetime_wallets // 500}x more wallets ({lifetime_wallets:,} vs 500)\n\n"
         f"🏆 *No-Brainer:*\n"
         f"Lifetime is cheaper than 3-Month right now.\n"
-        + ("⏰ Price increases Sunday, March 30 at 11:59 PM.\n\n" if sale_active else "\n")
+        + ("⏰ Price increases Monday, March 30 at 11:59 PM.\n\n" if sale_active else "\n")
     )
     text = (
         "📊 *Compare Plans*\n\n"
@@ -727,9 +727,9 @@ async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
     lifetime_price = get_lifetime_price()
     lifetime_wallets = get_lifetime_wallets()
     sale_line = (
-        f"🔥 <b>Extended by popular demand! | ENDS Sunday, March 30 at 11:59 PM</b>\n"
+        f"🔥 <b>Extended by popular demand! | ENDS Monday, March 30 at 11:59 PM</b>\n"
     ) if sale_active else ""
-    deadline_line = "⏰ <b>This price ends Sunday, March 30 at 11:59 PM</b>\n\n" if sale_active else ""
+    deadline_line = "⏰ <b>This price ends Monday, March 30 at 11:59 PM</b>\n\n" if sale_active else ""
     text = (
     "👑 <b>Lifetime Access</b>\n"
     f"<s>$99</s> → <b>${lifetime_price}</b> (50% OFF)\n\n"
@@ -1097,7 +1097,7 @@ async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     sale_active = is_flash_sale_active()
     sale_banner = "🔥 Extended by popular demand! | 50% OFF LIFETIME\n" if sale_active else ""
-    lifetime_label = f"👑 Lifetime: ${get_lifetime_price()} (was $99)\n⏰ Ends Sunday, March 30 at 11:59 PM\n\n" if sale_active else f"👑 Lifetime: ${get_lifetime_price()}\n\n"
+    lifetime_label = f"👑 Lifetime: ${get_lifetime_price()} (was $99)\n⏰ Ends Monday, March 30 at 11:59 PM\n\n" if sale_active else f"👑 Lifetime: ${get_lifetime_price()}\n\n"
     message = (
         "🚀 Solana100xCall | Premium Signals\n\n"
         "The real alpha. No fluff.\n\n"
@@ -1199,10 +1199,10 @@ async def show_memberships(update: Update, context: ContextTypes.DEFAULT_TYPE):
     sale_header = (
         "🔥 Extended by popular demand! | 50% OFF LIFETIME\n"
         f"👑 Lifetime: <b>${lifetime_price}</b> (was $99)\n"
-        "⏰ Ends Sunday, March 30 at 11:59 PM\n\n"
+        "⏰ Ends Monday, March 30 at 11:59 PM\n\n"
     ) if sale_active else f"👑 Lifetime: <b>${lifetime_price}</b>\n\n"
     lifetime_badge = "🔥 Extended by popular demand!" if sale_active else ""
-    sale_end_line = "• 50% OFF ends Sunday, March 30 at 11:59 PM\n" if sale_active else ""
+    sale_end_line = "• 50% OFF ends Monday, March 30 at 11:59 PM\n" if sale_active else ""
     text = (
     "💎 <b>Membership Plans</b>\n\n"
 
