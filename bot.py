@@ -34,13 +34,13 @@ BANNER_PATH = Path(__file__).parent / "assets" / "banner.png"
 FLASH_SALE_END = dt(2026, 3, 30, 23, 59, 59, tzinfo=timezone.utc)  # Monday March 30, 11:59 PM UTC
 
 def is_flash_sale_active() -> bool:
-    return dt.now(timezone.utc) < FLASH_SALE_END
+    return False  # Flash sale ended
 
 def get_lifetime_price() -> int:
     return 49 if is_flash_sale_active() else 79
 
 def get_lifetime_wallets() -> int:
-    return 2000 if is_flash_sale_active() else 1000
+    return 2000  # Lifetime always includes 2K wallets
 
 
 # -------- Broadcast logging helpers (disk-aware for Render) --------
