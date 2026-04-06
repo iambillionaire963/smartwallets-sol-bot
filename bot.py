@@ -350,14 +350,14 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ])
 
     sale_active = is_flash_sale_active()
-    lifetime_price = get_lifetime_price()
-    sale_tag = " (Extended by popular demand!)" if sale_active else ""
+    sale_banner = "🔥 72H FLASH SALE | 40% OFF 3-Months & Lifetime\n⏰ Ends Wednesday, April 8\n\n" if sale_active else ""
     text = (
     "💳 *Subscribe*\n\n"
+    f"{sale_banner}"
     "Choose your plan:\n"
     "🔥 1 Month: $44\n"
-    "💎 3 Months: $63\n"
-    f"👑 Lifetime: ${lifetime_price}{sale_tag}\n\n"
+    f"💎 3 Months: ${get_3month_price()}\n"
+    f"👑 Lifetime: ${get_lifetime_price()}\n\n"
     "*What's Included:*\n"
     "🥷 Sniper Signals (early entries)\n"
     "⚡ ALPHA Signals (best opportunities)\n"
@@ -750,7 +750,7 @@ async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
     "🎁 <b>EXCLUSIVE BONUS:</b> 2,000 elite wallets\n"
     "(import-ready for Trojan, Axiom, Padre, GMGN)\n\n"
     "♾️ All future updates included forever\n\n"
-    "💳 Tap below to lock in $79 Lifetime"
+    f"💳 Tap below to lock in ${get_lifetime_price()} Lifetime"
 )
 
     keyboard = InlineKeyboardMarkup([
@@ -776,14 +776,14 @@ async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ])
 
     sale_active = is_flash_sale_active()
-    lifetime_price = get_lifetime_price()
-    sale_tag = " (Extended by popular demand!)" if sale_active else ""
+    sale_banner = "🔥 72H FLASH SALE | 40% OFF 3-Months & Lifetime\n⏰ Ends Wednesday, April 8\n\n" if sale_active else ""
     text = (
     "💳 *Get Access*\n\n"
+    f"{sale_banner}"
     "Choose your plan:\n"
     "🔥 1 Month: $44\n"
-    "💎 3 Months: $63\n"
-    f"👑 Lifetime: ${lifetime_price}{sale_tag}\n\n"
+    f"💎 3 Months: ${get_3month_price()}\n"
+    f"👑 Lifetime: ${get_lifetime_price()}\n\n"
     "*What's Included:*\n"
     "🥷 Sniper Signals (early entries)\n"
     "⚡ ALPHA Signals (best opportunities)\n"
