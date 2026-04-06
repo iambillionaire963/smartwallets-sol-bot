@@ -31,13 +31,16 @@ ADMIN_ID = 7906225936
 BANNER_PATH = Path(__file__).parent / "assets" / "banner.png"
 
 # -------- Flash sale helpers --------
-FLASH_SALE_END = dt(2026, 3, 30, 23, 59, 59, tzinfo=timezone.utc)  # Monday March 30, 11:59 PM UTC
+FLASH_SALE_END = dt(2026, 4, 8, 23, 59, 59, tzinfo=timezone.utc)  # Wednesday April 8, 11:59 PM UTC
 
 def is_flash_sale_active() -> bool:
-    return False  # Flash sale ended
+    return dt.now(timezone.utc) < FLASH_SALE_END
 
 def get_lifetime_price() -> int:
-    return 49 if is_flash_sale_active() else 79
+    return 59 if is_flash_sale_active() else 79
+
+def get_3month_price() -> int:
+    return 47 if is_flash_sale_active() else 63
 
 def get_lifetime_wallets() -> int:
     return 2000  # Lifetime always includes 2K wallets
@@ -173,6 +176,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await send_banner(context.bot, user.id)
 
+    sale_active = is_flash_sale_active()
+    sale_banner = "🔥 72H FLASH SALE | 40% OFF 3-Months & Lifetime\n⏰ Ends Wednesday, April 8 at 11:59 PM\n\n" if sale_active else ""
     message = (
         "🚀 Solana100xCall | Premium Signals\n\n"
         "The real alpha. No fluff.\n\n"
@@ -185,9 +190,10 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "📊 30+ quality signals daily\n"
         "🏆 100+ verified 10x-100x calls\n"
         "👥 300+ active traders\n\n"
-        "🔥 1 Month: $44 (20% off)\n"
-        "💎 3 Months: $63 (20% off)\n"
-        "👑 Lifetime: $79 (20% off)\n\n"
+        f"{sale_banner}"
+        "🔥 1 Month: $44\n"
+        f"💎 3 Months: ${get_3month_price()}\n"
+        f"👑 Lifetime: ${get_lifetime_price()}\n\n"
         "👇 Choose your plan"
     )
 
@@ -497,21 +503,22 @@ async def show_signals_preview(update: Update, context: ContextTypes.DEFAULT_TYP
 async def compare_plans(update: Update, context: ContextTypes.DEFAULT_TYPE):
     sale_active = is_flash_sale_active()
     lifetime_price = get_lifetime_price()
+    three_month_price = get_3month_price()
     lifetime_wallets = get_lifetime_wallets()
     wallets_k = f"{lifetime_wallets // 1000}K" if lifetime_wallets >= 1000 else str(lifetime_wallets)
     sale_header = (
-        f"🔥 *Extended by popular demand! Lifetime 50% OFF*\n"
-        "*Ends Monday, March 30 at 11:59 PM*\n\n"
+        f"🔥 *72H FLASH SALE | 40% OFF 3-Months & Lifetime*\n"
+        "*Ends Wednesday, April 8 at 11:59 PM*\n\n"
     ) if sale_active else ""
     math_block = (
         f"💡 *Quick Math:*\n"
-        f"Lifetime at ${lifetime_price} vs 3-Month at $63?\n"
+        f"Lifetime at ${lifetime_price} vs 3-Month at ${three_month_price}?\n"
         f"→ Pay LESS for lifetime access\n"
-        f"→ Save ${63 - lifetime_price} immediately + never pay again\n"
+        f"→ Save ${three_month_price - lifetime_price + 12} immediately + never pay again\n"
         f"→ Get {lifetime_wallets // 500}x more wallets ({lifetime_wallets:,} vs 500)\n\n"
         f"🏆 *No-Brainer:*\n"
         f"Lifetime is cheaper than 3-Month right now.\n"
-        + ("⏰ Price increases Monday, March 30 at 11:59 PM.\n\n" if sale_active else "\n")
+        + ("⏰ Prices return to normal Thursday, April 9.\n\n" if sale_active else "\n")
     )
     text = (
         "📊 *Compare Plans*\n\n"
@@ -528,7 +535,7 @@ async def compare_plans(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"Elite Wallets    |300 |500 |{wallets_k:>3}\n"
         "Future Updates   | ❌ | ❌ | ✅\n"
         "Never Pay Again  | ❌ | ❌ | ✅\n"
-        f"Price (NOW)      |$44 |$63 |${lifetime_price}\n"
+        f"Price (NOW)      |$44 |${three_month_price} |${lifetime_price}\n"
         "```\n\n"
 
         "💰 *Cost Breakdown:*\n"
@@ -541,11 +548,10 @@ async def compare_plans(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "👇 Choose your plan"
     )
     
-    lifetime_badge = " (Extended!)" if sale_active else ""
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🔥 1 Month | $44", url=MEMBERSHIP_LINK)],
-        [InlineKeyboardButton("💎 3 Months | $63 (POPULAR)", url=MEMBERSHIP_LINK)],
-        [InlineKeyboardButton(f"👑 Lifetime | ${lifetime_price}{lifetime_badge}", url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton(f"💎 3 Months | ${three_month_price}" + (" 🔥" if sale_active else " (POPULAR)"), url=MEMBERSHIP_LINK)],
+        [InlineKeyboardButton(f"👑 Lifetime | ${lifetime_price}" + (" 🔥" if sale_active else ""), url=MEMBERSHIP_LINK)],
         [InlineKeyboardButton("⬅️ Back", callback_data="view_memberships")]
     ])
 
@@ -688,9 +694,14 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def show_3month(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    sale_active = is_flash_sale_active()
+    discount_label = "40% OFF" if sale_active else "20% OFF"
+    sale_line = "🔥 <b>72H FLASH SALE | Ends Wednesday, April 8 at 11:59 PM</b>\n\n" if sale_active else ""
+
     text = (
     "💎 <b>3 Months Access</b>\n"
-    "<s>$79</s> → <b>$63</b> (20% OFF)\n\n"
+    f"<s>$79</s> → <b>${get_3month_price()}</b> ({discount_label})\n\n"
+    f"{sale_line}"
     "<b>What's Included:</b>\n"
     "🥷 Sniper Signals (ultra-early entries)\n"
     "⚡ ALPHA Signals (best daily opportunities)\n"
@@ -719,9 +730,14 @@ async def show_3month(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    sale_active = is_flash_sale_active()
+    discount_label = "40% OFF" if sale_active else "20% OFF"
+    sale_line = "🔥 <b>72H FLASH SALE | Ends Wednesday, April 8 at 11:59 PM</b>\n\n" if sale_active else ""
+
     text = (
     "👑 <b>Lifetime Access</b>\n"
-    "<s>$99</s> → <b>$79</b> (20% OFF)\n\n"
+    f"<s>$99</s> → <b>${get_lifetime_price()}</b> ({discount_label})\n\n"
+    f"{sale_line}"
     "One payment. Never pay again.\n\n"
     "<b>What's Included:</b>\n"
     "🥷 Sniper Signals (ultra-early entries)\n"
@@ -1082,6 +1098,8 @@ async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    sale_active = is_flash_sale_active()
+    sale_banner = "🔥 72H FLASH SALE | 40% OFF 3-Months & Lifetime\n⏰ Ends Wednesday, April 8 at 11:59 PM\n\n" if sale_active else ""
     message = (
         "🚀 Solana100xCall | Premium Signals\n\n"
         "The real alpha. No fluff.\n\n"
@@ -1094,9 +1112,10 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "📊 30+ quality signals daily\n"
         "🏆 100+ verified 10x-100x calls\n"
         "👥 300+ active traders\n\n"
-        "🔥 1 Month: $44 (20% off)\n"
-        "💎 3 Months: $63 (20% off)\n"
-        "👑 Lifetime: $79 (20% off)\n\n"
+        f"{sale_banner}"
+        "🔥 1 Month: $44\n"
+        f"💎 3 Months: ${get_3month_price()}\n"
+        f"👑 Lifetime: ${get_lifetime_price()}\n\n"
         "👇 Choose your plan"
     )
 
@@ -1176,19 +1195,29 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
             context.chat_data["menu_chat_id"] = menu_msg.chat.id
 
 async def show_memberships(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    sale_active = is_flash_sale_active()
+    sale_header = (
+        "🔥 <b>72H FLASH SALE | 40% OFF</b>\n"
+        "⏰ Ends Wednesday, April 8 at 11:59 PM\n\n"
+    ) if sale_active else ""
+    three_month_badge = " 🔥 40% OFF" if sale_active else ""
+    lifetime_badge = " 🔥 40% OFF" if sale_active else ""
+
     text = (
     "💎 <b>Membership Plans</b>\n\n"
+
+    f"{sale_header}"
 
     "🔥 <b>1 MONTH</b> | <s>$55</s> → <b>$44</b>\n"
     "• Full access for 30 days\n"
     "• 300 elite wallets bonus\n\n"
 
-    "💎 <b>3 MONTHS</b> | <s>$79</s> → <b>$63</b> ⭐ POPULAR\n"
+    f"💎 <b>3 MONTHS</b> | <s>$79</s> → <b>${get_3month_price()}</b>{three_month_badge}\n"
     "• Full access for 90 days\n"
     "• 500 elite wallets bonus\n"
     "• Save 52% vs monthly\n\n"
 
-    "👑 <b>LIFETIME</b> | <s>$99</s> → <b>$79</b>\n"
+    f"👑 <b>LIFETIME</b> | <s>$99</s> → <b>${get_lifetime_price()}</b>{lifetime_badge}\n"
     "• One payment, lifetime access\n"
     "• 2,000 elite wallets bonus\n"
     "• All future updates included\n\n"
@@ -1207,8 +1236,8 @@ async def show_memberships(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("🔥 1 Month | $44", callback_data="plan_1month")],
-        [InlineKeyboardButton("💎 3 Months | $63 (POPULAR)", callback_data="plan_3month")],
-        [InlineKeyboardButton("👑 Lifetime | $79", callback_data="plan_lifetime")],
+        [InlineKeyboardButton(f"💎 3 Months | ${get_3month_price()}" + (" 🔥" if is_flash_sale_active() else " (POPULAR)"), callback_data="plan_3month")],
+        [InlineKeyboardButton(f"👑 Lifetime | ${get_lifetime_price()}" + (" 🔥" if is_flash_sale_active() else ""), callback_data="plan_lifetime")],
         [InlineKeyboardButton("📊 Compare Plans", callback_data="compare_plans")],
         [InlineKeyboardButton("💰 ROI Calculator", callback_data="roi_calculator")],
         [InlineKeyboardButton("💳 Payment Info", callback_data="payment_info")],
