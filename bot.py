@@ -29,6 +29,7 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 MEMBERSHIP_LINK = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
 ADMIN_ID = 7906225936
 BANNER_PATH = Path(__file__).parent / "assets" / "banner.png"
+BANNER_FILE_ID = "AgACAgQAAxkDAAEgUPZp04yOXVC29QcONSf6UEeJJRMElAACmAxrG0fcoFLjzmAOtbn14QEAAwIAA3cAAzsE"  # Pre-uploaded to Telegram for instant delivery
 
 # -------- Flash sale helpers --------
 FLASH_SALE_END = dt(2026, 4, 8, 23, 59, 59, tzinfo=timezone.utc)  # Wednesday April 8, 11:59 PM UTC
@@ -120,12 +121,17 @@ def get_all_user_ids():
 
 async def send_banner(bot, chat_id: int):
     """
-    Sends the banner image safely:
-    1) Try local file (most reliable).
-    2) If BANNER_URL is set, download bytes, verify it's an image, and send.
-    3) Fallback to sending a text link so the flow never crashes.
+    Sends the banner image using pre-uploaded file_id for instant delivery.
+    Falls back to local file if file_id fails.
     """
-    # 1) Local file first
+    # 1) Try file_id first (instant, no upload)
+    try:
+        await bot.send_photo(chat_id=chat_id, photo=BANNER_FILE_ID)
+        return
+    except Exception as e:
+        logging.warning(f"[banner] file_id send failed: {e}, trying local file")
+
+    # 2) Fallback to local file
     try:
         if BANNER_PATH.exists():
             with open(BANNER_PATH, "rb") as f:
@@ -133,25 +139,6 @@ async def send_banner(bot, chat_id: int):
             return
     except Exception as e:
         logging.warning(f"[banner] local send failed: {e}")
-
-    # 2) Remote URL -> download bytes and validate content-type
-    BANNER_URL = None  # Set to URL if needed
-    if BANNER_URL:
-        try:
-            async with httpx.AsyncClient(follow_redirects=True, timeout=10) as client:
-                r = await client.get(BANNER_URL)
-                r.raise_for_status()
-                ctype = r.headers.get("content-type", "")
-                if not ctype.startswith("image/"):
-                    raise ValueError(f"URL is not an image (content-type: {ctype})")
-                await bot.send_photo(chat_id=chat_id, photo=r.content)
-            return
-        except (BadRequest, TelegramError, Exception) as e:
-            logging.warning(f"[banner] url send failed: {e} (url={BANNER_URL})")
-
-    # 3) Final fallback: plain link
-    link_text = BANNER_URL or "banner image unavailable"
-    await bot.send_message(chat_id=chat_id, text=f"🖼️ {link_text}")
 
 
 
