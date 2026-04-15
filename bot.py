@@ -32,16 +32,16 @@ BANNER_PATH = Path(__file__).parent / "assets" / "banner.png"
 BANNER_FILE_ID = "AgACAgQAAxkDAAEgUPZp04yOXVC29QcONSf6UEeJJRMElAACmAxrG0fcoFLjzmAOtbn14QEAAwIAA3cAAzsE"  # Pre-uploaded to Telegram for instant delivery
 
 # -------- Flash sale helpers --------
-FLASH_SALE_END = dt(2026, 4, 8, 23, 59, 59, tzinfo=timezone.utc)  # Wednesday April 8, 11:59 PM UTC
+FLASH_SALE_END = dt(2026, 4, 22, 23, 59, 59, tzinfo=timezone.utc)  # Tuesday April 22, 11:59 PM UTC
 
 def is_flash_sale_active() -> bool:
     return dt.now(timezone.utc) < FLASH_SALE_END
 
 def get_lifetime_price() -> int:
-    return 59 if is_flash_sale_active() else 79
+    return 49 if is_flash_sale_active() else 99  # 50% OFF - Last chance before removal
 
 def get_3month_price() -> int:
-    return 47 if is_flash_sale_active() else 63
+    return 63  # No change - standard 20% OFF
 
 def get_lifetime_wallets() -> int:
     return 2000  # Lifetime always includes 2K wallets
@@ -164,7 +164,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await send_banner(context.bot, user.id)
 
     sale_active = is_flash_sale_active()
-    sale_banner = "🔥 72H FLASH SALE | 40% OFF 3-Months & Lifetime\n⏰ Ends Wednesday, April 8 at 11:59 PM\n\n" if sale_active else ""
+    sale_banner = "🚨 LAST LIFETIME SLOTS | 50% OFF\n⚠️ This option will disappear soon\n⏰ Last chance until April 22\n\n" if sale_active else ""
     message = (
         "🚀 Solana100xCall | Premium Signals\n\n"
         "The real alpha. No fluff.\n\n"
@@ -337,7 +337,7 @@ async def subscribe_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ])
 
     sale_active = is_flash_sale_active()
-    sale_banner = "🔥 72H FLASH SALE | 40% OFF 3-Months & Lifetime\n⏰ Ends Wednesday, April 8\n\n" if sale_active else ""
+    sale_banner = "🚨 LAST LIFETIME SLOTS | 50% OFF\n⚠️ This option will disappear soon\n⏰ Last chance until April 22\n\n" if sale_active else ""
     text = (
     "💳 *Subscribe*\n\n"
     f"{sale_banner}"
@@ -494,8 +494,9 @@ async def compare_plans(update: Update, context: ContextTypes.DEFAULT_TYPE):
     lifetime_wallets = get_lifetime_wallets()
     wallets_k = f"{lifetime_wallets // 1000}K" if lifetime_wallets >= 1000 else str(lifetime_wallets)
     sale_header = (
-        f"🔥 *72H FLASH SALE | 40% OFF 3-Months & Lifetime*\n"
-        "*Ends Wednesday, April 8 at 11:59 PM*\n\n"
+        f"🚨 *LAST LIFETIME SLOTS | 50% OFF*\n"
+        "*⚠️ Lifetime will disappear soon - Last chance*\n"
+        "*⏰ Until April 22, 11:59 PM UTC*\n\n"
     ) if sale_active else ""
     math_block = (
         f"💡 *Quick Math:*\n"
@@ -681,9 +682,8 @@ async def show_1month(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def show_3month(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    sale_active = is_flash_sale_active()
-    discount_label = "40% OFF" if sale_active else "20% OFF"
-    sale_line = "🔥 <b>72H FLASH SALE | Ends Wednesday, April 8 at 11:59 PM</b>\n\n" if sale_active else ""
+    discount_label = "20% OFF"
+    sale_line = ""
 
     text = (
     "💎 <b>3 Months Access</b>\n"
@@ -718,8 +718,8 @@ async def show_3month(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_lifetime(update: Update, context: ContextTypes.DEFAULT_TYPE):
     sale_active = is_flash_sale_active()
-    discount_label = "40% OFF" if sale_active else "20% OFF"
-    sale_line = "🔥 <b>72H FLASH SALE | Ends Wednesday, April 8 at 11:59 PM</b>\n\n" if sale_active else ""
+    discount_label = "50% OFF" if sale_active else "20% OFF"
+    sale_line = "🚨 <b>LAST SLOTS | This option will disappear soon</b>\n⏰ Last chance until April 22\n\n" if sale_active else ""
 
     text = (
     "👑 <b>Lifetime Access</b>\n"
@@ -763,7 +763,7 @@ async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ])
 
     sale_active = is_flash_sale_active()
-    sale_banner = "🔥 72H FLASH SALE | 40% OFF 3-Months & Lifetime\n⏰ Ends Wednesday, April 8\n\n" if sale_active else ""
+    sale_banner = "🚨 LAST LIFETIME SLOTS | 50% OFF\n⚠️ This option will disappear soon\n⏰ Last chance until April 22\n\n" if sale_active else ""
     text = (
     "💳 *Get Access*\n\n"
     f"{sale_banner}"
@@ -1086,7 +1086,7 @@ async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     sale_active = is_flash_sale_active()
-    sale_banner = "🔥 72H FLASH SALE | 40% OFF 3-Months & Lifetime\n⏰ Ends Wednesday, April 8 at 11:59 PM\n\n" if sale_active else ""
+    sale_banner = "🚨 LAST LIFETIME SLOTS | 50% OFF\n⚠️ This option will disappear soon\n⏰ Last chance until April 22\n\n" if sale_active else ""
     message = (
         "🚀 Solana100xCall | Premium Signals\n\n"
         "The real alpha. No fluff.\n\n"
@@ -1184,11 +1184,12 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def show_memberships(update: Update, context: ContextTypes.DEFAULT_TYPE):
     sale_active = is_flash_sale_active()
     sale_header = (
-        "🔥 <b>72H FLASH SALE | 40% OFF</b>\n"
-        "⏰ Ends Wednesday, April 8 at 11:59 PM\n\n"
+        "🚨 <b>LAST LIFETIME SLOTS | 50% OFF</b>\n"
+        "⚠️ This option will disappear soon\n"
+        "⏰ Last chance until April 22\n\n"
     ) if sale_active else ""
-    three_month_badge = " 🔥 40% OFF" if sale_active else ""
-    lifetime_badge = " 🔥 40% OFF" if sale_active else ""
+    three_month_badge = ""  # No badge for 3-month
+    lifetime_badge = " 🚨 LAST SLOTS" if sale_active else ""
 
     text = (
     "💎 <b>Membership Plans</b>\n\n"
