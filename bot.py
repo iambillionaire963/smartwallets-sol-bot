@@ -26,13 +26,13 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 # -------- Config --------
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-ADMIN_ID = int(os.getenv("ADMIN_ID", "6793425735"))
+ADMIN_ID = 7906225936
 BANNER_PATH = Path(__file__).parent / "assets" / "banner.png"
 BANNER_FILE_ID = "AgACAgQAAxkDAAEgUPZp04yOXVC29QcONSf6UEeJJRMElAACmAxrG0fcoFLjzmAOtbn14QEAAwIAA3cAAzsE"
 
 # -------- Tier payment links (replace placeholders when ready) --------
-STARTER_LINK = "https://t.me/onlysubsbot?start=STARTER_PLACEHOLDER"
-PRO_LINK     = "https://t.me/onlysubsbot?start=PRO_PLACEHOLDER"
+STARTER_LINK = "https://t.me/onlysubsbot?start=yQYRhceqqCNtSKSKWHDCK"
+PRO_LINK     = "https://t.me/onlysubsbot?start=reMJTTEgZfRQqyDvwrVaV"
 ELITE_LINK   = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
 
 # -------- Tier pricing --------
@@ -144,18 +144,18 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🚀 <b>Solana100xCall | Premium Signals</b>\n\n"
         "Real-time Solana signals powered by smart wallets.\n\n"
         "<b>What's Inside:</b>\n"
-        "· Sniper Signals — ultra-early entries\n"
-        "· ALPHA Signals — best daily opportunities\n"
-        "· APEX Signals — peak confirmation\n"
-        "· Milestone Tracker — live profit updates\n"
-        "· VIP Trader Chat\n\n"
-        "30+ daily signals\n"
-        "100+ verified 10x–100x calls\n"
-        "300+ active traders\n\n"
+        "🎯 Sniper Signals (ultra-early entries)\n"
+        "⚡ ALPHA Signals (best daily opportunities)\n"
+        "💎 APEX Signals (peak confirmation)\n"
+        "🏆 Milestone Tracker (live profit updates)\n"
+        "💬 VIP Trader Chat\n\n"
+        "📊 30+ quality signals daily\n"
+        "🏆 100+ verified 10x-100x calls\n"
+        "👥 300+ active traders\n\n"
         "───────────────────────\n"
-        f"🟢 Starter — ${STARTER_PRICE}/mo\n"
-        f"🔵 Pro — ${PRO_PRICE}/mo\n"
-        f"🟣 Elite — ${ELITE_PRICE}/mo\n\n"
+        f"🟢 Starter ${STARTER_PRICE}/mo\n"
+        f"🔵 Pro ${PRO_PRICE}/mo\n"
+        f"🟣 Elite ${ELITE_PRICE}/mo\n\n"
         "👇 Choose your plan below."
     )
 
@@ -665,18 +665,18 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🚀 <b>Solana100xCall | Premium Signals</b>\n\n"
         "Real-time Solana signals powered by smart wallets.\n\n"
         "<b>What's Inside:</b>\n"
-        "· Sniper Signals — ultra-early entries\n"
-        "· ALPHA Signals — best daily opportunities\n"
-        "· APEX Signals — peak confirmation\n"
-        "· Milestone Tracker — live profit updates\n"
-        "· VIP Trader Chat\n\n"
-        "30+ daily signals\n"
-        "100+ verified 10x–100x calls\n"
-        "300+ active traders\n\n"
+        "🎯 Sniper Signals (ultra-early entries)\n"
+        "⚡ ALPHA Signals (best daily opportunities)\n"
+        "💎 APEX Signals (peak confirmation)\n"
+        "🏆 Milestone Tracker (live profit updates)\n"
+        "💬 VIP Trader Chat\n\n"
+        "📊 30+ quality signals daily\n"
+        "🏆 100+ verified 10x-100x calls\n"
+        "👥 300+ active traders\n\n"
         "───────────────────────\n"
-        f"🟢 Starter — ${STARTER_PRICE}/mo\n"
-        f"🔵 Pro — ${PRO_PRICE}/mo\n"
-        f"🟣 Elite — ${ELITE_PRICE}/mo\n\n"
+        f"🟢 Starter ${STARTER_PRICE}/mo\n"
+        f"🔵 Pro ${PRO_PRICE}/mo\n"
+        f"🟣 Elite ${ELITE_PRICE}/mo\n\n"
         "👇 Choose your plan below."
     )
 
