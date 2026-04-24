@@ -243,7 +243,7 @@ async def show_starter(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🌐 Pay with SOL / BNB / ETH", callback_data="coming_soon")],
+        [InlineKeyboardButton("🌐 Pay with SOL / BNB / ETH", url=STARTER_LINK)],
         [InlineKeyboardButton("← Back to Plans", callback_data="view_memberships")]
     ])
 
@@ -272,7 +272,7 @@ async def show_pro(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🌐 Pay with SOL / BNB / ETH", callback_data="coming_soon")],
+        [InlineKeyboardButton("🌐 Pay with SOL / BNB / ETH", url=PRO_LINK)],
         [InlineKeyboardButton("← Back to Plans", callback_data="view_memberships")]
     ])
 
