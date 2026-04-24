@@ -31,8 +31,8 @@ BANNER_PATH = Path(__file__).parent / "assets" / "banner.png"
 BANNER_FILE_ID = "AgACAgQAAxkDAAEgUPZp04yOXVC29QcONSf6UEeJJRMElAACmAxrG0fcoFLjzmAOtbn14QEAAwIAA3cAAzsE"
 
 # -------- Tier payment links (replace placeholders when ready) --------
-STARTER_LINK = "https://t.me/onlysubsbot?start=STARTER_PLACEHOLDER"
-PRO_LINK     = "https://t.me/onlysubsbot?start=PRO_PLACEHOLDER"
+STARTER_LINK = "https://t.me/onlysubsbot?start=yQYRhceqqCNtSKSKWHDCK"
+PRO_LINK     = "https://t.me/onlysubsbot?start=reMJTTEgZfRQqyDvwrVaV"
 ELITE_LINK   = "https://t.me/onlysubsbot?start=bXeGHtzWUbduBASZemGJf"
 
 # -------- Tier pricing --------
