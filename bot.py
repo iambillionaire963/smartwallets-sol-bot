@@ -144,15 +144,15 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🚀 <b>Solana100xCall | Premium Signals</b>\n\n"
         "Real-time signals powered by smart wallets.\n"
         "We track them. You enter early.\n\n"
-        "❌ No KOLs. ❌ No paid shills. ✅ Pure on-chain data.\n\n"
+        "No KOLs. No paid shills. Pure on-chain data.\n\n"
         "📊 30+ quality signals daily\n"
-        "🏆 150+ verified 10x–100x calls\n"
+        "🏆 100+ verified 10x–100x calls\n"
         "👥 300+ traders inside\n\n"
         "───────────────────────\n"
         f"🟢 Starter ${STARTER_PRICE}/mo\n"
         f"🔵 Pro ${PRO_PRICE}/mo\n"
         f"🟣 Elite ${ELITE_PRICE}/mo\n\n"
-        "👇 Choose your plan below."
+        "👇 Tap below to see all plans."
     )
 
     keyboard = InlineKeyboardMarkup([
@@ -184,24 +184,26 @@ async def show_memberships(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "💎 <b>Membership Plans</b>\n\n"
 
         f"🟢 <b>STARTER</b> — ${STARTER_PRICE}/mo\n"
-        "Ideal for traders looking to get in early on every move.\n"
-        "✅ Sniper Signals — ultra-early entries\n"
-        "✅ Instant alerts\n"
+        "The cheapest way to get early signals.\n"
+        "✅ Sniper Signals (ultra-early entries)\n"
+        "✅ Instant alerts (real-time notifications)\n"
         "🎁 500 Smart Wallets\n\n"
 
         f"🔵 <b>PRO</b> — ${PRO_PRICE}/mo  ·  POPULAR\n"
-        "Ideal for traders who want full signal coverage and deeper market insight.\n"
+        "The plan most traders actually use.\n"
         "✅ Everything in Starter, plus:\n"
-        "✅ ALPHA Signals\n"
-        "✅ Milestone Tracker\n"
+        "✅ ALPHA Signals (best daily opportunities)\n"
+        "✅ Milestone Tracker (alerts when tokens hit 2x)\n"
         "🎁 1,000 Smart Wallets\n\n"
 
         f"🟣 <b>ELITE</b> — ${ELITE_PRICE}/mo\n"
-        "Ideal for traders who operate at the highest level and want every edge available.\n"
+        "The full package with everything unlocked.\n"
         "✅ Everything in Pro, plus:\n"
-        "✅ APEX Signals\n"
+        "✅ APEX Signals (peak confirmation)\n"
         "✅ VIP Trader Chat\n"
         "🎁 2,000 Smart Wallets\n\n"
+
+        "<i>All Smart Wallets are import-ready for Axiom, Padre, GMGN.</i>\n\n"
 
         "⚡ Instant access after payment.\n"
         "👇 Choose your plan"
@@ -573,17 +575,17 @@ async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
         "🚀 <b>Solana100xCall | Premium Signals</b>\n\n"
-        "Real-time signals powered by smart wallets.\n"
+        "⚡️Real-time signals powered by smart wallets.\n"
         "We track them. You enter early.\n\n"
-        "❌ No KOLs. ❌ No paid shills. ✅ Pure on-chain data.\n\n"
+        "No KOLs. No paid shills. Pure on-chain data.\n\n"
         "📊 30+ quality signals daily\n"
-        "🏆 150+ verified 10x–100x calls\n"
+        "🏆 100+ verified 10x–100x calls\n"
         "👥 300+ traders inside\n\n"
         "───────────────────────\n"
         f"🟢 Starter ${STARTER_PRICE}/mo\n"
         f"🔵 Pro ${PRO_PRICE}/mo\n"
         f"🟣 Elite ${ELITE_PRICE}/mo\n\n"
-        "👇 Choose your plan below."
+        "👇 Tap below to see all plans."
     )
 
     keyboard = InlineKeyboardMarkup([
