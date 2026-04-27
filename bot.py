@@ -186,7 +186,7 @@ async def show_memberships(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"🟢 <b>STARTER</b> — ${STARTER_PRICE}/mo\n"
         "The cheapest way to get early signals.\n"
         "✅ Sniper Signals (ultra-early entries)\n"
-        "✅ Instant alerts (real-time notifications)\n"
+        "✅ Instant alerts\n"
         "🎁 500 Smart Wallets\n\n"
 
         f"🔵 <b>PRO</b> — ${PRO_PRICE}/mo  ·  POPULAR\n"
@@ -203,7 +203,10 @@ async def show_memberships(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "✅ VIP Trader Chat\n"
         "🎁 2,000 Smart Wallets\n\n"
 
-        "<i>All Smart Wallets are import-ready for Axiom, Padre, GMGN.</i>\n\n"
+        "───────────────────────\n\n"
+
+        "📡 Each signal type runs on its own private VIP channel.\n"
+        "🎁 Smart Wallets are ready to import into Axiom, Padre, and GMGN.\n\n"
 
         "⚡ Instant access after payment.\n"
         "👇 Choose your plan"
@@ -235,20 +238,21 @@ async def compare_plans(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "<pre>"
         "Feature              | Starter | Pro  | Elite\n"
         "─────────────────────────────────────────────\n"
+        "Instant Alerts       |   ✅   |  ✅  |  ✅\n"
         "Sniper Signals       |   ✅   |  ✅  |  ✅\n"
         "ALPHA Signals        |   ❌   |  ✅  |  ✅\n"
-        "APEX Signals         |   ❌   |  ❌  |  ✅\n"
         "Milestone Tracker    |   ❌   |  ✅  |  ✅\n"
+        "APEX Signals         |   ❌   |  ❌  |  ✅\n"
         "VIP Trader Chat      |   ❌   |  ❌  |  ✅\n"
         "Smart Wallets        |   500  | 1,000| 2,000\n"
         "─────────────────────────────────────────────\n"
-        f"Price/mo             |   ${STARTER_PRICE}  |  ${PRO_PRICE}  |  ${ELITE_PRICE}\n"
+        f"Price/month          |   ${STARTER_PRICE}  |  ${PRO_PRICE}  |  ${ELITE_PRICE}\n"
         "</pre>\n\n"
-        "<b>Quick take:</b>\n"
-        f"Starter ${STARTER_PRICE} — early entries, low commitment\n"
-        f"Pro ${PRO_PRICE} — best value, full signal coverage\n"
-        f"Elite ${ELITE_PRICE} — maximum data + community access\n\n"
-        "Choose your plan below."
+        "<b>💡 Quick take</b>\n\n"
+        f"🟢 <b>Starter ${STARTER_PRICE}</b> → Sniper signals\n"
+        f"🔵 <b>Pro ${PRO_PRICE}</b> → Sniper + ALPHA + Milestone Tracker\n"
+        f"🟣 <b>Elite ${ELITE_PRICE}</b> → Everything + APEX + VIP Chat\n\n"
+        "👇 Select and pay your plan"
     )
 
     keyboard = InlineKeyboardMarkup([
