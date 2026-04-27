@@ -142,16 +142,12 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     message = (
         "🚀 <b>Solana100xCall | Premium Signals</b>\n\n"
-        "Real-time Solana signals powered by smart wallets.\n\n"
-        "<b>What's Inside:</b>\n"
-        "🎯 Sniper Signals (ultra-early entries)\n"
-        "⚡ ALPHA Signals (best daily opportunities)\n"
-        "💎 APEX Signals (peak confirmation)\n"
-        "🏆 Milestone Tracker (live profit updates)\n"
-        "💬 VIP Trader Chat\n\n"
+        "Real-time signals powered by smart wallets.\n"
+        "We track them. You enter early.\n\n"
+        "❌ No KOLs. ❌ No paid shills. ✅ Pure on-chain data.\n\n"
         "📊 30+ quality signals daily\n"
-        "🏆 100+ verified 10x-100x calls\n"
-        "👥 300+ active traders\n\n"
+        "🏆 150+ verified 10x–100x calls\n"
+        "👥 300+ traders inside\n\n"
         "───────────────────────\n"
         f"🟢 Starter ${STARTER_PRICE}/mo\n"
         f"🔵 Pro ${PRO_PRICE}/mo\n"
@@ -191,120 +187,34 @@ async def show_memberships(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "Ideal for traders looking to get in early on every move.\n"
         "✅ Sniper Signals — ultra-early entries\n"
         "✅ Instant alerts\n"
-        "✅ 500 Smart Wallets\n\n"
+        "🎁 500 Smart Wallets\n\n"
 
-        f"🔵 <b>PRO</b> — ${PRO_PRICE}/mo\n"
+        f"🔵 <b>PRO</b> — ${PRO_PRICE}/mo  ·  POPULAR\n"
         "Ideal for traders who want full signal coverage and deeper market insight.\n"
         "✅ Everything in Starter, plus:\n"
         "✅ ALPHA Signals\n"
         "✅ Milestone Tracker\n"
-        "✅ 1,000 Smart Wallets\n\n"
+        "🎁 1,000 Smart Wallets\n\n"
 
         f"🟣 <b>ELITE</b> — ${ELITE_PRICE}/mo\n"
         "Ideal for traders who operate at the highest level and want every edge available.\n"
         "✅ Everything in Pro, plus:\n"
         "✅ APEX Signals\n"
         "✅ VIP Trader Chat\n"
-        "✅ 2,000 Smart Wallets\n\n"
+        "🎁 2,000 Smart Wallets\n\n"
 
-        "Select a plan to learn more."
+        "⚡ Instant access after payment.\n"
+        "👇 Choose your plan"
     )
 
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton(f"🟢 Starter | ${STARTER_PRICE}/month", callback_data="plan_starter")],
-        [InlineKeyboardButton(f"🔵 Pro | ${PRO_PRICE}/month  ·  [POPULAR]", callback_data="plan_pro")],
-        [InlineKeyboardButton(f"🟣 Elite | ${ELITE_PRICE}/month", callback_data="plan_elite")],
+        [InlineKeyboardButton("─── 💎 Plans ───", callback_data="noop")],
+        [InlineKeyboardButton(f"🟢 Starter | ${STARTER_PRICE}/month", url=STARTER_LINK)],
+        [InlineKeyboardButton(f"🔵 Pro | ${PRO_PRICE}/month  ·  [POPULAR]", url=PRO_LINK)],
+        [InlineKeyboardButton(f"🟣 Elite | ${ELITE_PRICE}/month", url=ELITE_LINK)],
         [InlineKeyboardButton("Compare Plans", callback_data="compare_plans")],
         [InlineKeyboardButton("Payment Info", callback_data="payment_info")],
         [InlineKeyboardButton("← Back to Menu", callback_data="go_home")]
-    ])
-
-    await update.callback_query.answer()
-    await update.callback_query.edit_message_text(
-        text=text,
-        reply_markup=keyboard,
-        parse_mode=constants.ParseMode.HTML,
-        disable_web_page_preview=True
-    )
-
-
-# -------- Plan detail pages --------
-async def show_starter(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = (
-        "🟢 <b>Starter — $29/mo</b>\n"
-        "Ideal for traders looking to get in early on every move.\n\n"
-        "<b>What's Included:</b>\n"
-        "✅ Sniper Signals — ultra-early entries\n"
-        "✅ Instant alerts — real-time notifications\n"
-        f"🎁 500 Smart Wallets — import-ready for Axiom, Padre, GMGN\n\n"
-        "50+ signals daily\n"
-        "⚡ Instant buy buttons on every signal\n\n"
-        "Tap below to get started."
-    )
-
-    keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🌐 Pay with SOL / BNB / ETH", url=STARTER_LINK)],
-        [InlineKeyboardButton("← Back to Plans", callback_data="view_memberships")]
-    ])
-
-    await update.callback_query.answer()
-    await update.callback_query.edit_message_text(
-        text=text,
-        reply_markup=keyboard,
-        parse_mode=constants.ParseMode.HTML,
-        disable_web_page_preview=True
-    )
-
-
-async def show_pro(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = (
-        "🔵 <b>Pro — $44/mo</b>\n"
-        "Ideal for traders who want full signal coverage and deeper market insight.\n\n"
-        "<b>What's Included:</b>\n"
-        "✅ Sniper Signals — ultra-early entries\n"
-        "✅ ALPHA Signals — best daily opportunities\n"
-        "✅ Instant alerts — real-time notifications\n"
-        "✅ Milestone Tracker — live profit updates\n"
-        f"🎁 1,000 Smart Wallets — import-ready for Axiom, Padre, GMGN\n\n"
-        "30+ signals daily\n"
-        "⚡ Instant buy buttons on every signal\n\n"
-        "Tap below to get started."
-    )
-
-    keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🌐 Pay with SOL / BNB / ETH", url=PRO_LINK)],
-        [InlineKeyboardButton("← Back to Plans", callback_data="view_memberships")]
-    ])
-
-    await update.callback_query.answer()
-    await update.callback_query.edit_message_text(
-        text=text,
-        reply_markup=keyboard,
-        parse_mode=constants.ParseMode.HTML,
-        disable_web_page_preview=True
-    )
-
-
-async def show_elite(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    text = (
-        "🟣 <b>Elite — $59/mo</b>\n"
-        "Ideal for traders who operate at the highest level and want every edge available.\n\n"
-        "<b>What's Included:</b>\n"
-        "✅ Sniper Signals — ultra-early entries\n"
-        "✅ ALPHA Signals — best daily opportunities\n"
-        "✅ APEX Signals — peak confirmation\n"
-        "✅ Instant alerts — real-time notifications\n"
-        "✅ Milestone Tracker — live profit updates\n"
-        "✅ VIP Trader Chat\n"
-        f"🎁 2,000 Smart Wallets — import-ready for Axiom, Padre, GMGN\n\n"
-        "30+ signals daily\n"
-        "⚡ Instant buy buttons on every signal\n\n"
-        "Tap below to get started."
-    )
-
-    keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("🌐 Pay with SOL / BNB / ETH", url=ELITE_LINK)],
-        [InlineKeyboardButton("← Back to Plans", callback_data="view_memberships")]
     ])
 
     await update.callback_query.answer()
@@ -663,16 +573,12 @@ async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
         "🚀 <b>Solana100xCall | Premium Signals</b>\n\n"
-        "Real-time Solana signals powered by smart wallets.\n\n"
-        "<b>What's Inside:</b>\n"
-        "🎯 Sniper Signals (ultra-early entries)\n"
-        "⚡ ALPHA Signals (best daily opportunities)\n"
-        "💎 APEX Signals (peak confirmation)\n"
-        "🏆 Milestone Tracker (live profit updates)\n"
-        "💬 VIP Trader Chat\n\n"
+        "Real-time signals powered by smart wallets.\n"
+        "We track them. You enter early.\n\n"
+        "❌ No KOLs. ❌ No paid shills. ✅ Pure on-chain data.\n\n"
         "📊 30+ quality signals daily\n"
-        "🏆 100+ verified 10x-100x calls\n"
-        "👥 300+ active traders\n\n"
+        "🏆 150+ verified 10x–100x calls\n"
+        "👥 300+ traders inside\n\n"
         "───────────────────────\n"
         f"🟢 Starter ${STARTER_PRICE}/mo\n"
         f"🔵 Pro ${PRO_PRICE}/mo\n"
@@ -725,18 +631,16 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await query.answer("This plan is coming soon. For now, check out Elite.", show_alert=True)
         return
 
+    if query.data == "noop":
+        await query.answer()
+        return
+
     await query.answer()
 
     if query.data == "go_home":
         await show_main_menu(update, context)
     elif query.data == "view_memberships":
         await show_memberships(update, context)
-    elif query.data == "plan_starter":
-        await show_starter(update, context)
-    elif query.data == "plan_pro":
-        await show_pro(update, context)
-    elif query.data == "plan_elite":
-        await show_elite(update, context)
     elif query.data == "show_support":
         await support(update, context)
     elif query.data == "show_howsignals":
