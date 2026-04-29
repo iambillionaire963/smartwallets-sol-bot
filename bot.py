@@ -12,7 +12,7 @@ from datetime import datetime as dt, timezone
 from pathlib import Path
 
 # Third-party
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, constants
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo, constants
 from telegram.ext import (
     Application, CommandHandler, CallbackQueryHandler, ContextTypes,
     MessageHandler, filters
@@ -142,25 +142,22 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     message = (
         "🚀 <b>Solana100xCall | Premium Signals</b>\n\n"
-        "Real-time signals powered by smart wallets.\n"
-        "We track them. You enter early.\n\n"
-        "No KOLs. No paid shills. Pure on-chain data.\n\n"
-        "📊 30+ quality signals daily\n"
-        "🏆 100+ verified 10x–100x calls\n"
-        "👥 300+ traders inside\n\n"
-        "───────────────────────\n"
-        f"🟢 Starter ${STARTER_PRICE}/mo\n"
-        f"🔵 Pro ${PRO_PRICE}/mo\n"
-        f"🟣 Elite ${ELITE_PRICE}/mo\n\n"
-        "👇 Tap below to see all plans."
+        "Receive alerts when several smart wallets buy a new token.\n"
+        "Full token info. Live wallet activity. All in real time.\n\n"
+        "<b>Use the system to:</b>\n"
+        "✓ Focus only on what smart money buys\n"
+        "✓ Catch entries before the pump\n"
+        "✓ Take profits consistently\n\n"
+        "✅ 30+ signals daily\n"
+        "✅ 100+ verified 10x–100x calls\n"
+        "✅ 300+ traders inside\n\n"
+        "👇 See results and pick your plan"
     )
 
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("💎 View Membership Plans", callback_data="view_memberships")],
-        [InlineKeyboardButton("💬 Member Testimonials", callback_data="show_testimonials")],
-        [InlineKeyboardButton("👁 Live Signals Preview", callback_data="show_signals_preview")],
-        [InlineKeyboardButton("Join FREE Main Channel", url="https://t.me/Solana100xcall")],
-        [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana100xcall.fun/")],
+        [InlineKeyboardButton("💎 View Plans & Start", callback_data="view_memberships")],
+        [InlineKeyboardButton("🔥 Trending | Last 72H", url="https://t.me/solana100xcall/15730")],
+        [InlineKeyboardButton("📊 Live Dashboard", web_app=WebAppInfo(url="https://solana100xcall.fun/dashboard"))],
         [
             InlineKeyboardButton("Help Bot", url="https://t.me/MyPremiumHelpBot"),
             InlineKeyboardButton("Contact Support", callback_data="show_support")
@@ -183,43 +180,45 @@ async def show_memberships(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
         "💎 <b>Membership Plans</b>\n\n"
 
-        f"🟢 <b>STARTER</b> — ${STARTER_PRICE}/mo\n"
+        f"🟢 <u><b>STARTER</b></u> — ${STARTER_PRICE}/month\n"
         "The cheapest way to get early signals.\n"
-        "✅ Sniper Signals (ultra-early entries)\n"
-        "✅ Instant alerts\n"
-        "🎁 500 Smart Wallets\n\n"
+        "✅ <u>Sniper Signals</u> (<i>ultra-early entries</i>)\n"
+        "✅ <u>Instant alerts</u>\n"
+        "🎁 500 <b>Top</b> Smart Wallets\n\n"
 
-        f"🔵 <b>PRO</b> — ${PRO_PRICE}/mo  ·  POPULAR\n"
+        f"🔵 <u><b>PRO</b></u> — ${PRO_PRICE}/month  ·  ⭐ POPULAR\n"
         "The plan most traders actually use.\n"
-        "✅ Everything in Starter, plus:\n"
-        "✅ ALPHA Signals (best daily opportunities)\n"
-        "✅ Milestone Tracker (alerts when tokens hit 2x)\n"
-        "🎁 1,000 Smart Wallets\n\n"
+        "✅ <u>Everything in Starter, plus:</u>\n"
+        "✅ <u>Alpha Signals</u> (<i>best daily opportunities</i>)\n"
+        "✅ <u>Milestone Tracker</u> (<i>alerts when tokens hit 2x</i>)\n"
+        "🎁 1,000 <b>Top</b> Smart Wallets\n\n"
 
-        f"🟣 <b>ELITE</b> — ${ELITE_PRICE}/mo\n"
+        f"🟣 <u><b>ELITE</b></u> — ${ELITE_PRICE}/month\n"
         "The full package with everything unlocked.\n"
-        "✅ Everything in Pro, plus:\n"
-        "✅ APEX Signals (peak confirmation)\n"
-        "✅ VIP Trader Chat\n"
-        "🎁 2,000 Smart Wallets\n\n"
+        "✅ <u>Everything in Pro, plus:</u>\n"
+        "✅ <u>Apex Signals</u> (<i>peak confirmation</i>)\n"
+        "✅ <u>VIP Trader Chat</u>\n"
+        "🎁 2,000 <b>Top</b> Smart Wallets\n\n"
 
         "───────────────────────\n\n"
 
-        "📡 Each signal type runs on its own private VIP channel.\n"
-        "🎁 Smart Wallets are ready to import into Axiom, Padre, and GMGN.\n\n"
+        "✓ Each signal type runs on its own private VIP channel.\n"
+        "✓ Smart Wallets are ready to import into Axiom, Padre, and GMGN.\n\n"
 
-        "⚡ Instant access after payment.\n"
-        "👇 Choose your plan"
+        "⚡ Instant access after payment\n"
+        "👇 Choose your plan and start receiving alerts"
     )
 
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("─── 💎 Plans ───", callback_data="noop")],
-        [InlineKeyboardButton(f"🟢 Starter | ${STARTER_PRICE}/month", url=STARTER_LINK)],
-        [InlineKeyboardButton(f"🔵 Pro | ${PRO_PRICE}/month  ·  [POPULAR]", url=PRO_LINK)],
-        [InlineKeyboardButton(f"🟣 Elite | ${ELITE_PRICE}/month", url=ELITE_LINK)],
-        [InlineKeyboardButton("Compare Plans", callback_data="compare_plans")],
-        [InlineKeyboardButton("Payment Info", callback_data="payment_info")],
-        [InlineKeyboardButton("← Back to Menu", callback_data="go_home")]
+        [InlineKeyboardButton(f"🟢 Get Starter | ${STARTER_PRICE}/month", url=STARTER_LINK)],
+        [InlineKeyboardButton(f"🔵 Get Pro | ${PRO_PRICE}/month  ⭐ POPULAR", url=PRO_LINK)],
+        [InlineKeyboardButton(f"🟣 Get Elite | ${ELITE_PRICE}/month", url=ELITE_LINK)],
+        [
+            InlineKeyboardButton("🔥 Signals Preview", callback_data="show_signals_preview"),
+            InlineKeyboardButton("📊 Compare Plans", callback_data="compare_plans")
+        ],
+        [InlineKeyboardButton("💳 Payment Info", callback_data="payment_info")],
+        [InlineKeyboardButton("← Back", callback_data="go_home")]
     ])
 
     await update.callback_query.answer()
@@ -240,10 +239,10 @@ async def compare_plans(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "─────────────────────────────────────────────\n"
         "Instant Alerts       |   ✅   |  ✅  |  ✅\n"
         "Sniper Signals       |   ✅   |  ✅  |  ✅\n"
-        "ALPHA Signals        |   ❌   |  ✅  |  ✅\n"
-        "Milestone Tracker    |   ❌   |  ✅  |  ✅\n"
-        "APEX Signals         |   ❌   |  ❌  |  ✅\n"
-        "VIP Trader Chat      |   ❌   |  ❌  |  ✅\n"
+        "ALPHA Signals        |   ➖   |  ✅  |  ✅\n"
+        "Milestone Tracker    |   ➖   |  ✅  |  ✅\n"
+        "APEX Signals         |   ➖   |  ➖  |  ✅\n"
+        "VIP Trader Chat      |   ➖   |  ➖  |  ✅\n"
         "Smart Wallets        |   500  | 1,000| 2,000\n"
         "─────────────────────────────────────────────\n"
         f"Price/month          |   ${STARTER_PRICE}  |  ${PRO_PRICE}  |  ${ELITE_PRICE}\n"
@@ -579,25 +578,22 @@ async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
         "🚀 <b>Solana100xCall | Premium Signals</b>\n\n"
-        "⚡️Real-time signals powered by smart wallets.\n"
-        "We track them. You enter early.\n\n"
-        "No KOLs. No paid shills. Pure on-chain data.\n\n"
-        "📊 30+ quality signals daily\n"
-        "🏆 100+ verified 10x–100x calls\n"
-        "👥 300+ traders inside\n\n"
-        "───────────────────────\n"
-        f"🟢 Starter ${STARTER_PRICE}/mo\n"
-        f"🔵 Pro ${PRO_PRICE}/mo\n"
-        f"🟣 Elite ${ELITE_PRICE}/mo\n\n"
-        "👇 Tap below to see all plans."
+        "Receive alerts when several smart wallets buy a new token.\n"
+        "Full token info. Live wallet activity. All in real time.\n\n"
+        "<b>Use the system to:</b>\n"
+        "✓ Focus only on what smart money buys\n"
+        "✓ Catch entries before the pump\n"
+        "✓ Take profits consistently\n\n"
+        "✅ 30+ signals daily\n"
+        "✅ 100+ verified 10x–100x calls\n"
+        "✅ 300+ traders inside\n\n"
+        "👇 See results and pick your plan"
     )
 
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("💎 View Membership Plans", callback_data="view_memberships")],
-        [InlineKeyboardButton("💬 Member Testimonials", callback_data="show_testimonials")],
-        [InlineKeyboardButton("👁 Live Signals Preview", callback_data="show_signals_preview")],
-        [InlineKeyboardButton("Join FREE Main Channel", url="https://t.me/Solana100xcall")],
-        [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana100xcall.fun/")],
+        [InlineKeyboardButton("💎 View Plans & Start", callback_data="view_memberships")],
+        [InlineKeyboardButton("🔥 Trending | Last 72H", url="https://t.me/solana100xcall/15730")],
+        [InlineKeyboardButton("📊 Live Dashboard", web_app=WebAppInfo(url="https://solana100xcall.fun/dashboard"))],
         [
             InlineKeyboardButton("Help Bot", url="https://t.me/MyPremiumHelpBot"),
             InlineKeyboardButton("Contact Support", callback_data="show_support")
