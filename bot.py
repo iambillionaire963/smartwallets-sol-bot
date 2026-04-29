@@ -12,7 +12,7 @@ from datetime import datetime as dt, timezone
 from pathlib import Path
 
 # Third-party
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, constants
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo, constants
 from telegram.ext import (
     Application, CommandHandler, CallbackQueryHandler, ContextTypes,
     MessageHandler, filters
@@ -155,11 +155,9 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("💎 View Membership Plans", callback_data="view_memberships")],
-        [InlineKeyboardButton("💬 Member Testimonials", callback_data="show_testimonials")],
-        [InlineKeyboardButton("👁 Live Signals Preview", callback_data="show_signals_preview")],
-        [InlineKeyboardButton("Join FREE Main Channel", url="https://t.me/Solana100xcall")],
-        [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana100xcall.fun/")],
+        [InlineKeyboardButton("💎 View Plans & Start", callback_data="view_memberships")],
+        [InlineKeyboardButton("🔥 Trending | Last 72H", url="https://t.me/solana100xcall/15730")],
+        [InlineKeyboardButton("📊 Live Dashboard", web_app=WebAppInfo(url="https://solana100xcall.fun/dashboard"))],
         [
             InlineKeyboardButton("Help Bot", url="https://t.me/MyPremiumHelpBot"),
             InlineKeyboardButton("Contact Support", callback_data="show_support")
@@ -216,6 +214,7 @@ async def show_memberships(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton(f"🟢 Starter | ${STARTER_PRICE}/month", url=STARTER_LINK)],
         [InlineKeyboardButton(f"🔵 Pro | ${PRO_PRICE}/month  ·  [POPULAR]", url=PRO_LINK)],
         [InlineKeyboardButton(f"🟣 Elite | ${ELITE_PRICE}/month", url=ELITE_LINK)],
+        [InlineKeyboardButton("👁 Live Signals Preview", callback_data="show_signals_preview")],
         [InlineKeyboardButton("Compare Plans", callback_data="compare_plans")],
         [InlineKeyboardButton("Payment Info", callback_data="payment_info")],
         [InlineKeyboardButton("← Back to Menu", callback_data="go_home")]
@@ -591,11 +590,9 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("💎 View Membership Plans", callback_data="view_memberships")],
-        [InlineKeyboardButton("💬 Member Testimonials", callback_data="show_testimonials")],
-        [InlineKeyboardButton("👁 Live Signals Preview", callback_data="show_signals_preview")],
-        [InlineKeyboardButton("Join FREE Main Channel", url="https://t.me/Solana100xcall")],
-        [InlineKeyboardButton("🏆 100x+ Call Gallery", url="https://solana100xcall.fun/")],
+        [InlineKeyboardButton("💎 View Plans & Start", callback_data="view_memberships")],
+        [InlineKeyboardButton("🔥 Trending | Last 72H", url="https://t.me/solana100xcall/15730")],
+        [InlineKeyboardButton("📊 Live Dashboard", web_app=WebAppInfo(url="https://solana100xcall.fun/dashboard"))],
         [
             InlineKeyboardButton("Help Bot", url="https://t.me/MyPremiumHelpBot"),
             InlineKeyboardButton("Contact Support", callback_data="show_support")
