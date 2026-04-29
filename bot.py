@@ -180,33 +180,33 @@ async def show_memberships(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
         "💎 <b>Membership Plans</b>\n\n"
 
-        f"🟢 <b>STARTER</b> — ${STARTER_PRICE}/mo\n"
+        f"🟢 <u><b>STARTER</b></u> — ${STARTER_PRICE}/month\n"
         "The cheapest way to get early signals.\n"
-        "✅ Sniper Signals (ultra-early entries)\n"
-        "✅ Instant alerts\n"
-        "🎁 500 Smart Wallets\n\n"
+        "✅ <u>Sniper Signals</u> (<i>ultra-early entries</i>)\n"
+        "✅ <u>Instant alerts</u>\n"
+        "🎁 500 <b>Top</b> Smart Wallets\n\n"
 
-        f"🔵 <b>PRO</b> — ${PRO_PRICE}/mo  ·  POPULAR\n"
+        f"🔵 <u><b>PRO</b></u> — ${PRO_PRICE}/month  ·  ⭐ POPULAR\n"
         "The plan most traders actually use.\n"
-        "✅ Everything in Starter, plus:\n"
-        "✅ ALPHA Signals (best daily opportunities)\n"
-        "✅ Milestone Tracker (alerts when tokens hit 2x)\n"
-        "🎁 1,000 Smart Wallets\n\n"
+        "✅ <u>Everything in Starter, plus:</u>\n"
+        "✅ <u>Alpha Signals</u> (<i>best daily opportunities</i>)\n"
+        "✅ <u>Milestone Tracker</u> (<i>alerts when tokens hit 2x</i>)\n"
+        "🎁 1,000 <b>Top</b> Smart Wallets\n\n"
 
-        f"🟣 <b>ELITE</b> — ${ELITE_PRICE}/mo\n"
+        f"🟣 <u><b>ELITE</b></u> — ${ELITE_PRICE}/month\n"
         "The full package with everything unlocked.\n"
-        "✅ Everything in Pro, plus:\n"
-        "✅ APEX Signals (peak confirmation)\n"
-        "✅ VIP Trader Chat\n"
-        "🎁 2,000 Smart Wallets\n\n"
+        "✅ <u>Everything in Pro, plus:</u>\n"
+        "✅ <u>Apex Signals</u> (<i>peak confirmation</i>)\n"
+        "✅ <u>VIP Trader Chat</u>\n"
+        "🎁 2,000 <b>Top</b> Smart Wallets\n\n"
 
         "───────────────────────\n\n"
 
-        "📡 Each signal type runs on its own private VIP channel.\n"
-        "🎁 Smart Wallets are ready to import into Axiom, Padre, and GMGN.\n\n"
+        "✓ Each signal type runs on its own private VIP channel.\n"
+        "✓ Smart Wallets are ready to import into Axiom, Padre, and GMGN.\n\n"
 
-        "⚡ Instant access after payment.\n"
-        "👇 Choose your plan"
+        "⚡ Instant access after payment\n"
+        "👇 Choose your plan and start receiving alerts"
     )
 
     keyboard = InlineKeyboardMarkup([
