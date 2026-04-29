@@ -28,7 +28,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 ADMIN_ID = 7906225936
 BANNER_PATH = Path(__file__).parent / "assets" / "banner.png"
-BANNER_FILE_ID = "AgACAgQAAxkBAAFIYcdp8jEhmlekWP11IGuqfqITv-IMHQACvAxrGxALkFMAAXlB7tmmAl4BAAMCAAN5AAM7BA"
+BANNER_FILE_ID = "AgACAgQAAxkDAAEgUPZp04yOXVC29QcONSf6UEeJJRMElAACmAxrG0fcoFLjzmAOtbn14QEAAwIAA3cAAzsE"
 
 # -------- Tier payment links (replace placeholders when ready) --------
 STARTER_LINK = "https://t.me/onlysubsbot?start=yQYRhceqqCNtSKSKWHDCK"
