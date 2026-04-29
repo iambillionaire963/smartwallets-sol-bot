@@ -142,17 +142,16 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     message = (
         "🚀 <b>Solana100xCall | Premium Signals</b>\n\n"
-        "Real-time signals powered by smart wallets.\n"
-        "We track them. You enter early.\n\n"
-        "No KOLs. No paid shills. Pure on-chain data.\n\n"
-        "📊 30+ quality signals daily\n"
-        "🏆 100+ verified 10x–100x calls\n"
-        "👥 300+ traders inside\n\n"
-        "───────────────────────\n"
-        f"🟢 Starter ${STARTER_PRICE}/mo\n"
-        f"🔵 Pro ${PRO_PRICE}/mo\n"
-        f"🟣 Elite ${ELITE_PRICE}/mo\n\n"
-        "👇 Tap below to see all plans."
+        "Receive alerts when several smart wallets buy a new token.\n"
+        "Full token info. Live wallet activity. All in real time.\n\n"
+        "<b>Use the system to:</b>\n"
+        "✓ Focus only on what smart money buys\n"
+        "✓ Catch entries before the pump\n"
+        "✓ Take profits consistently\n\n"
+        "✅ 30+ signals daily\n"
+        "✅ 100+ verified 10x–100x calls\n"
+        "✅ 300+ traders inside\n\n"
+        "👇 See results and pick your plan"
     )
 
     keyboard = InlineKeyboardMarkup([
@@ -579,17 +578,16 @@ async def join_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     message = (
         "🚀 <b>Solana100xCall | Premium Signals</b>\n\n"
-        "⚡️Real-time signals powered by smart wallets.\n"
-        "We track them. You enter early.\n\n"
-        "No KOLs. No paid shills. Pure on-chain data.\n\n"
-        "📊 30+ quality signals daily\n"
-        "🏆 100+ verified 10x–100x calls\n"
-        "👥 300+ traders inside\n\n"
-        "───────────────────────\n"
-        f"🟢 Starter ${STARTER_PRICE}/mo\n"
-        f"🔵 Pro ${PRO_PRICE}/mo\n"
-        f"🟣 Elite ${ELITE_PRICE}/mo\n\n"
-        "👇 Tap below to see all plans."
+        "Receive alerts when several smart wallets buy a new token.\n"
+        "Full token info. Live wallet activity. All in real time.\n\n"
+        "<b>Use the system to:</b>\n"
+        "✓ Focus only on what smart money buys\n"
+        "✓ Catch entries before the pump\n"
+        "✓ Take profits consistently\n\n"
+        "✅ 30+ signals daily\n"
+        "✅ 100+ verified 10x–100x calls\n"
+        "✅ 300+ traders inside\n\n"
+        "👇 See results and pick your plan"
     )
 
     keyboard = InlineKeyboardMarkup([
