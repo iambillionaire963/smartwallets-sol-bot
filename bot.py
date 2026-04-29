@@ -210,14 +210,15 @@ async def show_memberships(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     keyboard = InlineKeyboardMarkup([
-        [InlineKeyboardButton("─── 💎 Plans ───", callback_data="noop")],
-        [InlineKeyboardButton(f"🟢 Starter | ${STARTER_PRICE}/month", url=STARTER_LINK)],
-        [InlineKeyboardButton(f"🔵 Pro | ${PRO_PRICE}/month  ·  [POPULAR]", url=PRO_LINK)],
-        [InlineKeyboardButton(f"🟣 Elite | ${ELITE_PRICE}/month", url=ELITE_LINK)],
-        [InlineKeyboardButton("👁 Live Signals Preview", callback_data="show_signals_preview")],
-        [InlineKeyboardButton("Compare Plans", callback_data="compare_plans")],
-        [InlineKeyboardButton("Payment Info", callback_data="payment_info")],
-        [InlineKeyboardButton("← Back to Menu", callback_data="go_home")]
+        [InlineKeyboardButton(f"🟢 Get Starter | ${STARTER_PRICE}/month", url=STARTER_LINK)],
+        [InlineKeyboardButton(f"🔵 Get Pro | ${PRO_PRICE}/month  ⭐ POPULAR", url=PRO_LINK)],
+        [InlineKeyboardButton(f"🟣 Get Elite | ${ELITE_PRICE}/month", url=ELITE_LINK)],
+        [
+            InlineKeyboardButton("🔥 Signals Preview", callback_data="show_signals_preview"),
+            InlineKeyboardButton("📊 Compare Plans", callback_data="compare_plans")
+        ],
+        [InlineKeyboardButton("💳 Payment Info", callback_data="payment_info")],
+        [InlineKeyboardButton("← Back", callback_data="go_home")]
     ])
 
     await update.callback_query.answer()
