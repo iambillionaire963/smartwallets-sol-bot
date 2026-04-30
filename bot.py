@@ -138,6 +138,21 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "You can send a private message to this member by replying to this message."
     ))
 
+    if not context.user_data.get("pin_sent"):
+        try:
+            pin_msg = await context.bot.send_message(
+                chat_id=user.id,
+                text="Get alerted when top wallets buy. Every day. Never miss a runner.",
+                reply_markup=InlineKeyboardMarkup([
+                    [InlineKeyboardButton("🔥 Live Dashboard", web_app=WebAppInfo(url="https://solana100xcall.fun/dashboard"))]
+                ]),
+                disable_web_page_preview=True
+            )
+            await context.bot.pin_chat_message(chat_id=user.id, message_id=pin_msg.message_id, disable_notification=True)
+            context.user_data["pin_sent"] = True
+        except Exception:
+            pass
+
     await send_banner(context.bot, user.id)
 
     message = (
@@ -173,18 +188,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
     context.chat_data["menu_message_id"] = menu_msg.message_id
     context.chat_data["menu_chat_id"] = menu_msg.chat.id
-    try:
-        pin_msg = await context.bot.send_message(
-            chat_id=user.id,
-            text="Get alerted when top wallets buy. Every day. Never miss a runner.",
-            reply_markup=InlineKeyboardMarkup([
-                [InlineKeyboardButton("🔥 Live Dashboard", web_app=WebAppInfo(url="https://solana100xcall.fun/dashboard"))]
-            ]),
-            disable_web_page_preview=True
-        )
-        await context.bot.pin_chat_message(chat_id=user.id, message_id=pin_msg.message_id, disable_notification=True)
-    except Exception:
-        pass
 
 
 # -------- View Memberships --------
