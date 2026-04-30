@@ -139,6 +139,18 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ))
 
     await send_banner(context.bot, user.id)
+    pin_msg = await context.bot.send_message(
+        chat_id=user.id,
+        text="Get alerted when top wallets buy. Every day. Never miss a runner.",
+        reply_markup=InlineKeyboardMarkup([
+            [InlineKeyboardButton("📊 Live Dashboard", web_app=WebAppInfo(url="https://solana100xcall.fun/dashboard"))]
+        ]),
+        disable_web_page_preview=True
+    )
+    try:
+        await context.bot.pin_chat_message(chat_id=user.id, message_id=pin_msg.message_id, disable_notification=True)
+    except Exception:
+        pass
 
     message = (
         "🚀 <b>Solana100xCall | Premium Signals</b>\n\n"
