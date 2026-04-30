@@ -178,12 +178,11 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
             chat_id=user.id,
             text="Get alerted when top wallets buy. Every day. Never miss a runner.",
             reply_markup=InlineKeyboardMarkup([
-                [InlineKeyboardButton("📊 Live Dashboard", web_app=WebAppInfo(url="https://solana100xcall.fun/dashboard"))]
+                [InlineKeyboardButton("🔥 Live Dashboard", web_app=WebAppInfo(url="https://solana100xcall.fun/dashboard"))]
             ]),
             disable_web_page_preview=True
         )
         await context.bot.pin_chat_message(chat_id=user.id, message_id=pin_msg.message_id, disable_notification=True)
-        await context.bot.delete_message(chat_id=user.id, message_id=pin_msg.message_id)
     except Exception:
         pass
 
